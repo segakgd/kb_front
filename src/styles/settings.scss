@@ -15,6 +15,9 @@
 body {
   background: #fff;
   font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 0.3px;
 }
 
 .header--wrapper {
@@ -55,7 +58,10 @@ body {
 
 .header-navs--wrapper .header-navs--link{
   text-transform: none;
-  color: #3C415E
+  color: #3C415E;
+  font-weight: 300;
+  font-size: 16px;
+  letter-spacing: 0.3px;
 }
 
 .header-user--wrapper {
