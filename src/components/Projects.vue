@@ -2,7 +2,6 @@
 
   <NavigateHeader></NavigateHeader>
 
-  
 </template>
 
 <script lang="ts">
