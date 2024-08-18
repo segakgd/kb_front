@@ -46,7 +46,17 @@ body {
   justify-content: center;
 }
 
+.header-navs--wrapper .header-navs--link{
+  text-transform: none;
+  color: #3C415E
+}
+
 .header-user--wrapper {
   display: flex;
   justify-content: end;
+}
+
+.header-user--wrapper .header-navs--link{
+  text-transform: none;
+  color: #3C415E
 }

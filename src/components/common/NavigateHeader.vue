@@ -11,11 +11,11 @@
 
         <v-col cols="6">
           <div class="header-navs--wrapper">
-            <v-btn variant="plain" href="/">Проекты</v-btn>
+            <v-btn variant="plain" class="header-navs--link" href="/">Проекты</v-btn>
 
-            <v-btn variant="plain" href="/">Новости</v-btn>
+            <v-btn variant="plain" class="header-navs--link" href="/">Новости</v-btn>
 
-            <v-btn variant="plain" href="/">Чат с поддержкой</v-btn>
+            <v-btn variant="plain" class="header-navs--link" href="/">Чат с поддержкой</v-btn>
           </div>
         </v-col>
 
@@ -25,6 +25,7 @@
               <v-btn
                 v-bind="props"
                 variant="plain"
+                class="header-navs--link"
               >
                 <v-icon icon="mdi-account"/>
                 Артём Котович
