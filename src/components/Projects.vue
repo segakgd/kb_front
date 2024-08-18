@@ -2,8 +2,6 @@
 
   <NavigateHeader></NavigateHeader>
 
-  <v-breadcrumbs :items="['Foo', 'Bar', 'Fizz']"></v-breadcrumbs>
-
   <v-container>
     <v-card>
       <v-card-title class="text-overline">

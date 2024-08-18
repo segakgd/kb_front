@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <v-layout style="height: 56px;">
+      <v-layout class="header--wrapper">
         <v-col cols="3">
           <a href="/" class="logo">
             <v-img class="logo--image" :inline=true src="@/assets/images/logo.svg"/>
