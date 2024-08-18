@@ -27,7 +27,9 @@
                 variant="plain"
                 class="header-navs--link"
               >
-                <v-icon icon="mdi-account"/>
+                <div class="header-navs--icon">
+                  <v-icon icon="mdi-account"/>
+                </div>
                 Артём Котович
               </v-btn>
             </template>

@@ -53,10 +53,23 @@ body {
 
 .header-user--wrapper {
   display: flex;
+  align-items: center;;
   justify-content: end;
 }
 
 .header-user--wrapper .header-navs--link{
   text-transform: none;
-  color: #3C415E
+  color: #3C415E;
+  height: 50px;
+}
+
+.header-user--wrapper .header-navs--icon{
+  width: 40px;
+  height: 40px;
+  background: #d3d3d3;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  margin-right: 10px;
 }
