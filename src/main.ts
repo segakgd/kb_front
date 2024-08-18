@@ -1,5 +1,5 @@
 /**
- * main.ts
+ * navigate.ts
  *
  * Bootstraps Vuetify and other plugins then mounts the App`
  */
