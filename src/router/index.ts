@@ -6,8 +6,21 @@
 
 // Composables
 import { createRouter, createWebHistory } from 'vue-router/auto'
-import { routes } from 'vue-router/auto-routes'
+import HelloWorld from "@/components/HelloWorld.vue";
+import Projects from "@/components/Projects.vue";
 
+const routes = [
+  {
+    path: '/',
+    name: 'HelloWorld',
+    component: HelloWorld,
+  },
+  {
+    path: '/projects',
+    name: 'Projects',
+    component: Projects,
+  },
+];
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
