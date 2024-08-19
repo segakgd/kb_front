@@ -9,7 +9,7 @@
         variant="plain"
       >
         <template v-slot:prepend>
-          <v-img style="width: 30px; height: 30px; margin-right: 10px;" :inline=true :src="item.image"/>
+          <img style="width: 30px; height: 30px; margin-right: 10px;" :src="item.image" :alt="item.text"/>
         </template>
 
         <v-list-item-title v-text="item.text"></v-list-item-title>
@@ -26,7 +26,6 @@ export default {
         {text: 'Мой проект', image: '/src/assets/images/navigate/folder/bold.svg'},
         {text: 'Сценарии', image: '/src/assets/images/navigate/scenarios/bold.svg'},
         {text: 'Боты', image: '/src/assets/images/navigate/bot/bold.svg'},
-        {text: 'Сценарии', image: '/src/assets/images/navigate/scenarios/bold.svg'},
         {text: 'Заявки и заказы', image: '/src/assets/images/navigate/orders/bold.svg'},
         {text: 'Товары и услуги', image: '/src/assets/images/navigate/bag/bold.svg'},
         {text: 'Скидки и промокоды', image: '/src/assets/images/navigate/discount/bold.svg'},

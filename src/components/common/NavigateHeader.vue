@@ -4,7 +4,7 @@
       <v-layout class="header--wrapper">
         <v-col cols="3">
           <a href="/" class="logo">
-            <v-img class="logo--image" :inline=true src="@/assets/images/logo.svg"/>
+            <img class="logo--image" src="@/assets/images/logo.svg" alt="logo"/>
             <span>Kraiber</span>
           </a>
         </v-col>
