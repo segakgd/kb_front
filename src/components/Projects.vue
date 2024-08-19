@@ -30,7 +30,11 @@
         >
           <div>
             <div><span>{{ project.name }}</span></div>
-            <div>{{ project.status }}</div>
+            <div>
+              <span v-if="project.status === ProjectStatusEnum.Active">Активен</span>
+              <span v-else-if="project.status === ProjectStatusEnum.Block">Заблокирован</span>
+              <span v-else-if="project.status === ProjectStatusEnum.Frozen">Заморожен</span>
+            </div>
             <div>{{ project.orderCount }}</div>
             <div>{{ project.botCount }}</div>
             <div>{{ project.activeTo }}</div>
@@ -43,64 +47,70 @@
 
 <script lang="ts">
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
+import {ProjectStatusEnum} from "@/components/common";
 
 export default {
   components: {NavigateHeader},
+  computed: {
+    ProjectStatusEnum() {
+      return ProjectStatusEnum
+    },
+  },
   data() {
     return {
       projects: [
         {
           id: 1,
-          name: 'Мой новый проект',
-          status: 'active',
+          name: 'Мой новый проект 1',
+          status: ProjectStatusEnum.Active,
           orderCount: '122',
           botCount: '2',
           activeTo: '2024-10-23',
         },
         {
           id: 2,
-          name: 'Мой новый проект',
-          status: 'block',
+          name: 'Мой новый проект 2',
+          status: ProjectStatusEnum.Block,
           orderCount: '122',
           botCount: '2',
           activeTo: '2024-10-23',
         },
         {
           id: 3,
-          name: 'Мой новый проект',
-          status: 'frozen',
+          name: 'Мой новый проект 3',
+          status: ProjectStatusEnum.Frozen,
           orderCount: '122',
           botCount: '2',
           activeTo: '2024-10-23',
         },
         {
           id: 4,
-          name: 'Мой новый проект',
-          status: 'block',
+          name: 'Мой новый проект 4',
+          status: ProjectStatusEnum.Block,
           orderCount: '122',
           botCount: '2',
           activeTo: '2024-10-23',
         },
         {
           id: 5,
-          name: 'Мой новый проект',
-          status: 'frozen',
+          name: 'Мой новый проект 5',
+          status: ProjectStatusEnum.Active,
           orderCount: '122',
           botCount: '2',
           activeTo: '2024-10-23',
         },
         {
           id: 6,
-          name: 'Мой новый проект',
-          status: 'block',
+          name: 'Мой новый проект 6',
+          status: ProjectStatusEnum.Active,
           orderCount: '122',
           botCount: '2',
           activeTo: '2024-10-23',
         },
         {
           id: 7,
-          name: 'Мой новый проект',
-          status: 'frozen',
+          name: 'Мой новый проект 7',
+          status: ProjectStatusEnum.Active,
           orderCount: '122',
           botCount: '2',
           activeTo: '2024-10-23',
