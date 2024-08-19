@@ -3,23 +3,7 @@
 
   <v-row>
     <v-col cols="2">
-      <div class="nav-left--wrapper">
-        <v-list>
-          <v-list-item
-            v-for="(item, i) in navItems"
-            :key="i"
-            :value="item"
-            color="primary"
-            variant="plain"
-          >
-            <template v-slot:prepend>
-              <v-img style="width: 30px; height: 30px; margin-right: 10px;" :inline=true :src="item.image"/>
-            </template>
-
-            <v-list-item-title v-text="item.text"></v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </div>
+      <NavigateLeft/>
     </v-col>
     <v-col cols="10">
       <div class="project-items--wrapper">
@@ -33,14 +17,17 @@
               <div>
                 <span class="project-status--active" v-if="project.status === ProjectStatusEnum.Active">Активен</span>
                 <span class="project-status--blocked" v-else-if="project.status === ProjectStatusEnum.Block">Заблокирован</span>
-                <span class="project-status--frozen" v-else-if="project.status === ProjectStatusEnum.Enabled">Отключён</span>
+                <span class="project-status--frozen"
+                      v-else-if="project.status === ProjectStatusEnum.Enabled">Отключён</span>
               </div>
             </div>
 
             <div class="project-item--name"><span>{{ project.name }}</span></div>
             <div class="project-item--field">Количество заказов: <span>{{ project.orderCount }}</span></div>
             <div class="project-item--field">Количество ботов: <span>{{ project.botCount }}</span></div>
-            <div class="project-item--field project-item--field-active-to">Активен до: <span>{{ project.activeTo }}</span></div>
+            <div class="project-item--field project-item--field-active-to">Активен до: <span>{{
+                project.activeTo
+              }}</span></div>
           </div>
         </a>
       </div>
@@ -51,9 +38,10 @@
 <script lang="ts">
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
 import {ProjectStatusEnum} from "@/components/common";
+import NavigateLeft from "@/components/common/NavigateLeft.vue";
 
 export default {
-  components: {NavigateHeader},
+  components: {NavigateLeft, NavigateHeader},
   computed: {
     ProjectStatusEnum() {
       return ProjectStatusEnum
@@ -119,27 +107,7 @@ export default {
           activeTo: '2024-10-23',
         },
       ],
-      navItems: [
-        {text: 'Мой проект', image: '/src/assets/images/navigate/folder/bold.svg'},
-        {text: 'Сценарии', image: '/src/assets/images/navigate/scenarios/bold.svg'},
-        {text: 'Боты', image: '/src/assets/images/navigate/bot/bold.svg'},
-        {text: 'Сценарии', image: '/src/assets/images/navigate/scenarios/bold.svg'},
-        {text: 'Заявки и заказы', image: '/src/assets/images/navigate/orders/bold.svg'},
-        {text: 'Товары и услуги', image: '/src/assets/images/navigate/bag/bold.svg'},
-        {text: 'Скидки и промокоды', image: '/src/assets/images/navigate/discount/bold.svg'},
-        {text: 'Доставка', image: '/src/assets/images/navigate/delivery/bold.svg'},
-        {text: 'Интеграции', image: '/src/assets/images/navigate/integrations/bold.svg'},
-        {text: 'Настройки проекта', image: '/src/assets/images/navigate/setting/bold.svg'},
-      ],
     };
-  },
-  methods: {
-    async loadImages() {
-      for (const key in this.navItems) {
-        const image = await this.navItems[key].image();
-        this.navItems[key].image = image.default;
-      }
-    },
   },
   mounted() {
     this.loadImages();
@@ -202,7 +170,7 @@ export default {
   color: #3C415E;
 }
 
-.project-item--name{
+.project-item--name {
   padding-bottom: 10px;
   font-style: normal;
   font-weight: 500;
@@ -211,17 +179,17 @@ export default {
   color: #3C415E;
 }
 
-.project-item--field{
+.project-item--field {
   color: #3C415E;
   font-weight: 300;
   font-size: 15px;
 }
 
-.project-item--field-active-to{
+.project-item--field-active-to {
   margin-top: 10px;
 }
 
-.project-item--field-active-to span{
+.project-item--field-active-to span {
   color: #5f009e;
 }
 </style>
