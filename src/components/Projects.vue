@@ -116,7 +116,6 @@ export default {
     };
   },
   mounted() {
-    this.loadImages();
   },
 };
 </script>

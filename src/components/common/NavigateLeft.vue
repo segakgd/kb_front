@@ -7,6 +7,7 @@
         :value="item"
         color="primary"
         variant="plain"
+        :href="item.link"
       >
         <template v-slot:prepend>
           <img style="width: 30px; height: 30px; margin-right: 10px;" :src="item.image" :alt="item.text"/>
@@ -23,15 +24,15 @@ export default {
   data() {
     return {
       navItems: [
-        {text: 'Мой проект', image: '/src/assets/images/navigate/folder/bold.svg'},
-        {text: 'Сценарии', image: '/src/assets/images/navigate/scenarios/bold.svg'},
-        {text: 'Боты', image: '/src/assets/images/navigate/bot/bold.svg'},
-        {text: 'Заявки и заказы', image: '/src/assets/images/navigate/orders/bold.svg'},
-        {text: 'Товары и услуги', image: '/src/assets/images/navigate/bag/bold.svg'},
-        {text: 'Скидки и промокоды', image: '/src/assets/images/navigate/discount/bold.svg'},
-        {text: 'Доставка', image: '/src/assets/images/navigate/delivery/bold.svg'},
-        {text: 'Интеграции', image: '/src/assets/images/navigate/integrations/bold.svg'},
-        {text: 'Настройки проекта', image: '/src/assets/images/navigate/setting/bold.svg'},
+        {text: 'Мой проект', image: '/src/assets/images/navigate/folder/bold.svg', link: '/project'},
+        {text: 'Сценарии', image: '/src/assets/images/navigate/scenarios/bold.svg', link: '/scenarios'},
+        {text: 'Боты', image: '/src/assets/images/navigate/bot/bold.svg', link: '/'},
+        {text: 'Заявки и заказы', image: '/src/assets/images/navigate/orders/bold.svg', link: '/'},
+        {text: 'Товары и услуги', image: '/src/assets/images/navigate/bag/bold.svg', link: '/'},
+        {text: 'Скидки и промокоды', image: '/src/assets/images/navigate/discount/bold.svg', link: '/'},
+        {text: 'Доставка', image: '/src/assets/images/navigate/delivery/bold.svg', link: '/'},
+        {text: 'Интеграции', image: '/src/assets/images/navigate/integrations/bold.svg', link: '/'},
+        {text: 'Настройки проекта', image: '/src/assets/images/navigate/setting/bold.svg', link: '/'},
       ],
     };
   },

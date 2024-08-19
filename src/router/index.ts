@@ -8,6 +8,8 @@
 import { createRouter, createWebHistory } from 'vue-router/auto'
 import HelloWorld from "@/components/HelloWorld.vue";
 import Projects from "@/components/Projects.vue";
+import Project from "@/components/Project.vue";
+import Scenarios from "@/components/Scenarios.vue";
 
 const routes = [
   {
@@ -19,6 +21,16 @@ const routes = [
     path: '/projects',
     name: 'Projects',
     component: Projects,
+  },
+  {
+    path: '/project',
+    name: 'Project',
+    component: Project,
+  },
+  {
+    path: '/scenarios',
+    name: 'Scenarios',
+    component: Scenarios,
   },
 ];
 const router = createRouter({
