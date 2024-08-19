@@ -37,10 +37,10 @@
               </div>
             </div>
 
-            <div style="font-weight: 400; font-size: 18px; padding-bottom: 10px;"><span>{{ project.name }}</span></div>
-            <div style="font-weight: 300; font-size: 15px;">Количество заказов: <span>{{ project.orderCount }}</span></div>
-            <div style="font-weight: 300; font-size: 15px;">Количество ботов: <span>{{ project.botCount }}</span></div>
-            <div style="font-weight: 300; font-size: 15px;">Активен до: <span>{{ project.activeTo }}</span></div>
+            <div class="project-item--name"><span>{{ project.name }}</span></div>
+            <div class="project-item--field">Количество заказов: <span>{{ project.orderCount }}</span></div>
+            <div class="project-item--field">Количество ботов: <span>{{ project.botCount }}</span></div>
+            <div class="project-item--field project-item--field-active-to">Активен до: <span>{{ project.activeTo }}</span></div>
           </div>
         </a>
       </div>
@@ -193,5 +193,28 @@ export default {
 .project-item .project-status--frozen {
   background: #EFF0F6;
   color: #3C415E;
+}
+
+.project-item--name{
+  padding-bottom: 10px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 27px;
+  color: #3C415E;
+}
+
+.project-item--field{
+  color: #3C415E;
+  font-weight: 300;
+  font-size: 15px;
+}
+
+.project-item--field-active-to{
+  margin-top: 10px;
+}
+
+.project-item--field-active-to span{
+  color: #5f009e;
 }
 </style>
