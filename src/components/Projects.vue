@@ -3,10 +3,7 @@
 
   <v-row>
     <v-col cols="2">
-      <v-card
-        class="mx-auto"
-        max-width="300"
-      >
+      <div class="nav-left--wrapper">
         <v-list>
           <v-list-item
             v-for="(item, i) in items"
@@ -22,7 +19,9 @@
             <v-list-item-title v-text="item.text"></v-list-item-title>
           </v-list-item>
         </v-list>
-      </v-card>
+      </div>
+    </v-col>
+    <v-col cols="10">
     </v-col>
   </v-row>
 </template>
