@@ -28,13 +28,16 @@
           href="/project/"
           class="project-item"
         >
-          <div>
-            <div>
-              <span class="project-status--active" v-if="project.status === ProjectStatusEnum.Active">Активен</span>
-              <span class="project-status--blocked" v-else-if="project.status === ProjectStatusEnum.Block">Заблокирован</span>
-              <span class="project-status--frozen" v-else-if="project.status === ProjectStatusEnum.Frozen">Заморожен</span>
+          <div style="width: 100%;">
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 10px;">
+              <div>
+                <span class="project-status--active" v-if="project.status === ProjectStatusEnum.Active">Активен</span>
+                <span class="project-status--blocked" v-else-if="project.status === ProjectStatusEnum.Block">Заблокирован</span>
+                <span class="project-status--frozen" v-else-if="project.status === ProjectStatusEnum.Frozen">Заморожен</span>
+              </div>
+              <v-btn icon="mdi-cog-outline" variant="plain"/>
             </div>
-            <v-icon icon="mdi-cog-outline"/>
+
             <div style="font-weight: 400; font-size: 18px;"><span>{{ project.name }}</span></div>
             <div>Количество заказов: <span>{{ project.orderCount }}</span></div>
             <div>Количество ботов: <span>{{ project.botCount }}</span></div>
