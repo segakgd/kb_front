@@ -35,13 +35,13 @@
                 <span class="project-status--blocked" v-else-if="project.status === ProjectStatusEnum.Block">Заблокирован</span>
                 <span class="project-status--frozen" v-else-if="project.status === ProjectStatusEnum.Frozen">Заморожен</span>
               </div>
-              <v-btn icon="mdi-cog-outline" variant="plain"/>
+              <a><v-icon icon="mdi-cog-outline"/></a>
             </div>
 
             <div style="font-weight: 400; font-size: 18px;"><span>{{ project.name }}</span></div>
-            <div>Количество заказов: <span>{{ project.orderCount }}</span></div>
-            <div>Количество ботов: <span>{{ project.botCount }}</span></div>
-            <div>Активен до: <span>{{ project.activeTo }}</span></div>
+            <div style="font-weight: 300; font-size: 15px;">Количество заказов: <span>{{ project.orderCount }}</span></div>
+            <div style="font-weight: 300; font-size: 15px;">Количество ботов: <span>{{ project.botCount }}</span></div>
+            <div style="font-weight: 300; font-size: 15px;">Активен до: <span>{{ project.activeTo }}</span></div>
           </div>
         </a>
       </div>
@@ -158,7 +158,7 @@ export default {
   -webkit-box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
   box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
-  padding: 20px;
+  padding: 10px 20px 20px 20px;
   display: flex;
   max-width: 350px;
   width: 100%;
@@ -188,6 +188,4 @@ export default {
 .project-item .project-status--frozen {
   background: #00dee6;
 }
-
-
 </style>
