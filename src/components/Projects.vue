@@ -167,6 +167,13 @@ export default {
   text-decoration: none;
   color: #3C415E;
   position: relative;
+  transition: 0.4s;
+}
+
+.project-item:hover {
+  -webkit-box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
+  box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
 }
 
 .project-item .project-status--active, .project-item .project-status--blocked, .project-item .project-status--frozen {
