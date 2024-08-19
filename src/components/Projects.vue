@@ -29,15 +29,16 @@
           class="project-item"
         >
           <div>
-            <div><span>{{ project.name }}</span></div>
             <div>
-              <span v-if="project.status === ProjectStatusEnum.Active">Активен</span>
-              <span v-else-if="project.status === ProjectStatusEnum.Block">Заблокирован</span>
-              <span v-else-if="project.status === ProjectStatusEnum.Frozen">Заморожен</span>
+              <span class="project-status--active" v-if="project.status === ProjectStatusEnum.Active">Активен</span>
+              <span class="project-status--blocked" v-else-if="project.status === ProjectStatusEnum.Block">Заблокирован</span>
+              <span class="project-status--frozen" v-else-if="project.status === ProjectStatusEnum.Frozen">Заморожен</span>
             </div>
-            <div>{{ project.orderCount }}</div>
-            <div>{{ project.botCount }}</div>
-            <div>{{ project.activeTo }}</div>
+            <v-icon icon="mdi-cog-outline"/>
+            <div style="font-weight: 400; font-size: 18px;"><span>{{ project.name }}</span></div>
+            <div>Количество заказов: <span>{{ project.orderCount }}</span></div>
+            <div>Количество ботов: <span>{{ project.botCount }}</span></div>
+            <div>Активен до: <span>{{ project.activeTo }}</span></div>
           </div>
         </a>
       </div>
@@ -161,6 +162,29 @@ export default {
   margin-right: 20px;
   margin-bottom: 20px;
   border-radius: 10px;
+  text-decoration: none;
+  color: #3C415E;
+  position: relative;
 }
+
+.project-item .project-status--active, .project-item .project-status--blocked, .project-item .project-status--frozen {
+  padding: 3px 10px;
+  font-size: 11px;
+  border-radius: 10px;
+}
+
+.project-item .project-status--active {
+  background: #68e600;
+}
+
+.project-item .project-status--blocked {
+  background: #ff0c55;
+  color: #ededed;
+}
+
+.project-item .project-status--frozen {
+  background: #00dee6;
+}
+
 
 </style>
