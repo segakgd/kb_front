@@ -30,26 +30,21 @@
 <script lang="ts">
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
 
-// Используем import.meta.glob для загрузки всех изображений
-const images = import.meta.glob('@/assets/images/*.svg');
-
 export default {
   components: {NavigateHeader},
   data() {
     return {
       items: [
-        {text: 'Мой проект', image: images['/src/assets/images/navigate/bot/bold.svg']},
-        {text: 'Сценарии', image: images['/src/assets/images/navigate/scenarios/bold.svg']},
-        {text: 'Боты', image: images['/src/assets/images/navigate/bot/bold.svg']},
-        {text: 'Сценарии', image: images['/src/assets/images/navigate/bot/bold.svg']},
-        {text: 'Боты', image: images['/src/assets/images/navigate/bot/bold.svg']},
-        {text: 'Бронирования', image: images['/src/assets/images/navigate/bot/bold.svg']},
-        {text: 'Заявки и заказы', image: images['/src/assets/images/navigate/bot/bold.svg']},
-        {text: 'Товары и услуги', image: images['/src/assets/images/navigate/bot/bold.svg']},
-        {text: 'Скидки и промокоды', image: images['/src/assets/images/navigate/bot/bold.svg']},
-        {text: 'Доставка', image: images['/src/assets/images/navigate/bot/bold.svg']},
-        {text: 'Интеграции', image: images['/src/assets/images/navigate/bot/bold.svg']},
-        {text: 'Настройки проекта', image: images['/src/assets/images/navigate/setting/bold.svg']},
+        {text: 'Мой проект', image: '/src/assets/images/navigate/folder/bold.svg'},
+        {text: 'Сценарии', image: '/src/assets/images/navigate/scenarios/bold.svg'},
+        {text: 'Боты', image: '/src/assets/images/navigate/bot/bold.svg'},
+        {text: 'Сценарии', image: '/src/assets/images/navigate/scenarios/bold.svg'},
+        {text: 'Заявки и заказы', image: '/src/assets/images/navigate/orders/bold.svg'},
+        {text: 'Товары и услуги', image: '/src/assets/images/navigate/bag/bold.svg'},
+        {text: 'Скидки и промокоды', image: '/src/assets/images/navigate/discount/bold.svg'},
+        {text: 'Доставка', image: '/src/assets/images/navigate/delivery/bold.svg'},
+        {text: 'Интеграции', image: '/src/assets/images/navigate/integrations/bold.svg'},
+        {text: 'Настройки проекта', image: '/src/assets/images/navigate/setting/bold.svg'},
       ],
     };
   },
