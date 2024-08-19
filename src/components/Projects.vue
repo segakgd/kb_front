@@ -29,16 +29,15 @@
           class="project-item"
         >
           <div style="width: 100%;">
-            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 10px;">
+            <div style="display: flex; justify-content: end; align-items: center; width: 100%; margin-bottom: 10px;">
               <div>
                 <span class="project-status--active" v-if="project.status === ProjectStatusEnum.Active">Активен</span>
                 <span class="project-status--blocked" v-else-if="project.status === ProjectStatusEnum.Block">Заблокирован</span>
-                <span class="project-status--frozen" v-else-if="project.status === ProjectStatusEnum.Frozen">Заморожен</span>
+                <span class="project-status--frozen" v-else-if="project.status === ProjectStatusEnum.Enabled">Отключён</span>
               </div>
-              <a><v-icon icon="mdi-cog-outline"/></a>
             </div>
 
-            <div style="font-weight: 400; font-size: 18px;"><span>{{ project.name }}</span></div>
+            <div style="font-weight: 400; font-size: 18px; padding-bottom: 10px;"><span>{{ project.name }}</span></div>
             <div style="font-weight: 300; font-size: 15px;">Количество заказов: <span>{{ project.orderCount }}</span></div>
             <div style="font-weight: 300; font-size: 15px;">Количество ботов: <span>{{ project.botCount }}</span></div>
             <div style="font-weight: 300; font-size: 15px;">Активен до: <span>{{ project.activeTo }}</span></div>
@@ -82,7 +81,7 @@ export default {
         {
           id: 3,
           name: 'Мой новый проект 3',
-          status: ProjectStatusEnum.Frozen,
+          status: ProjectStatusEnum.Enabled,
           orderCount: '122',
           botCount: '2',
           activeTo: '2024-10-23',
@@ -171,21 +170,28 @@ export default {
 }
 
 .project-item .project-status--active, .project-item .project-status--blocked, .project-item .project-status--frozen {
-  padding: 3px 10px;
-  font-size: 11px;
-  border-radius: 10px;
+  padding: 1px 10px;
+  border-radius: 15px;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
 }
 
 .project-item .project-status--active {
-  background: #68e600;
+  color: #067306;
+  background: #D9FABF;
 }
 
 .project-item .project-status--blocked {
-  background: #ff0c55;
-  color: #ededed;
+  color: #9E0038;
+  background: #FFD4F5;
 }
 
 .project-item .project-status--frozen {
-  background: #00dee6;
+  background: #EFF0F6;
+  color: #3C415E;
 }
 </style>
