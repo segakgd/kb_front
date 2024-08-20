@@ -8,26 +8,35 @@
     <v-col cols="10">
       <div style="height: 150px; display: flex; justify-content: space-between;">
         <div style="display: flex;">
-          <div style="width: 150px; margin-right: 20px;">
+          <div style="width: 200px; margin-right: 20px;">
             <v-select
+              class="select-status-field"
               label="Статус"
-              :items="['Все', 'Включён', 'Выключен']"
+              :items="['Включён', 'Выключен']"
               variant="outlined"
+              clearable
               hide-details
             ></v-select>
           </div>
 
-          <div style="width: 150px; margin-right: 20px;">
+          <div style="width: 200px; margin-right: 20px;">
             <v-select
               label="Тип"
-              :items="['Все', 'Телеграм', 'Вконтакте']"
+              :items="['Телеграм', 'Вконтакте']"
               variant="outlined"
+              clearable
               hide-details
             ></v-select>
           </div>
 
           <div style="width: 150px;">
-            <v-btn variant="outlined">
+            <v-btn variant="flat" class="main-btn">
+              Применить
+            </v-btn>
+          </div>
+
+          <div style="width: 150px;">
+            <v-btn variant="flat" class="main-btn clear-btn">
               Отчистить
             </v-btn>
           </div>

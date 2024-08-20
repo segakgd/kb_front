@@ -112,3 +112,18 @@ body {
   -moz-box-shadow: 0 0 5px 1px rgba(34, 60, 80, 0.2);
   box-shadow: 0 0 5px 1px rgb(34 60 80 / 20%);
 }
+
+.main-btn {
+  color: #000;
+  border-radius: 10px;
+  height: 40px;
+  text-transform: none;
+  font-weight: 300;
+  font-size: 16px;
+  background: #D9FABF;
+  letter-spacing: 0.3px;
+}
+
+.clear-btn {
+  background: #facfbf;
+}
