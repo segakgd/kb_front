@@ -65,7 +65,7 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="3" v-for="(project, index) in bots" :key="index">
+          <v-col cols="3" v-for="(bot, index) in bots" :key="index">
             <a
               href="/bot/"
               class="bot-item"
@@ -73,24 +73,24 @@
               <div style="width: 100%;">
                 <div
                   style="display: flex; justify-content: end; align-items: center; width: 100%; margin-bottom: 10px;">
-                  <span class="project-status--active" v-if="project.active">Включён</span>
-                  <span class="project-status--blocked" v-else>Выключен</span>
+                  <span class="bot-status--active" v-if="bot.active">Включён</span>
+                  <span class="bot-status--blocked" v-else>Выключен</span>
                 </div>
 
                 <div class="bot-item--name" style="display: flex; align-items: center;">
-                  <img style="width: 25px; height: 25px; margin-right: 10px;" v-if="project.type === BotType.Telegram"
+                  <img style="width: 25px; height: 25px; margin-right: 10px;" v-if="bot.type === BotType.Telegram"
                        src="@/assets/images/other/telegram.svg" alt="telegram"/>
-                  <img style="width: 25px; height: 25px; margin-right: 10px;" v-else-if="project.type === BotType.Vk"
+                  <img style="width: 25px; height: 25px; margin-right: 10px;" v-else-if="bot.type === BotType.Vk"
                        src="@/assets/images/other/vk.svg" alt="vk"/>
-                  <span>{{ project.name }}</span>
+                  <span>{{ bot.name }}</span>
                 </div>
                 <div class="bot-item--field">Тип:
-                  <span v-if="project.type === BotType.Telegram">Телеграм</span>
-                  <span v-else-if="project.type === BotType.Vk">Вконтакте</span>
+                  <span v-if="bot.type === BotType.Telegram">Телеграм</span>
+                  <span v-else-if="bot.type === BotType.Vk">Вконтакте</span>
                   <span v-else>Неизвестно</span>
                 </div>
-                <div class="bot-item--field">Сценарий: <span>{{ project.scenario.name }}</span></div>
-                <div class="bot-item--field mt-3">Создан: <span>{{ project.createdAt }}</span></div>
+                <div class="bot-item--field">Сценарий: <span>{{ bot.scenario.name }}</span></div>
+                <div class="bot-item--field mt-3">Создан: <span>{{ bot.createdAt }}</span></div>
               </div>
             </a>
           </v-col>
@@ -195,7 +195,7 @@ export default {
   box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
 }
 
-.bot-item .project-status--active, .bot-item .project-status--blocked {
+.bot-item .bot-status--active, .bot-item .bot-status--blocked {
   padding: 1px 10px;
   font-style: normal;
   font-weight: 300;
@@ -210,12 +210,12 @@ export default {
   width: 100%;
 }
 
-.bot-item .project-status--active {
+.bot-item .bot-status--active {
   color: #067306;
   background: #D9FABF;
 }
 
-.bot-item .project-status--blocked {
+.bot-item .bot-status--blocked {
   color: #9E0038;
   background: #FFD4F5;
 }
