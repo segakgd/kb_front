@@ -4,3 +4,8 @@ export enum ProjectStatusEnum {
   Block = 'block',
   Enabled = 'enabled',
 }
+
+export enum BotType {
+  Telegram = 'telegram',
+  Vk = 'vk'
+}

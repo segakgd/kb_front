@@ -120,7 +120,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .project-items--wrapper {
   display: flex;
   flex-wrap: wrap;
@@ -152,7 +152,6 @@ export default {
 
 .project-item .project-status--active, .project-item .project-status--blocked, .project-item .project-status--frozen, .project-item .project-status--trial {
   padding: 1px 10px;
-  //border-radius: 15px;
   font-style: normal;
   font-weight: 300;
   font-size: 12px;

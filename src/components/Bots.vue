@@ -9,24 +9,27 @@
       <div class="project-items--wrapper">
         <a
           v-for="(project, index) in bots" :key="index"
-          href="/project/"
+          href="/bot/"
           class="project-item"
         >
           <div style="width: 100%;">
             <div style="display: flex; justify-content: end; align-items: center; width: 100%; margin-bottom: 10px;">
-              <span class="project-status--active"
-                    v-if="project.status === ProjectStatusEnum.Active">Активен до {{ project.activeTo }}</span>
-              <span class="project-status--trial"
-                    v-if="project.status === ProjectStatusEnum.Trial">Пробная версия до {{ project.activeTo }}</span>
-              <span class="project-status--blocked"
-                    v-else-if="project.status === ProjectStatusEnum.Block">Заблокирован</span>
-              <span class="project-status--frozen"
-                    v-else-if="project.status === ProjectStatusEnum.Enabled">Отключён</span>
+              <span class="project-status--active" v-if="project.active">Включён</span>
+              <span class="project-status--blocked" v-else>Выключен</span>
             </div>
 
-            <div class="project-item--name"><span>{{ project.name }}</span></div>
-            <div class="project-item--field">Количество заказов: <span>{{ project.orderCount }}</span></div>
-            <div class="project-item--field">Количество ботов: <span>{{ project.botCount }}</span></div>
+            <div class="project-item--name" style="display: flex; align-items: center;">
+              <img style="width: 25px; height: 25px; margin-right: 10px;" v-if="project.type === BotType.Telegram" src="@/assets/images/other/telegram.svg" alt="telegram"/>
+              <img style="width: 25px; height: 25px; margin-right: 10px;" v-else-if="project.type === BotType.Vk" src="@/assets/images/other/vk.svg" alt="vk"/>
+              <span>{{ project.name }}</span>
+            </div>
+            <div class="project-item--field">Тип:
+              <span v-if="project.type === BotType.Telegram">Телеграм</span>
+              <span v-else-if="project.type === BotType.Vk">Вконтакте</span>
+              <span v-else>Неизвестно</span>
+            </div>
+            <div class="project-item--field">Сценарий: <span>{{ project.scenario.name }}</span></div>
+            <div class="project-item--field mt-3">Создан: <span>{{ project.createdAt }}</span></div>
           </div>
         </a>
       </div>
@@ -36,14 +39,14 @@
 
 <script lang="ts">
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
-import {ProjectStatusEnum} from "@/components/common";
 import NavigateLeft from "@/components/common/NavigateLeft.vue";
+import {BotType} from "@/components/common";
 
 export default {
   components: {NavigateLeft, NavigateHeader},
   computed: {
-    ProjectStatusEnum() {
-      return ProjectStatusEnum
+    BotType() {
+      return BotType;
     },
   },
   data() {
@@ -53,46 +56,51 @@ export default {
           id: 1,
           name: 'Мой бот #1',
           active: true,
-          orderCount: '0',
-          botCount: '0',
-          activeTo: '2024-10-23',
-          trialTo: '2024-10-23',
+          type: BotType.Telegram,
+          scenario: {
+            name: "Самый топовый сценарий"
+          },
+          createdAt: '2024-10-23',
         },
         {
           id: 2,
           name: 'Мой бот #2',
           active: true,
-          orderCount: '9',
-          botCount: '1',
-          activeTo: '2024-10-23',
-          trialTo: '2024-10-23',
+          type: BotType.Vk,
+          scenario: {
+            name: "Самый топовый сценарий"
+          },
+          createdAt: '2024-10-23',
         },
         {
           id: 3,
           name: 'Мой бот #3',
           active: false,
-          orderCount: '122',
-          botCount: '2',
-          activeTo: '2024-10-23',
-          trialTo: '2024-10-23',
+          type: BotType.Telegram,
+          scenario: {
+            name: "Самый топовый сценарий"
+          },
+          createdAt: '2024-10-23',
         },
         {
           id: 4,
           name: 'Мой бот #4',
           active: false,
-          orderCount: '22',
-          botCount: '1',
-          activeTo: '2024-10-23',
-          trialTo: '2024-10-23',
+          type: BotType.Telegram,
+          scenario: {
+            name: "Самый топовый сценарий"
+          },
+          createdAt: '2024-10-23',
         },
         {
           id: 5,
           name: 'Мой бот #5',
           active: false,
-          orderCount: '12',
-          botCount: '3',
-          activeTo: '2024-10-23',
-          trialTo: '2024-10-23',
+          type: BotType.Vk,
+          scenario: {
+            name: "Самый топовый сценарий"
+          },
+          createdAt: '2024-10-23',
         },
       ],
     };
@@ -102,7 +110,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .project-items--wrapper {
   display: flex;
   flex-wrap: wrap;
@@ -132,9 +140,8 @@ export default {
   box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
 }
 
-.project-item .project-status--trial {
+.project-item .project-status--active, .project-item .project-status--blocked {
   padding: 1px 10px;
-  //border-radius: 15px;
   font-style: normal;
   font-weight: 300;
   font-size: 12px;
@@ -148,9 +155,14 @@ export default {
   width: 100%;
 }
 
-.project-item .project-status--trial {
-  background: #f6f3ef;
-  color: #5e563c;
+.project-item .project-status--active {
+  color: #067306;
+  background: #D9FABF;
+}
+
+.project-item .project-status--blocked {
+  color: #9E0038;
+  background: #FFD4F5;
 }
 
 .project-item--name {
