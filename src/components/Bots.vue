@@ -6,6 +6,38 @@
       <NavigateLeft/>
     </v-col>
     <v-col cols="10">
+      <div style="height: 150px; display: flex; justify-content: space-between;">
+        <div style="display: flex;">
+          <div style="width: 150px; margin-right: 20px;">
+            <v-select
+              label="Статус"
+              :items="['Все', 'Включён', 'Выключен']"
+              variant="outlined"
+              hide-details
+            ></v-select>
+          </div>
+
+          <div style="width: 150px; margin-right: 20px;">
+            <v-select
+              label="Тип"
+              :items="['Все', 'Телеграм', 'Вконтакте']"
+              variant="outlined"
+              hide-details
+            ></v-select>
+          </div>
+
+          <div style="width: 150px;">
+            <v-btn variant="outlined">
+              Отчистить
+            </v-btn>
+          </div>
+        </div>
+
+        <div style="width: 400px;">
+          <v-pagination :length="3"></v-pagination>
+        </div>
+      </div>
+
       <div class="project-items--wrapper">
         <a
           v-for="(project, index) in bots" :key="index"
@@ -19,8 +51,10 @@
             </div>
 
             <div class="project-item--name" style="display: flex; align-items: center;">
-              <img style="width: 25px; height: 25px; margin-right: 10px;" v-if="project.type === BotType.Telegram" src="@/assets/images/other/telegram.svg" alt="telegram"/>
-              <img style="width: 25px; height: 25px; margin-right: 10px;" v-else-if="project.type === BotType.Vk" src="@/assets/images/other/vk.svg" alt="vk"/>
+              <img style="width: 25px; height: 25px; margin-right: 10px;" v-if="project.type === BotType.Telegram"
+                   src="@/assets/images/other/telegram.svg" alt="telegram"/>
+              <img style="width: 25px; height: 25px; margin-right: 10px;" v-else-if="project.type === BotType.Vk"
+                   src="@/assets/images/other/vk.svg" alt="vk"/>
               <span>{{ project.name }}</span>
             </div>
             <div class="project-item--field">Тип:
