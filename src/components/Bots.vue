@@ -16,6 +16,9 @@
               variant="outlined"
               clearable
               hide-details
+              density="compact"
+              :hideSelected=true
+              color="#9b61d8"
             ></v-select>
           </div>
 
@@ -26,6 +29,9 @@
               variant="outlined"
               clearable
               hide-details
+              density="compact"
+              :hideSelected=true
+              color="#9b61d8"
             ></v-select>
           </div>
 
@@ -43,7 +49,11 @@
         </div>
 
         <div style="width: 400px;">
-          <v-pagination :length="3"></v-pagination>
+          <v-pagination
+            :length="3"
+            density="compact"
+            color="#9b61d8"
+          ></v-pagination>
         </div>
       </div>
 
