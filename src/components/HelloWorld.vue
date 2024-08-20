@@ -10,6 +10,7 @@
     </v-col>
   </v-row>
 
+  <Footer></Footer>
 </template>
 
 <script setup lang="ts">
