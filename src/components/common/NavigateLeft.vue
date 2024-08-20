@@ -26,7 +26,7 @@ export default {
       navItems: [
         {text: 'Мой проект', image: '/src/assets/images/navigate/folder/bold.svg', link: '/project'},
         {text: 'Сценарии', image: '/src/assets/images/navigate/scenarios/bold.svg', link: '/scenarios'},
-        {text: 'Боты', image: '/src/assets/images/navigate/bot/bold.svg', link: '/'},
+        {text: 'Боты', image: '/src/assets/images/navigate/bot/bold.svg', link: '/bots'},
         {text: 'Заявки и заказы', image: '/src/assets/images/navigate/orders/bold.svg', link: '/'},
         {text: 'Товары и услуги', image: '/src/assets/images/navigate/bag/bold.svg', link: '/'},
         {text: 'Скидки и промокоды', image: '/src/assets/images/navigate/discount/bold.svg', link: '/'},

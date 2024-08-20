@@ -10,6 +10,7 @@ import HelloWorld from "@/components/HelloWorld.vue";
 import Projects from "@/components/Projects.vue";
 import Project from "@/components/Project.vue";
 import Scenarios from "@/components/Scenarios.vue";
+import Bots from "@/components/Bots.vue";
 
 const routes = [
   {
@@ -26,6 +27,11 @@ const routes = [
     path: '/project',
     name: 'Project',
     component: Project,
+  },
+  {
+    path: '/bots',
+    name: 'Bots',
+    component: Bots,
   },
   {
     path: '/scenarios',
