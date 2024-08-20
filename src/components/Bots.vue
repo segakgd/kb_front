@@ -68,7 +68,7 @@
           <v-col cols="3" v-for="(project, index) in bots" :key="index">
             <a
               href="/bot/"
-              class="project-item"
+              class="bot-item"
             >
               <div style="width: 100%;">
                 <div
@@ -77,20 +77,20 @@
                   <span class="project-status--blocked" v-else>Выключен</span>
                 </div>
 
-                <div class="project-item--name" style="display: flex; align-items: center;">
+                <div class="bot-item--name" style="display: flex; align-items: center;">
                   <img style="width: 25px; height: 25px; margin-right: 10px;" v-if="project.type === BotType.Telegram"
                        src="@/assets/images/other/telegram.svg" alt="telegram"/>
                   <img style="width: 25px; height: 25px; margin-right: 10px;" v-else-if="project.type === BotType.Vk"
                        src="@/assets/images/other/vk.svg" alt="vk"/>
                   <span>{{ project.name }}</span>
                 </div>
-                <div class="project-item--field">Тип:
+                <div class="bot-item--field">Тип:
                   <span v-if="project.type === BotType.Telegram">Телеграм</span>
                   <span v-else-if="project.type === BotType.Vk">Вконтакте</span>
                   <span v-else>Неизвестно</span>
                 </div>
-                <div class="project-item--field">Сценарий: <span>{{ project.scenario.name }}</span></div>
-                <div class="project-item--field mt-3">Создан: <span>{{ project.createdAt }}</span></div>
+                <div class="bot-item--field">Сценарий: <span>{{ project.scenario.name }}</span></div>
+                <div class="bot-item--field mt-3">Создан: <span>{{ project.createdAt }}</span></div>
               </div>
             </a>
           </v-col>
@@ -174,21 +174,13 @@ export default {
 </script>
 
 <style scoped>
-.project-items--wrapper {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.project-item {
+.bot-item {
   -webkit-box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
   box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
   padding: 30px 20px 20px 20px;
   display: flex;
-  //max-width: 350px;
   width: 100%;
-  //margin-right: 20px;
-  //margin-bottom: 20px;
   border-radius: 10px;
   text-decoration: none;
   color: #3C415E;
@@ -197,13 +189,13 @@ export default {
   overflow: hidden;
 }
 
-.project-item:hover {
+.bot-item:hover {
   -webkit-box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
   box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
 }
 
-.project-item .project-status--active, .project-item .project-status--blocked {
+.bot-item .project-status--active, .bot-item .project-status--blocked {
   padding: 1px 10px;
   font-style: normal;
   font-weight: 300;
@@ -218,17 +210,17 @@ export default {
   width: 100%;
 }
 
-.project-item .project-status--active {
+.bot-item .project-status--active {
   color: #067306;
   background: #D9FABF;
 }
 
-.project-item .project-status--blocked {
+.bot-item .project-status--blocked {
   color: #9E0038;
   background: #FFD4F5;
 }
 
-.project-item--name {
+.bot-item--name {
   padding-bottom: 10px;
   font-style: normal;
   font-weight: 500;
@@ -237,7 +229,7 @@ export default {
   color: #3C415E;
 }
 
-.project-item--field {
+.bot-item--field {
   color: #3C415E;
   font-weight: 300;
   font-size: 15px;
