@@ -27,6 +27,22 @@ body {
   box-shadow: 0 3px 5px 0 rgba(34, 60, 80, 0.2);
 }
 
+.footer--row {
+  height: 50px;
+  -webkit-box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
+  box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
+}
+
+.footer--wrapper {
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
 .logo {
   font-family: 'Rubik', sans-serif;
   display: flex;
@@ -40,13 +56,13 @@ body {
   color: #3C415E;
 }
 
-.logo .logo--image{
+.logo .logo--image {
   width: 36px;
   height: 36px;
   margin-right: 10px;
 }
 
-.logo .logo--image img{
+.logo .logo--image img {
   width: 36px;
   height: 36px;
 }
@@ -56,7 +72,7 @@ body {
   justify-content: center;
 }
 
-.header-navs--wrapper .header-navs--link{
+.header-navs--wrapper .header-navs--link {
   text-transform: none;
   color: #3C415E;
   font-weight: 300;
@@ -70,17 +86,17 @@ body {
   justify-content: end;
 }
 
-.header-user--wrapper .header-navs--link{
+.header-user--wrapper .header-navs--link {
   text-transform: none;
   color: #3C415E;
   height: 50px;
 }
 
-.header-user--wrapper .header-navs--icon{
+.header-user--wrapper .header-navs--icon {
   width: 40px;
   height: 40px;
   background: #d3d3d3;
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;

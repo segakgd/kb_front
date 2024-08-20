@@ -1,7 +1,7 @@
 <template>
   <NavigateHeader></NavigateHeader>
 
-  <v-row>
+  <v-row style="height: 100%;">
     <v-col cols="2">
       <NavigateLeft/>
     </v-col>
@@ -10,7 +10,6 @@
     </v-col>
   </v-row>
 
-  <Footer></Footer>
 </template>
 
 <script setup lang="ts">
