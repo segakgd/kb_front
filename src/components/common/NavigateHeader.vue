@@ -11,7 +11,7 @@
 
         <v-col cols="6">
           <div class="header-navs--wrapper">
-            <v-btn variant="text" class="header-navs--link" href="/">Проекты</v-btn>
+            <v-btn variant="text" class="header-navs--link" href="/projects">Проекты</v-btn>
 
             <v-btn variant="text" class="header-navs--link" href="/">Новости</v-btn>
 

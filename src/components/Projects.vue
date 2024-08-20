@@ -1,7 +1,7 @@
 <template>
   <NavigateHeader></NavigateHeader>
 
-  <v-row>
+  <v-row style="height: 100%;">
     <v-col cols="2">
       <NavigateLeft/>
     </v-col>
@@ -14,20 +14,19 @@
         >
           <div style="width: 100%;">
             <div style="display: flex; justify-content: end; align-items: center; width: 100%; margin-bottom: 10px;">
-              <div>
-                <span class="project-status--active" v-if="project.status === ProjectStatusEnum.Active">Активен</span>
-                <span class="project-status--blocked" v-else-if="project.status === ProjectStatusEnum.Block">Заблокирован</span>
-                <span class="project-status--frozen"
-                      v-else-if="project.status === ProjectStatusEnum.Enabled">Отключён</span>
-              </div>
+              <span class="project-status--active"
+                    v-if="project.status === ProjectStatusEnum.Active">Активен до {{ project.activeTo }}</span>
+              <span class="project-status--trial"
+                    v-if="project.status === ProjectStatusEnum.Trial">Пробная версия до {{ project.activeTo }}</span>
+              <span class="project-status--blocked"
+                    v-else-if="project.status === ProjectStatusEnum.Block">Заблокирован</span>
+              <span class="project-status--frozen"
+                    v-else-if="project.status === ProjectStatusEnum.Enabled">Отключён</span>
             </div>
 
             <div class="project-item--name"><span>{{ project.name }}</span></div>
             <div class="project-item--field">Количество заказов: <span>{{ project.orderCount }}</span></div>
             <div class="project-item--field">Количество ботов: <span>{{ project.botCount }}</span></div>
-            <div class="project-item--field project-item--field-active-to">Активен до: <span>{{
-                project.activeTo
-              }}</span></div>
           </div>
         </a>
       </div>
@@ -57,6 +56,7 @@ export default {
           orderCount: '0',
           botCount: '0',
           activeTo: '2024-10-23',
+          trialTo: '2024-10-23',
         },
         {
           id: 2,
@@ -65,6 +65,7 @@ export default {
           orderCount: '9',
           botCount: '1',
           activeTo: '2024-10-23',
+          trialTo: '2024-10-23',
         },
         {
           id: 3,
@@ -73,22 +74,25 @@ export default {
           orderCount: '122',
           botCount: '2',
           activeTo: '2024-10-23',
+          trialTo: '2024-10-23',
         },
         {
           id: 4,
           name: 'Мой новый проект 4',
-          status: ProjectStatusEnum.Block,
+          status: ProjectStatusEnum.Trial,
           orderCount: '22',
           botCount: '1',
           activeTo: '2024-10-23',
+          trialTo: '2024-10-23',
         },
         {
           id: 5,
           name: 'Мой новый проект 5',
-          status: ProjectStatusEnum.Active,
+          status: ProjectStatusEnum.Trial,
           orderCount: '12',
           botCount: '3',
           activeTo: '2024-10-23',
+          trialTo: '2024-10-23',
         },
         {
           id: 6,
@@ -97,6 +101,7 @@ export default {
           orderCount: '329',
           botCount: '2',
           activeTo: '2024-10-23',
+          trialTo: '2024-10-23',
         },
         {
           id: 7,
@@ -105,17 +110,17 @@ export default {
           orderCount: '98',
           botCount: '1',
           activeTo: '2024-10-23',
+          trialTo: '2024-10-23',
         },
       ],
     };
   },
   mounted() {
-    this.loadImages();
   },
 };
 </script>
 
-<style>
+<style scoped>
 .project-items--wrapper {
   display: flex;
   flex-wrap: wrap;
@@ -125,7 +130,7 @@ export default {
   -webkit-box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
   box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
-  padding: 10px 20px 20px 20px;
+  padding: 30px 20px 20px 20px;
   display: flex;
   max-width: 350px;
   width: 100%;
@@ -136,6 +141,7 @@ export default {
   color: #3C415E;
   position: relative;
   transition: 0.4s;
+  overflow: hidden;
 }
 
 .project-item:hover {
@@ -144,15 +150,19 @@ export default {
   box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
 }
 
-.project-item .project-status--active, .project-item .project-status--blocked, .project-item .project-status--frozen {
+.project-item .project-status--active, .project-item .project-status--blocked, .project-item .project-status--frozen, .project-item .project-status--trial {
   padding: 1px 10px;
-  border-radius: 15px;
   font-style: normal;
   font-weight: 300;
   font-size: 12px;
   line-height: 24px;
   display: flex;
   align-items: center;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
 
 .project-item .project-status--active {
@@ -170,6 +180,11 @@ export default {
   color: #3C415E;
 }
 
+.project-item .project-status--trial {
+  background: #f6f3ef;
+  color: #5e563c;
+}
+
 .project-item--name {
   padding-bottom: 10px;
   font-style: normal;
@@ -183,13 +198,5 @@ export default {
   color: #3C415E;
   font-weight: 300;
   font-size: 15px;
-}
-
-.project-item--field-active-to {
-  margin-top: 10px;
-}
-
-.project-item--field-active-to span {
-  color: #5f009e;
 }
 </style>
