@@ -2,7 +2,7 @@
   <v-app>
     <div class="app-wrapper">
 
-      <v-main class="d-flex flex-column justify-space-between">
+      <v-main class="d-flex flex-column justify-space-between mb-15">
         <router-view/>
       </v-main>
 

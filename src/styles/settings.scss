@@ -132,3 +132,58 @@ body {
 .apply-btn {
   background: #fae9bf;
 }
+
+.block-item {
+  -webkit-box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
+  box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
+  padding: 30px 20px 20px 20px;
+  display: flex;
+  width: 100%;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #3C415E;
+  position: relative;
+  transition: 0.4s;
+  overflow: hidden;
+}
+
+.block-item:hover {
+  -webkit-box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
+  box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
+}
+
+.block-item .block-status--active, .block-item .block-status--blocked {
+  padding: 1px 10px;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.block-item .block-status--active {
+  color: #067306;
+  background: #D9FABF;
+}
+
+.block-item .block-status--blocked {
+  color: #9E0038;
+  background: #FFD4F5;
+}
+
+.block-item--name {
+  padding-bottom: 10px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 27px;
+  color: #3C415E;
+}

@@ -78,15 +78,15 @@
                 </div>
 
                 <div class="bot-item--name" style="display: flex; align-items: center;">
-                  <img style="width: 25px; height: 25px; margin-right: 10px;" v-if="bot.type === BotType.Telegram"
+                  <img style="width: 25px; height: 25px; margin-right: 10px;" v-if="bot.type === BotTypeEnum.Telegram"
                        src="@/assets/images/other/telegram.svg" alt="telegram"/>
-                  <img style="width: 25px; height: 25px; margin-right: 10px;" v-else-if="bot.type === BotType.Vk"
+                  <img style="width: 25px; height: 25px; margin-right: 10px;" v-else-if="bot.type === BotTypeEnum.Vk"
                        src="@/assets/images/other/vk.svg" alt="vk"/>
                   <span>{{ bot.name }}</span>
                 </div>
                 <div class="bot-item--field">Тип:
-                  <span v-if="bot.type === BotType.Telegram">Телеграм</span>
-                  <span v-else-if="bot.type === BotType.Vk">Вконтакте</span>
+                  <span v-if="bot.type === BotTypeEnum.Telegram">Телеграм</span>
+                  <span v-else-if="bot.type === BotTypeEnum.Vk">Вконтакте</span>
                   <span v-else>Неизвестно</span>
                 </div>
                 <div class="bot-item--field">Сценарий: <span>{{ bot.scenario.name }}</span></div>
@@ -103,13 +103,13 @@
 <script lang="ts">
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
 import NavigateLeft from "@/components/common/NavigateLeft.vue";
-import {BotType} from "@/components/common";
+import {BotTypeEnum} from "@/components/common";
 
 export default {
   components: {NavigateLeft, NavigateHeader},
   computed: {
-    BotType() {
-      return BotType;
+    BotTypeEnum() {
+      return BotTypeEnum;
     },
   },
   data() {
@@ -119,7 +119,7 @@ export default {
           id: 1,
           name: 'Мой бот #1',
           active: true,
-          type: BotType.Telegram,
+          type: BotTypeEnum.Telegram,
           scenario: {
             name: "Самый топовый сценарий"
           },
@@ -129,7 +129,7 @@ export default {
           id: 2,
           name: 'Мой бот #2',
           active: true,
-          type: BotType.Vk,
+          type: BotTypeEnum.Vk,
           scenario: {
             name: "Самый топовый сценарий"
           },
@@ -139,7 +139,7 @@ export default {
           id: 3,
           name: 'Мой бот #3',
           active: false,
-          type: BotType.Telegram,
+          type: BotTypeEnum.Telegram,
           scenario: {
             name: "Самый топовый сценарий"
           },
@@ -149,7 +149,7 @@ export default {
           id: 4,
           name: 'Мой бот #4',
           active: false,
-          type: BotType.Telegram,
+          type: BotTypeEnum.Telegram,
           scenario: {
             name: "Самый топовый сценарий"
           },
@@ -159,7 +159,7 @@ export default {
           id: 5,
           name: 'Мой бот #5',
           active: false,
-          type: BotType.Vk,
+          type: BotTypeEnum.Vk,
           scenario: {
             name: "Самый топовый сценарий"
           },
