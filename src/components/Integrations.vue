@@ -31,14 +31,14 @@
           </v-col>
 
           <v-col cols="3" v-for="(crmItem, index) in crm" :key="index">
-            <div class="bot-item">
+            <div class="integration-item">
               <div style="width: 100%; ">
                 <div
                   style="display: flex; justify-content: end; align-items: center; width: 100%; margin-bottom: 10px;">
-                  <span class="bot-status--active" v-if="crmItem.active">Включён</span>
-                  <span class="bot-status--blocked" v-else>Выключен</span>
+                  <span class="integration-status--active" v-if="crmItem.active">Включён</span>
+                  <span class="integration-status--blocked" v-else>Выключен</span>
                 </div>
-                <div class="bot-item--name" style="display: flex;">
+                <div class="integration-item--name" style="display: flex;">
                   <img style="width: 35px; height: 35px; margin-right: 10px;" v-if="crmItem.type === IntegrationType.AmoCrm"
                        src="@/assets/images/other/amocrm-logo-white 1.svg" alt="telegram"/>
                   <span>{{ crmItem.name }}</span>
@@ -54,14 +54,14 @@
           </v-col>
 
           <v-col cols="3" v-for="(payment, index) in payments" :key="index">
-            <div class="bot-item">
+            <div class="integration-item">
               <div style="width: 100%;">
                 <div
                   style="display: flex; justify-content: end; align-items: center; width: 100%; margin-bottom: 10px;">
-                  <span class="bot-status--active" v-if="payment.active">Включён</span>
-                  <span class="bot-status--blocked" v-else>Выключен</span>
+                  <span class="integration-status--active" v-if="payment.active">Включён</span>
+                  <span class="integration-status--blocked" v-else>Выключен</span>
                 </div>
-                <div class="bot-item--name" style="display: flex;">
+                <div class="integration-item--name" style="display: flex;">
                     <img style="width: 35px; height: 35px; margin-right: 10px;" v-if="payment.type === IntegrationType.Sber"
                          src="@/assets/images/other/Sber.svg" alt="telegram"/>
                     <img style="width: 35px; height: 35px; margin-right: 10px;" v-if="payment.type === IntegrationType.Robokassa"
@@ -119,7 +119,7 @@ export default {
 </script>
 
 <style scoped>
-.bot-item {
+.integration-item {
   -webkit-box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
   box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
@@ -134,13 +134,13 @@ export default {
   overflow: hidden;
 }
 
-.bot-item:hover {
+.integration-item:hover {
   -webkit-box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
   box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
 }
 
-.bot-item .bot-status--active, .bot-item .bot-status--blocked {
+.integration-item .integration-status--active, .integration-item .integration-status--blocked {
   padding: 1px 10px;
   font-style: normal;
   font-weight: 300;
@@ -155,17 +155,17 @@ export default {
   width: 100%;
 }
 
-.bot-item .bot-status--active {
+.integration-item .integration-status--active {
   color: #067306;
   background: #D9FABF;
 }
 
-.bot-item .bot-status--blocked {
+.integration-item .integration-status--blocked {
   color: #9E0038;
   background: #FFD4F5;
 }
 
-.bot-item--name {
+.integration-item--name {
   padding-bottom: 10px;
   font-style: normal;
   font-weight: 500;

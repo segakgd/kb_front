@@ -15,3 +15,8 @@ export enum IntegrationType {
   Sber = 'sber',
   AmoCrm = 'amo'
 }
+
+export enum ShippingType {
+  Courier = 'courier',
+  Pickup = 'pickup',
+}
