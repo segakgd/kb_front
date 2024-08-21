@@ -22,7 +22,6 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     Scenarios: typeof import('./src/components/Scenarios.vue')['default']
     Settings: typeof import('./src/components/Settings.vue')['default']
-    Shipping: typeof import('./src/components/Shipping.vue')['default']
     Shippings: typeof import('./src/components/Shippings.vue')['default']
   }
 }
