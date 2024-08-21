@@ -39,7 +39,7 @@
                   <span class="integration-status--blocked" v-else>Выключен</span>
                 </div>
                 <div class="integration-item--name" style="display: flex;">
-                  <img style="width: 35px; height: 35px; margin-right: 10px;" v-if="crmItem.type === IntegrationType.AmoCrm"
+                  <img style="width: 35px; height: 35px; margin-right: 10px;" v-if="crmItem.type === IntegrationTypeEnum.AmoCrm"
                        src="@/assets/images/other/amocrm-logo-white 1.svg" alt="telegram"/>
                   <span>{{ crmItem.name }}</span>
                 </div>
@@ -62,9 +62,9 @@
                   <span class="integration-status--blocked" v-else>Выключен</span>
                 </div>
                 <div class="integration-item--name" style="display: flex;">
-                    <img style="width: 35px; height: 35px; margin-right: 10px;" v-if="payment.type === IntegrationType.Sber"
+                    <img style="width: 35px; height: 35px; margin-right: 10px;" v-if="payment.type === IntegrationTypeEnum.Sber"
                          src="@/assets/images/other/Sber.svg" alt="telegram"/>
-                    <img style="width: 35px; height: 35px; margin-right: 10px;" v-if="payment.type === IntegrationType.Robokassa"
+                    <img style="width: 35px; height: 35px; margin-right: 10px;" v-if="payment.type === IntegrationTypeEnum.Robokassa"
                          src="@/assets/images/other/Robokassa.svg" alt="telegram"/>
                   <span>{{ payment.name }}</span>
                 </div>
@@ -81,13 +81,13 @@
 <script lang="ts">
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
 import NavigateLeft from "@/components/common/NavigateLeft.vue";
-import {IntegrationType} from "@/components/common";
+import {IntegrationTypeEnum} from "@/components/common";
 
 export default {
   components: {NavigateLeft, NavigateHeader},
   computed: {
-    IntegrationType() {
-      return IntegrationType;
+    IntegrationTypeEnum() {
+      return IntegrationTypeEnum;
     }
   },
   data() {
@@ -96,19 +96,19 @@ export default {
         {
           name: "AmoCrm",
           active: true,
-          type: IntegrationType.AmoCrm,
+          type: IntegrationTypeEnum.AmoCrm,
         },
       ],
       payments: [
         {
           name: "Robokassa",
           active: true,
-          type: IntegrationType.Robokassa,
+          type: IntegrationTypeEnum.Robokassa,
         },
         {
           name: "Sber",
           active: false,
-          type: IntegrationType.Sber,
+          type: IntegrationTypeEnum.Sber,
         },
       ]
     };

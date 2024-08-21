@@ -42,8 +42,8 @@
                   <span>{{ shipping.name }}</span>
                 </div>
                 <div class="shipping-item--field">Тип:
-                  <span v-if="shipping.type === ShippingType.Pickup">Самовывоз</span>
-                  <span v-else-if="shipping.type === ShippingType.Courier">Курьер</span>
+                  <span v-if="shipping.type === ShippingTypeEnum.Pickup">Самовывоз</span>
+                  <span v-else-if="shipping.type === ShippingTypeEnum.Courier">Курьер</span>
                   <span v-else>Неизвестно</span>
                 </div>
                 <div v-if="shipping.price" class="shipping-item--field">Стоимость: <span>{{ shipping.price }}</span></div>
@@ -66,13 +66,13 @@
 <script lang="ts">
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
 import NavigateLeft from "@/components/common/NavigateLeft.vue";
-import {ShippingType} from "@/components/common";
+import {ShippingTypeEnum} from "@/components/common";
 
 export default {
   components: {NavigateLeft, NavigateHeader},
   computed: {
-    ShippingType() {
-      return ShippingType;
+    ShippingTypeEnum() {
+      return ShippingTypeEnum;
     }
   },
   data() {
@@ -80,7 +80,7 @@ export default {
       shippings: [
         {
           name: "Самовывоз",
-          type: ShippingType.Pickup,
+          type: ShippingTypeEnum.Pickup,
           price: null,
           freeFrom: null,
           active: true,
@@ -88,7 +88,7 @@ export default {
         },
         {
           name: "Стандартная",
-          type: ShippingType.Courier,
+          type: ShippingTypeEnum.Courier,
           price: 300,
           freeFrom: 1500,
           active: true,
@@ -96,7 +96,7 @@ export default {
         },
         {
           name: "Экспресс",
-          type: ShippingType.Courier,
+          type: ShippingTypeEnum.Courier,
           price: 800,
           freeFrom: 3000,
           active: true,
@@ -104,7 +104,7 @@ export default {
         },
         {
           name: "Экспресс +",
-          type: ShippingType.Courier,
+          type: ShippingTypeEnum.Courier,
           price: 1000,
           freeFrom: 5000,
           active: false,

@@ -41,10 +41,10 @@
                   <span class="block-status--blocked" v-else>Не активен</span>
                 </div>
 
-                <div v-if="promocodeItem.type === DiscountType.Percent" class="shipping-item--field mb-3">
+                <div v-if="promocodeItem.type === DiscountTypeEnum.Percent" class="shipping-item--field mb-3">
                   <span style="font-size: 30px; color: #7095FF; font-weight: bold;">{{ promocodeItem.amount}} %</span>
                 </div>
-                <div v-else-if="promocodeItem.type === DiscountType.Cash" class="shipping-item--field mb-3">
+                <div v-else-if="promocodeItem.type === DiscountTypeEnum.Cash" class="shipping-item--field mb-3">
                   <span style="font-size: 30px; color: #7095FF; font-weight: bold;">{{ promocodeItem.amount}} ₽</span>
                 </div>
 
@@ -97,10 +97,10 @@
                   <span class="block-status--blocked" v-else>Не активна</span>
                 </div>
 
-                <div v-if="promocodeItem.type === DiscountType.Percent" class="shipping-item--field mb-3">
+                <div v-if="promocodeItem.type === DiscountTypeEnum.Percent" class="shipping-item--field mb-3">
                   <span style="font-size: 30px; color: #7095FF; font-weight: bold;">{{ promocodeItem.amount}} %</span>
                 </div>
-                <div v-else-if="promocodeItem.type === DiscountType.Cash" class="shipping-item--field mb-3">
+                <div v-else-if="promocodeItem.type === DiscountTypeEnum.Cash" class="shipping-item--field mb-3">
                   <span style="font-size: 30px; color: #7095FF; font-weight: bold;">{{ promocodeItem.amount}} ₽</span>
                 </div>
 
@@ -137,13 +137,13 @@
 <script lang="ts">
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
 import NavigateLeft from "@/components/common/NavigateLeft.vue";
-import {DiscountType} from "@/components/common";
+import {DiscountTypeEnum} from "@/components/common";
 
 export default {
   components: {NavigateLeft, NavigateHeader},
   computed: {
-    DiscountType() {
-      return DiscountType;
+    DiscountTypeEnum() {
+      return DiscountTypeEnum;
     }
   },
   data() {
@@ -152,7 +152,7 @@ export default {
         {
           name: "На 23-е февраля",
           active: true,
-          type: DiscountType.Percent,
+          type: DiscountTypeEnum.Percent,
           code: '23-FE',
           availableCount: 4,
           amount: 20,
@@ -164,7 +164,7 @@ export default {
         {
           name: "На 8-е марта",
           active: false,
-          type: DiscountType.Cash,
+          type: DiscountTypeEnum.Cash,
           code: 'FOR-WOMEN',
           availableCount: 4,
           amount: 200,
@@ -178,7 +178,7 @@ export default {
         {
           name: "Скидка от души брат",
           active: true,
-          type: DiscountType.Percent,
+          type: DiscountTypeEnum.Percent,
           amount: 20,
           availableFrom: 1000,
           validFrom: '2024-10-23',
@@ -188,7 +188,7 @@ export default {
         {
           name: "На 8-е марта",
           active: false,
-          type: DiscountType.Cash,
+          type: DiscountTypeEnum.Cash,
           amount: 200,
           availableFrom: 1000,
           validFrom: '2024-10-23',

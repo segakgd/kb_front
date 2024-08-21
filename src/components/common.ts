@@ -5,23 +5,39 @@ export enum ProjectStatusEnum {
   Enabled = 'enabled',
 }
 
-export enum BotType {
+export enum BotTypeEnum {
   Telegram = 'telegram',
   Vk = 'vk'
 }
 
-export enum IntegrationType {
+export enum IntegrationTypeEnum {
   Robokassa = 'robokassa',
   Sber = 'sber',
   AmoCrm = 'amo'
 }
 
-export enum ShippingType {
+export enum ShippingTypeEnum {
   Courier = 'courier',
   Pickup = 'pickup',
 }
 
-export enum DiscountType {
+export enum DiscountTypeEnum {
   Cash = 'cash',
   Percent = 'percent',
 }
+
+export enum OrderStatusEnum {
+  New = 'new',
+  Reject = 'reject',
+  InProcess = 'reject',
+  Success = 'Success',
+}
+
+export enum PaymentStatusEnum {
+  Success = 'Success',
+  Waiting = 'Waiting',
+  Canceled = 'Canceled',
+  Failed = 'Failed',
+  UponReceipt = 'UponReceipt',
+}
+
