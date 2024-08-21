@@ -38,6 +38,6 @@ export enum PaymentStatusEnum {
   Waiting = 'waiting',
   Canceled = 'canceled',
   Failed = 'failed',
-  UponReceipt = 'upon_receipt',
+  Cash = 'cash',
 }
 
