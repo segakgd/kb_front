@@ -53,7 +53,27 @@
                 </div>
 
                 <div class="shipping-item--field">
-                  Код: <span>{{ promocodeItem.code}}</span>
+                  Промокод: <span style="background: #BFBEFC; padding: 2px 8px; border-radius: 8px;">{{ promocodeItem.code}}</span>
+                </div>
+
+                <div class="shipping-item--field">
+                  Осталось применений: <span>{{ promocodeItem.availableCount}}</span>
+                </div>
+
+                <div class="shipping-item--field mb-3">
+                  Применяется от суммы: <span>{{ promocodeItem.availableFrom}} ₽</span>
+                </div>
+
+                <div class="shipping-item--field">
+                  Активен с: <span> {{ promocodeItem.validFrom}}</span>
+                </div>
+
+                <div class="shipping-item--field">
+                  Активен до: <span> {{ promocodeItem.validTo}}</span>
+                </div>
+
+                <div class="shipping-item--field mt-3">
+                  Создан: <span>{{ promocodeItem.createdAt}}</span>
                 </div>
 
               </div>
