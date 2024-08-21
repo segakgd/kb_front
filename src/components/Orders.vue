@@ -63,7 +63,10 @@
                 </p>
 
                 <p>
-                  {{ order.status }}
+                  <span v-if="order.status === OrderStatusEnum.New" class="order-status order-status--new">Новый</span>
+                  <span v-else-if="order.status === OrderStatusEnum.Reject" class="order-status order-status--reject">Отменён</span>
+                  <span v-else-if="order.status === OrderStatusEnum.InProcess" class="order-status order-status--in_process">В процессе</span>
+                  <span v-else-if="order.status === OrderStatusEnum.Success" class="order-status order-status--success">Завершён</span>
                 </p>
 
                 <p>
@@ -230,7 +233,7 @@ export default {
   width: 100%;
   height: auto;
   display: grid;
-  grid-template-columns: 2fr 2fr 6fr 2fr 2fr 2fr;
+  grid-template-columns: 2fr 2fr 7fr 3fr 2fr 2fr;
   grid-column-gap: 1em;
   padding: .32em 1em;
   margin: 0;
@@ -269,5 +272,34 @@ export default {
   text-decoration: none;
   background: none !important;
   border: none !important;
+}
+
+.order-status {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 24px;
+  padding: 4px 10px;
+  border-radius: 10px;
+}
+
+.order-status--new{
+  background: #93E5FF;
+  color: #0073B4;
+}
+
+.order-status--reject{
+  background: #FFD4F5;
+  color: #9E0038;
+}
+
+.order-status--in_process{
+  background: #FFDBBA;
+  color: #C05223;
+}
+
+.order-status--success{
+  background: #D9FABF;
+  color: #067306;
 }
 </style>

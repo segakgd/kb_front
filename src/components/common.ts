@@ -29,15 +29,15 @@ export enum DiscountTypeEnum {
 export enum OrderStatusEnum {
   New = 'new',
   Reject = 'reject',
-  InProcess = 'reject',
-  Success = 'Success',
+  InProcess = 'in_process',
+  Success = 'success',
 }
 
 export enum PaymentStatusEnum {
-  Success = 'Success',
-  Waiting = 'Waiting',
-  Canceled = 'Canceled',
-  Failed = 'Failed',
-  UponReceipt = 'UponReceipt',
+  Success = 'success',
+  Waiting = 'waiting',
+  Canceled = 'canceled',
+  Failed = 'failed',
+  UponReceipt = 'upon_receipt',
 }
 
