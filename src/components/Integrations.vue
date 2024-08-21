@@ -27,18 +27,18 @@
 
         <v-row>
           <v-col cols="12">
-            <h3>Crm</h3>
+            <h3 style="font-style: normal; font-weight: 500; font-size: 18px; line-height: 22px; color: #61657C;">Crm</h3>
           </v-col>
 
           <v-col cols="3" v-for="(crmItem, index) in crm" :key="index">
             <div class="bot-item">
-              <div style="width: 100%;">
+              <div style="width: 100%; ">
                 <div
                   style="display: flex; justify-content: end; align-items: center; width: 100%; margin-bottom: 10px;">
                   <span class="bot-status--active" v-if="crmItem.active">Включён</span>
                   <span class="bot-status--blocked" v-else>Выключен</span>
                 </div>
-                <div class="bot-item--name">
+                <div class="bot-item--name" style="display: flex;">
                   <img style="width: 35px; height: 35px; margin-right: 10px;" v-if="crmItem.type === IntegrationType.AmoCrm"
                        src="@/assets/images/other/amocrm-logo-white 1.svg" alt="telegram"/>
                   <span>{{ crmItem.name }}</span>
@@ -50,7 +50,7 @@
 
         <v-row>
           <v-col cols="12">
-            <h3>Платёжные системы</h3>
+            <h3 style="font-style: normal; font-weight: 500; font-size: 18px; line-height: 22px; color: #61657C;">Платёжные системы</h3>
           </v-col>
 
           <v-col cols="3" v-for="(payment, index) in payments" :key="index">
@@ -172,11 +172,5 @@ export default {
   font-size: 20px;
   line-height: 27px;
   color: #3C415E;
-}
-
-.bot-item--field {
-  color: #3C415E;
-  font-weight: 300;
-  font-size: 15px;
 }
 </style>
