@@ -81,20 +81,22 @@
                 </div>
 
                 <p>
-                  {{ order.payment.amount }}
+                  <span v-if="order?.payment?.amount">{{ order.payment.amount }}</span>
+                  <span v-else>-</span>
                 </p>
 
                 <p>
-                  <span v-if="order.payment.status === PaymentStatusEnum.Success"
+                  <span v-if="order?.payment?.status === PaymentStatusEnum.Success"
                         class="payment-status payment-status--success">Оплачено</span>
-                  <span v-else-if="order.payment.status === PaymentStatusEnum.Waiting"
+                  <span v-else-if="order?.payment?.status === PaymentStatusEnum.Waiting"
                         class="payment-status payment-status--waiting">Ожидает оплату</span>
-                  <span v-else-if="order.payment.status === PaymentStatusEnum.Canceled"
+                  <span v-else-if="order?.payment?.status === PaymentStatusEnum.Canceled"
                         class="payment-status payment-status--canceled">Отменена</span>
-                  <span v-else-if="order.payment.status === PaymentStatusEnum.Failed"
+                  <span v-else-if="order?.payment?.status === PaymentStatusEnum.Failed"
                         class="payment-status payment-status--failed">Ошибка оплаты</span>
-                  <span v-else-if="order.payment.status === PaymentStatusEnum.Cash"
+                  <span v-else-if="order?.payment?.status === PaymentStatusEnum.Cash"
                         class="payment-status payment-status--cash">Наличными</span>
+                  <span v-else class="payment-status">-</span>
                 </p>
 
                 <p>
@@ -209,6 +211,15 @@ export default {
           payment: {
             status: PaymentStatusEnum.Failed,
             amount: 12232.23,
+          },
+          createdAt: '2024-10-23 12:20',
+        },
+        {
+          number: 5,
+          status: OrderStatusEnum.New,
+          contacts: {
+            name: "Александр Алексанров Алексанрович",
+            mail: "example-long-mail-mail-mail@mail.ru",
           },
           createdAt: '2024-10-23 12:20',
         },
