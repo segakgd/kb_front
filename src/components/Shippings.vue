@@ -120,8 +120,6 @@ export default {
 
 <style scoped>
 
-
-
 .shipping-item {
   -webkit-box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);

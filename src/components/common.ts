@@ -20,3 +20,8 @@ export enum ShippingType {
   Courier = 'courier',
   Pickup = 'pickup',
 }
+
+export enum PromocodeType {
+  Cash = 'cash',
+  Percent = 'percent',
+}
