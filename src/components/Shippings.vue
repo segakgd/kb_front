@@ -24,6 +24,7 @@
             </v-btn>
           </v-col>
         </v-row>
+
         <h1>Доставка</h1>
 
       </v-container>
