@@ -6,30 +6,54 @@
       <NavigateLeft/>
     </v-col>
     <v-col cols="10">
-      <div class="project-items--wrapper">
-        <a
-          v-for="(project, index) in projects" :key="index"
-          href="/project/"
-          class="project-item"
-        >
-          <div style="width: 100%;">
-            <div style="display: flex; justify-content: end; align-items: center; width: 100%; margin-bottom: 10px;">
+      <v-container fluid>
+        <v-row style="margin-bottom: 50px;">
+          <v-col cols="8">
+          </v-col>
+
+          <v-col cols="4" class="d-flex">
+            <v-pagination
+              :length="3"
+              density="compact"
+              color="#9b61d8"
+              style="width: 100%;"
+            ></v-pagination>
+
+            <v-btn variant="flat" class="main-btn">
+              Добавить
+            </v-btn>
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col cols="3" v-for="(project, index) in projects" :key="index">
+            <a
+              href="/project/"
+              class="project-item"
+            >
+              <div style="width: 100%;">
+                <div style="display: flex; justify-content: end; align-items: center; width: 100%; margin-bottom: 10px;">
               <span class="project-status--active"
                     v-if="project.status === ProjectStatusEnum.Active">Активен до {{ project.activeTo }}</span>
-              <span class="project-status--trial"
-                    v-if="project.status === ProjectStatusEnum.Trial">Пробная версия до {{ project.activeTo }}</span>
-              <span class="project-status--blocked"
-                    v-else-if="project.status === ProjectStatusEnum.Block">Заблокирован</span>
-              <span class="project-status--frozen"
-                    v-else-if="project.status === ProjectStatusEnum.Enabled">Отключён</span>
-            </div>
+                  <span class="project-status--trial"
+                        v-if="project.status === ProjectStatusEnum.Trial">Пробная версия до {{ project.activeTo }}</span>
+                  <span class="project-status--blocked"
+                        v-else-if="project.status === ProjectStatusEnum.Block">Заблокирован</span>
+                  <span class="project-status--frozen"
+                        v-else-if="project.status === ProjectStatusEnum.Enabled">Отключён</span>
+                </div>
 
-            <div class="project-item--name"><span>{{ project.name }}</span></div>
-            <div class="project-item--field">Количество заказов: <span>{{ project.orderCount }}</span></div>
-            <div class="project-item--field">Количество ботов: <span>{{ project.botCount }}</span></div>
-          </div>
-        </a>
-      </div>
+                <div class="project-item--name"><span>{{ project.name }}</span></div>
+                <div class="project-item--field">Количество заказов: <span>{{ project.orderCount }}</span></div>
+                <div class="project-item--field">Количество ботов: <span>{{ project.botCount }}</span></div>
+              </div>
+            </a>
+          </v-col>
+        </v-row>
+
+
+
+      </v-container>
     </v-col>
   </v-row>
 </template>
@@ -121,10 +145,6 @@ export default {
 </script>
 
 <style scoped>
-.project-items--wrapper {
-  display: flex;
-  flex-wrap: wrap;
-}
 
 .project-item {
   -webkit-box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
@@ -132,10 +152,7 @@ export default {
   box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
   padding: 30px 20px 20px 20px;
   display: flex;
-  max-width: 350px;
   width: 100%;
-  margin-right: 20px;
-  margin-bottom: 20px;
   border-radius: 10px;
   text-decoration: none;
   color: #3C415E;
