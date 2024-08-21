@@ -27,7 +27,7 @@
 
         <v-row>
           <v-col cols="12">
-            <h3 style="font-style: normal; font-weight: 500; font-size: 18px; line-height: 22px; color: #61657C;">
+            <h3 style="font-style: normal; font-weight: 500; font-size: 22px; line-height: 22px; color: #61657C;">
               Промокды
             </h3>
           </v-col>
@@ -37,14 +37,14 @@
               <div style="width: 100%;">
                 <div
                   style="display: flex; justify-content: end; align-items: center; width: 100%; margin-bottom: 10px;">
-                  <span class="block-status--active" v-if="promocodeItem.active">Включён</span>
-                  <span class="block-status--blocked" v-else>Выключен</span>
+                  <span class="block-status--active" v-if="promocodeItem.active">Активен</span>
+                  <span class="block-status--blocked" v-else>Не активен</span>
                 </div>
 
-                <div v-if="promocodeItem.type === PromocodeType.Percent" class="shipping-item--field mb-3">
+                <div v-if="promocodeItem.type === DiscountType.Percent" class="shipping-item--field mb-3">
                   <span style="font-size: 30px; color: #7095FF; font-weight: bold;">{{ promocodeItem.amount}} %</span>
                 </div>
-                <div v-else-if="promocodeItem.type === PromocodeType.Cash" class="shipping-item--field mb-3">
+                <div v-else-if="promocodeItem.type === DiscountType.Cash" class="shipping-item--field mb-3">
                   <span style="font-size: 30px; color: #7095FF; font-weight: bold;">{{ promocodeItem.amount}} ₽</span>
                 </div>
 
@@ -81,6 +81,54 @@
           </v-col>
         </v-row>
 
+        <v-row class="mt-15">
+          <v-col cols="12">
+            <h3 style="font-style: normal; font-weight: 500; font-size: 22px; line-height: 22px; color: #61657C;">
+              Скидки
+            </h3>
+          </v-col>
+
+          <v-col cols="3" v-for="(promocodeItem, index) in promocode" :key="index">
+            <div class="block-item">
+              <div style="width: 100%;">
+                <div
+                  style="display: flex; justify-content: end; align-items: center; width: 100%; margin-bottom: 10px;">
+                  <span class="block-status--active" v-if="promocodeItem.active">Активна</span>
+                  <span class="block-status--blocked" v-else>Не активна</span>
+                </div>
+
+                <div v-if="promocodeItem.type === DiscountType.Percent" class="shipping-item--field mb-3">
+                  <span style="font-size: 30px; color: #7095FF; font-weight: bold;">{{ promocodeItem.amount}} %</span>
+                </div>
+                <div v-else-if="promocodeItem.type === DiscountType.Cash" class="shipping-item--field mb-3">
+                  <span style="font-size: 30px; color: #7095FF; font-weight: bold;">{{ promocodeItem.amount}} ₽</span>
+                </div>
+
+                <div class="block-item--name" style="display: flex;">
+                  <span>{{ promocodeItem.name }}</span>
+                </div>
+
+                <div class="shipping-item--field mb-3">
+                  Применяется от суммы: <span>{{ promocodeItem.availableFrom}} ₽</span>
+                </div>
+
+                <div class="shipping-item--field">
+                  Активен с: <span> {{ promocodeItem.validFrom}}</span>
+                </div>
+
+                <div class="shipping-item--field">
+                  Активен до: <span> {{ promocodeItem.validTo}}</span>
+                </div>
+
+                <div class="shipping-item--field mt-3">
+                  Создан: <span>{{ promocodeItem.createdAt}}</span>
+                </div>
+
+              </div>
+            </div>
+          </v-col>
+        </v-row>
+
       </v-container>
     </v-col>
   </v-row>
@@ -89,13 +137,13 @@
 <script lang="ts">
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
 import NavigateLeft from "@/components/common/NavigateLeft.vue";
-import {PromocodeType} from "@/components/common";
+import {DiscountType} from "@/components/common";
 
 export default {
   components: {NavigateLeft, NavigateHeader},
   computed: {
-    PromocodeType() {
-      return PromocodeType;
+    DiscountType() {
+      return DiscountType;
     }
   },
   data() {
@@ -104,7 +152,7 @@ export default {
         {
           name: "На 23-е февраля",
           active: true,
-          type: PromocodeType.Percent,
+          type: DiscountType.Percent,
           code: '23-FE',
           availableCount: 4,
           amount: 20,
@@ -116,7 +164,7 @@ export default {
         {
           name: "На 8-е марта",
           active: false,
-          type: PromocodeType.Cash,
+          type: DiscountType.Cash,
           code: 'FOR-WOMEN',
           availableCount: 4,
           amount: 200,
@@ -125,7 +173,29 @@ export default {
           validTo: '2024-10-23',
           createdAt: '2024-10-23',
         },
-      ]
+      ],
+      discount: [
+        {
+          name: "Скидка от души брат",
+          active: true,
+          type: DiscountType.Percent,
+          amount: 20,
+          availableFrom: 1000,
+          validFrom: '2024-10-23',
+          validTo: '2024-10-23',
+          createdAt: '2024-10-23',
+        },
+        {
+          name: "На 8-е марта",
+          active: false,
+          type: DiscountType.Cash,
+          amount: 200,
+          availableFrom: 1000,
+          validFrom: '2024-10-23',
+          validTo: '2024-10-23',
+          createdAt: '2024-10-23',
+        },
+      ],
     };
   },
   mounted() {
