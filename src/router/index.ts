@@ -11,6 +11,12 @@ import Projects from "@/components/Projects.vue";
 import Project from "@/components/Project.vue";
 import Scenarios from "@/components/Scenarios.vue";
 import Bots from "@/components/Bots.vue";
+import Orders from "@/components/Orders.vue";
+import Products from "@/components/Products.vue";
+import Promotions from "@/components/Promotions.vue";
+import Shippings from "@/components/Shippings.vue";
+import Integrations from "@/components/Integrations.vue";
+import Settings from "@/components/Settings.vue";
 
 const routes = [
   {
@@ -37,6 +43,36 @@ const routes = [
     path: '/scenarios',
     name: 'Scenarios',
     component: Scenarios,
+  },
+  {
+    path: '/orders',
+    name: 'Orders',
+    component: Orders,
+  },
+  {
+    path: '/products',
+    name: 'Products',
+    component: Products,
+  },
+  {
+    path: '/promotions',
+    name: 'Promotions',
+    component: Promotions,
+  },
+  {
+    path: '/shippings',
+    name: 'Shippings',
+    component: Shippings,
+  },
+  {
+    path: '/integrations',
+    name: 'Integrations',
+    component: Integrations,
+  },
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: Settings,
   },
 ];
 const router = createRouter({
