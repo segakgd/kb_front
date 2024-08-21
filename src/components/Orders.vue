@@ -48,6 +48,10 @@
                 <p>
                   Статус
                 </p>
+
+                <p>
+                  Дата
+                </p>
               </div>
 
               <div
@@ -59,19 +63,26 @@
                 </p>
 
                 <p>
-                  Основание
+                  {{ order.status }}
                 </p>
 
                 <p>
-                  Баланс до
+                  {{ order.contacts.name }}
+                  {{ order.contacts.mail }}
+                  {{ order.contacts.phone }}
+                  {{ order.contacts.telegram }}
                 </p>
 
                 <p>
-                  Баланс после
+                  {{ order.payment.amount }}
                 </p>
 
                 <p>
-                  Модератор
+                  {{ order.payment.status }}
+                </p>
+
+                <p>
+                  {{ order.createdAt }}
                 </p>
               </div>
             </div>
@@ -106,9 +117,7 @@ export default {
           number: 1,
           status: OrderStatusEnum.New,
           contacts: {
-            firstName: "Александр",
-            middleName: "Алексанров",
-            lastName: "Алексанрович",
+            name: "Александр Алексанров Алексанрович",
             phone: "89999999999",
             mail: "example-long-mail-mail-mail@mail.ru",
             telegram: "@sobakasutulaya",
@@ -117,14 +126,13 @@ export default {
             status: PaymentStatusEnum.Waiting,
             amount: 12232.23,
           },
+          createdAt: '2024-10-23 12:20',
         },
         {
           number: 2,
           status: OrderStatusEnum.Reject,
           contacts: {
-            firstName: "Александр",
-            middleName: "Алексанров",
-            lastName: "Алексанрович",
+            name: "Александр Алексанров Алексанрович",
             phone: "89999999999",
             mail: "example-long-mail-mail-mail@mail.ru",
             telegram: "@sobakasutulaya",
@@ -133,14 +141,13 @@ export default {
             status: PaymentStatusEnum.Canceled,
             amount: 12232.23,
           },
+          createdAt: '2024-10-23 12:20',
         },
         {
           number: 3,
           status: OrderStatusEnum.InProcess,
           contacts: {
-            firstName: "Александр",
-            middleName: "Алексанров",
-            lastName: "Алексанрович",
+            name: "Александр Алексанров Алексанрович",
             phone: "89999999999",
             mail: "example-long-mail-mail-mail@mail.ru",
             telegram: "@sobakasutulaya",
@@ -149,14 +156,13 @@ export default {
             status: PaymentStatusEnum.Waiting,
             amount: 12232.23,
           },
+          createdAt: '2024-10-23 12:20',
         },
         {
           number: 4,
           status: OrderStatusEnum.Success,
           contacts: {
-            firstName: "Александр",
-            middleName: "Алексанров",
-            lastName: "Алексанрович",
+            name: "Александр Алексанров Алексанрович",
             phone: "89999999999",
             mail: "example-long-mail-mail-mail@mail.ru",
             telegram: "@sobakasutulaya",
@@ -165,14 +171,13 @@ export default {
             status: PaymentStatusEnum.Success,
             amount: 12232.23,
           },
+          createdAt: '2024-10-23 12:20',
         },
         {
           number: 5,
           status: OrderStatusEnum.Success,
           contacts: {
-            firstName: "Александр",
-            middleName: "Алексанров",
-            lastName: "Алексанрович",
+            name: "Александр Алексанров Алексанрович",
             phone: "89999999999",
             mail: "example-long-mail-mail-mail@mail.ru",
             telegram: "@sobakasutulaya",
@@ -181,14 +186,13 @@ export default {
             status: PaymentStatusEnum.UponReceipt,
             amount: 12232.23,
           },
+          createdAt: '2024-10-23 12:20',
         },
         {
           number: 5,
           status: OrderStatusEnum.Success,
           contacts: {
-            firstName: "Александр",
-            middleName: "Алексанров",
-            lastName: "Алексанрович",
+            name: "Александр Алексанров Алексанрович",
             phone: "89999999999",
             mail: "example-long-mail-mail-mail@mail.ru",
             telegram: "@sobakasutulaya",
@@ -197,6 +201,7 @@ export default {
             status: PaymentStatusEnum.Failed,
             amount: 12232.23,
           },
+          createdAt: '2024-10-23 12:20',
         },
       ],
     };
@@ -225,7 +230,7 @@ export default {
   width: 100%;
   height: auto;
   display: grid;
-  grid-template-columns: 2fr 2fr 2fr 2fr 2fr 2fr;
+  grid-template-columns: 2fr 2fr 6fr 2fr 2fr 2fr;
   grid-column-gap: 1em;
   padding: .32em 1em;
   margin: 0;
