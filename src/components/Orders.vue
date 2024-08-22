@@ -4,15 +4,14 @@
   <v-row style="height: 100%;">
     <v-col cols="9">
       <v-container fluid>
-        <v-row style="height: 65px;">
-          <v-col cols="12">
-            <v-pagination
-              :length="3"
-              density="compact"
-              style="width: 230px; color: #838383;"
-            ></v-pagination>
+        <v-row>
+          <v-col cols="12" class="info-block">
+            <div>
+              <h3>Заявки и заказы</h3>
+            </div>
           </v-col>
         </v-row>
+
         <v-row>
           <v-col cols="12">
             <div class="table-wrapper">
@@ -96,10 +95,20 @@
           </v-col>
         </v-row>
 
+        <v-row style="min-height: 65px;">
+          <v-col cols="12" class="info-block">
+            <v-pagination
+              :length="3"
+              density="compact"
+              style="width: 230px; color: #838383;"
+            ></v-pagination>
+          </v-col>
+        </v-row>
+
       </v-container>
     </v-col>
     <v-col cols="3">
-      <v-container fluid style="margin-top: 65px;">
+      <v-container fluid style="margin-top: 110px;">
         <div class="tools-main">
           <div class="tools-main--group">
             <div class="tools-main--group-btn">
@@ -154,7 +163,7 @@
             </div>
 
             <div class="tools-main--group-btn">
-              <v-btn variant="flat" class="main-btn w-100">
+              <v-btn variant="flat" class="main-btn-line w-100">
                 Применить
               </v-btn>
               <!-- todo показываем "Отчистить" когда выбраны фильтры-->

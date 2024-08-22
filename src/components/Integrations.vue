@@ -4,21 +4,15 @@
   <v-row style="height: 100%;">
     <v-col cols="9">
       <v-container fluid>
-        <v-row style="height: 65px;">
-          <v-col cols="12">
-            <v-pagination
-              :length="3"
-              density="compact"
-              style="width: 230px; color: #838383;"
-            ></v-pagination>
+        <v-row>
+          <v-col cols="12" class="info-block">
+            <div>
+              <h3>Crm</h3>
+            </div>
           </v-col>
         </v-row>
 
         <v-row>
-          <v-col cols="12">
-            <h3 style="font-style: normal; font-weight: 500; font-size: 18px; line-height: 22px; color: #61657C;">Crm</h3>
-          </v-col>
-
           <v-col cols="4" v-for="(crmItem, index) in crm" :key="index">
             <div class="integration-item">
               <div style="width: 100%; ">
@@ -38,10 +32,14 @@
         </v-row>
 
         <v-row>
-          <v-col cols="12">
-            <h3 style="font-style: normal; font-weight: 500; font-size: 18px; line-height: 22px; color: #61657C;">Платёжные системы</h3>
+          <v-col cols="12" class="info-block">
+            <div>
+              <h3>Платёжные системы</h3>
+            </div>
           </v-col>
+        </v-row>
 
+        <v-row>
           <v-col cols="4" v-for="(payment, index) in payments" :key="index">
             <div class="integration-item">
               <div style="width: 100%;">
@@ -66,7 +64,7 @@
     </v-col>
 
     <v-col cols="3">
-      <v-container fluid style="margin-top: 65px;">
+      <v-container fluid style="margin-top: 110px;">
         <div class="tools-main">
           <div class="tools-main--group">
             <div class="tools-main--group-btn">
