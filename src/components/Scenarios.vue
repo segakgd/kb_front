@@ -14,7 +14,7 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="3" v-for="(bot, index) in bots" :key="index">
+          <v-col cols="4" v-for="(bot, index) in bots" :key="index">
             <a
               href="/bot/"
               class="bot-item"

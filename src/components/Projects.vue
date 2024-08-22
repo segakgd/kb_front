@@ -15,7 +15,7 @@
         </v-row>
 
         <v-row>
-          <v-col cols="3" v-for="(project, index) in projects" :key="index">
+          <v-col cols="4" v-for="(project, index) in projects" :key="index">
             <a
               href="/project/"
               class="project-item"

@@ -19,7 +19,7 @@
             <h3 style="font-style: normal; font-weight: 500; font-size: 18px; line-height: 22px; color: #61657C;">Crm</h3>
           </v-col>
 
-          <v-col cols="3" v-for="(crmItem, index) in crm" :key="index">
+          <v-col cols="4" v-for="(crmItem, index) in crm" :key="index">
             <div class="integration-item">
               <div style="width: 100%; ">
                 <div

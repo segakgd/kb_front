@@ -15,7 +15,7 @@
         </v-row>
 
         <v-row>
-          <v-col cols="3" v-for="(shipping, index) in shippings" :key="index">
+          <v-col cols="4" v-for="(shipping, index) in shippings" :key="index">
             <a
               href="/shipping/"
               class="shipping-item"

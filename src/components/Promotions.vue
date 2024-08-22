@@ -21,7 +21,7 @@
             </h3>
           </v-col>
 
-          <v-col cols="3" v-for="(promocodeItem, index) in promocode" :key="index">
+          <v-col cols="4" v-for="(promocodeItem, index) in promocode" :key="index">
             <div class="block-item">
               <div style="width: 100%;">
                 <div
@@ -77,7 +77,7 @@
             </h3>
           </v-col>
 
-          <v-col cols="3" v-for="(promocodeItem, index) in promocode" :key="index">
+          <v-col cols="4" v-for="(promocodeItem, index) in promocode" :key="index">
             <div class="block-item">
               <div style="width: 100%;">
                 <div
