@@ -68,6 +68,7 @@ export default {
         {text: 'Боты', image: '/src/assets/images/navigate/bot/bold.svg', link: '/bots'},
         {text: 'Заявки и заказы', image: '/src/assets/images/navigate/orders/bold.svg', link: '/orders'},
         {text: 'Товары и услуги', image: '/src/assets/images/navigate/bag/bold.svg', link: '/products'},
+        {text: 'Категории', image: '/src/assets/images/navigate/bag/bold.svg', link: '/categories'},
         {text: 'Скидки и промокоды', image: '/src/assets/images/navigate/discount/bold.svg', link: '/promotions'},
         {text: 'Доставка', image: '/src/assets/images/navigate/delivery/bold.svg', link: '/shippings'},
         {text: 'Интеграции', image: '/src/assets/images/navigate/integrations/bold.svg', link: '/integrations'},

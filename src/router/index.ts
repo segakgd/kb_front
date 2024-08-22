@@ -17,6 +17,7 @@ import Promotions from "@/components/Promotions.vue";
 import Shippings from "@/components/Shippings.vue";
 import Integrations from "@/components/Integrations.vue";
 import Settings from "@/components/Settings.vue";
+import Categories from "@/components/Categories.vue";
 
 const routes = [
   {
@@ -53,6 +54,11 @@ const routes = [
     path: '/products',
     name: 'Products',
     component: Products,
+  },
+  {
+    path: '/categories',
+    name: 'Categories',
+    component: Categories,
   },
   {
     path: '/promotions',
