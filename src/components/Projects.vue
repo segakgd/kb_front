@@ -45,7 +45,6 @@
     </v-col>
 
     <v-col cols="3">
-
       <v-container fluid style="margin-top: 65px;">
         <div class="tools-main">
           <div class="tools-main--group">
@@ -88,6 +87,7 @@
 
       </v-container>
     </v-col>
+
   </v-row>
 </template>
 
