@@ -62,7 +62,7 @@
           <div class="tools-main--group">
             <div class="tools-main--group-btn">
               <v-btn variant="flat" class="main-btn w-100">
-                Добавить проект
+                Добавить бот
               </v-btn>
             </div>
           </div>
