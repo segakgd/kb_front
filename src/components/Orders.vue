@@ -314,9 +314,10 @@ export default {
   height: auto;
   display: grid;
   grid-template-columns: 2fr 2fr 7fr 3fr 2fr 2fr;
-  background: #fff;
   padding: 20px;
   margin-bottom: 20px;
+  border-radius: 10px;
+  background: #f1f1f1;
 }
 
 .table-wrapper .table-item {
