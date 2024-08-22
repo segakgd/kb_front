@@ -181,11 +181,10 @@
 
 <script lang="ts">
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
-import NavigateLeft from "@/components/common/NavigateLeft.vue";
 import {OrderStatusEnum, PaymentStatusEnum} from "@/components/common";
 
 export default {
-  components: {NavigateLeft, NavigateHeader},
+  components: {NavigateHeader},
   computed: {
     OrderStatusEnum() {
       return OrderStatusEnum;

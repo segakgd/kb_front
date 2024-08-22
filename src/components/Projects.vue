@@ -101,10 +101,9 @@
 <script lang="ts">
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
 import {ProjectStatusEnum} from "@/components/common";
-import NavigateLeft from "@/components/common/NavigateLeft.vue";
 
 export default {
-  components: {NavigateLeft, NavigateHeader},
+  components: {NavigateHeader},
   computed: {
     ProjectStatusEnum() {
       return ProjectStatusEnum

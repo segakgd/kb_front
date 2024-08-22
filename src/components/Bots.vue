@@ -118,11 +118,10 @@
 
 <script lang="ts">
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
-import NavigateLeft from "@/components/common/NavigateLeft.vue";
 import {BotTypeEnum} from "@/components/common";
 
 export default {
-  components: {NavigateLeft, NavigateHeader},
+  components: {NavigateHeader},
   computed: {
     BotTypeEnum() {
       return BotTypeEnum;
