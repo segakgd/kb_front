@@ -80,7 +80,7 @@
             </div>
 
             <div class="tools-main--group-btn">
-              <v-btn variant="flat" class="main-btn w-100">
+              <v-btn variant="flat" class="main-btn-line w-100">
                 Применить
               </v-btn>
               <!-- todo показываем "Отчистить" когда выбраны фильтры-->

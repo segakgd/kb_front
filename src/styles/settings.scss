@@ -115,7 +115,7 @@ body {
   box-shadow: 0 0 5px 1px rgb(34 60 80 / 20%);
 }
 
-.main-btn {
+.main-btn, .main-btn-line {
   color: #ffffff;
   border-radius: 10px;
   height: 40px !important;
@@ -132,6 +132,12 @@ body {
 
 .apply-btn {
   background: #fae9bf;
+}
+
+.main-btn-line {
+  background: #fff;
+  color: #000;
+  border: solid 2px #af7dff;
 }
 
 .block-item {
