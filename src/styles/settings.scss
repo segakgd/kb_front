@@ -70,6 +70,7 @@ body {
 .header-navs--wrapper {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .header-navs--wrapper .header-navs--link {
@@ -115,14 +116,14 @@ body {
 }
 
 .main-btn {
-  color: #000;
+  color: #ffffff;
   border-radius: 10px;
   height: 40px !important;
   text-transform: none;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 16px;
-  background: #D9FABF;
   letter-spacing: 0.3px;
+  background: linear-gradient(135deg, #7095FF 0%, #C57DFF 100%);
 }
 
 .clear-btn {
@@ -186,4 +187,37 @@ body {
   font-size: 20px;
   line-height: 27px;
   color: #3C415E;
+}
+
+.tools-main {
+  -webkit-box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
+  box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.tools-main .tools-main--group {
+ padding-bottom: 20px;
+}
+
+.tools-main .tools-main--group .tools-main--group-name {
+  padding-bottom: 20px;
+  font-size: 18px;
+}
+
+.tools-main .tools-main--group .tools-main--group-field {
+  padding-bottom: 20px;
+}
+
+.tools-main .tools-main--group .tools-main--group-btn {
+  padding-bottom: 20px;
+}
+
+.tools-main .tools-main--group:last-child {
+  padding-bottom: 0;
+}
+
+.tools-main .tools-main--group:last-child .tools-main--group-btn{
+  padding-bottom: 0;
 }
