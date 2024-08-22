@@ -10,12 +10,20 @@
         </v-col>
 
         <v-col cols="6">
-          <div class="header-navs--wrapper">
-            <v-btn variant="text" class="header-navs--link" href="/projects">Проекты</v-btn>
+          <div style="width: 100%; display:flex; justify-content: center;">
 
-            <v-btn variant="text" class="header-navs--link" href="/">Новости</v-btn>
-
-            <v-btn variant="text" class="header-navs--link" href="/">Чат с поддержкой</v-btn>
+            <v-btn
+              v-for="(item, i) in navItems"
+              :key="i"
+              :value="item"
+              variant="plain"
+              class="header-navs--link"
+              :href="item.link"
+            >
+              <template v-slot:prepend>
+                <img style="width: 30px; height: 30px;" :src="item.image" :alt="item.text"/>
+              </template>
+            </v-btn>
           </div>
         </v-col>
 
@@ -54,6 +62,17 @@
 export default {
   data() {
     return {
+      navItems: [
+        {text: 'Мой проект', image: '/src/assets/images/navigate/folder/bold.svg', link: '/project'},
+        {text: 'Сценарии', image: '/src/assets/images/navigate/scenarios/bold.svg', link: '/scenarios'},
+        {text: 'Боты', image: '/src/assets/images/navigate/bot/bold.svg', link: '/bots'},
+        {text: 'Заявки и заказы', image: '/src/assets/images/navigate/orders/bold.svg', link: '/orders'},
+        {text: 'Товары и услуги', image: '/src/assets/images/navigate/bag/bold.svg', link: '/products'},
+        {text: 'Скидки и промокоды', image: '/src/assets/images/navigate/discount/bold.svg', link: '/promotions'},
+        {text: 'Доставка', image: '/src/assets/images/navigate/delivery/bold.svg', link: '/shippings'},
+        {text: 'Интеграции', image: '/src/assets/images/navigate/integrations/bold.svg', link: '/integrations'},
+        {text: 'Настройки проекта', image: '/src/assets/images/navigate/setting/bold.svg', link: '/settings'},
+      ],
       items: [
         {title: 'Настройки аккаунта'},
         {title: 'Выход'},

@@ -2,29 +2,17 @@
   <NavigateHeader></NavigateHeader>
 
   <v-row style="height: 100%;">
-    <v-col cols="2">
-      <NavigateLeft/>
-    </v-col>
-    <v-col cols="10">
+    <v-col cols="9">
       <v-container fluid>
-        <v-row style="margin-bottom: 50px;">
-          <v-col cols="8">
-          </v-col>
-
-          <v-col cols="4" class="d-flex">
+        <v-row style="height: 65px;">
+          <v-col cols="12">
             <v-pagination
               :length="3"
               density="compact"
-              color="#9b61d8"
-              style="width: 100%;"
+              style="width: 230px; color: #838383;"
             ></v-pagination>
-
-            <v-btn variant="flat" class="main-btn">
-              Добавить
-            </v-btn>
           </v-col>
         </v-row>
-
         <v-row>
           <v-col cols="12">
             <div class="table-wrapper">
@@ -91,7 +79,7 @@
                   <span v-else-if="order?.payment?.status === PaymentStatusEnum.Waiting"
                         class="payment-status payment-status--waiting">Ожидает оплату</span>
                   <span v-else-if="order?.payment?.status === PaymentStatusEnum.Canceled"
-                        class="payment-status payment-status--canceled">Отменена</span>
+                        class="payment-status payment-status--canceled">Отклонена</span>
                   <span v-else-if="order?.payment?.status === PaymentStatusEnum.Failed"
                         class="payment-status payment-status--failed">Ошибка оплаты</span>
                   <span v-else-if="order?.payment?.status === PaymentStatusEnum.Cash"
@@ -107,6 +95,75 @@
 
           </v-col>
         </v-row>
+
+      </v-container>
+    </v-col>
+    <v-col cols="3">
+      <v-container fluid style="margin-top: 65px;">
+        <div class="tools-main">
+          <div class="tools-main--group">
+            <div class="tools-main--group-btn">
+              <v-btn variant="flat" class="main-btn w-100">
+                Добавить проект
+              </v-btn>
+            </div>
+          </div>
+
+          <div class="tools-main--group">
+            <div class="tools-main--group-name">
+              <span>Фильтры:</span>
+            </div>
+
+            <div class="tools-main--group-field">
+              <v-select
+                class="select-status-field"
+                label="Статус"
+                :items="['Новый', 'Отменён', 'В процессе', 'Завершён']"
+                variant="outlined"
+                clearable
+                hide-details
+                density="compact"
+                :hideSelected=true
+                color="#9b61d8"
+              ></v-select>
+            </div>
+
+            <div class="tools-main--group-field">
+              <v-select
+                label="Оплата"
+                :items="['Ожидает оплату', 'Отклонена', 'Оплачено', 'Наличными', 'Ошибка оплаты']"
+                variant="outlined"
+                clearable
+                hide-details
+                density="compact"
+                :hideSelected=true
+                color="#9b61d8"
+              ></v-select>
+            </div>
+
+            <div class="tools-main--group-field">
+              <v-text-field
+                label="Телеграм"
+                variant="outlined"
+                clearable
+                hide-details
+                density="compact"
+                :hideSelected=true
+                color="#9b61d8"
+              />
+            </div>
+
+            <div class="tools-main--group-btn">
+              <v-btn variant="flat" class="main-btn w-100">
+                Применить
+              </v-btn>
+              <!-- todo показываем "Отчистить" когда выбраны фильтры-->
+              <!--              <v-btn variant="flat" class="main-btn clear-btn">-->
+              <!--                Отчистить-->
+              <!--              </v-btn>-->
+            </div>
+          </div>
+        </div>
 
       </v-container>
     </v-col>
