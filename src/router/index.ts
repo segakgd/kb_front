@@ -18,6 +18,8 @@ import Shippings from "@/components/Shippings.vue";
 import Integrations from "@/components/Integrations.vue";
 import Settings from "@/components/Settings.vue";
 import Categories from "@/components/Categories.vue";
+import Registration from "@/components/Registration.vue";
+import Login from "@/components/Login.vue";
 
 const routes = [
   {
@@ -79,6 +81,16 @@ const routes = [
     path: '/settings',
     name: 'Settings',
     component: Settings,
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login,
+  },
+  {
+    path: '/registration',
+    name: 'Registration',
+    component: Registration,
   },
 ];
 const router = createRouter({
