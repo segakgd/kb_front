@@ -3,7 +3,7 @@
     <v-col cols="12">
       <v-layout class="header--wrapper">
         <v-col cols="3">
-          <a href="/" class="logo">
+          <a href="/projects" class="logo">
             <img class="logo--image" src="@/assets/images/logo.svg" alt="logo"/>
             <span>Kraiber</span>
           </a>

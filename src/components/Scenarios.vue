@@ -4,15 +4,14 @@
   <v-row style="height: 100%;">
     <v-col cols="9">
       <v-container fluid>
-        <v-row style="height: 65px;">
-          <v-col cols="12">
-            <v-pagination
-              :length="3"
-              density="compact"
-              style="width: 230px; color: #838383;"
-            ></v-pagination>
+        <v-row>
+          <v-col cols="12" class="info-block">
+            <div>
+              <h3>Сценарии</h3>
+            </div>
           </v-col>
         </v-row>
+
         <v-row>
           <v-col cols="4" v-for="(bot, index) in bots" :key="index">
             <a
@@ -30,7 +29,7 @@
                   <span>{{ bot.name }}</span>
                 </div>
                 <div class="bot-item--field">Шаблон:
-                  <span>{{bot.template}}</span>
+                  <span>{{ bot.template }}</span>
                 </div>
                 <div class="bot-item--field mt-3">Последнее изменение: <span>{{ bot.updatedAt }}</span></div>
                 <div class="bot-item--field">Создан: <span>{{ bot.createdAt }}</span></div>
@@ -38,16 +37,26 @@
             </a>
           </v-col>
         </v-row>
+
+        <v-row style="min-height: 65px;">
+          <v-col cols="12" class="info-block">
+            <v-pagination
+              :length="3"
+              density="compact"
+              style="width: 230px; color: #838383;"
+            ></v-pagination>
+          </v-col>
+        </v-row>
       </v-container>
     </v-col>
 
     <v-col cols="3">
-      <v-container fluid style="margin-top: 65px;">
+      <v-container fluid style="margin-top: 110px;">
         <div class="tools-main">
           <div class="tools-main--group">
             <div class="tools-main--group-btn">
               <v-btn variant="flat" class="main-btn w-100">
-                Добавить проект
+                Добавить сценарий
               </v-btn>
             </div>
           </div>
@@ -71,7 +80,7 @@
             </div>
 
             <div class="tools-main--group-btn">
-              <v-btn variant="flat" class="main-btn w-100">
+              <v-btn variant="flat" class="main-btn-line w-100">
                 Применить
               </v-btn>
               <!-- todo показываем "Отчистить" когда выбраны фильтры-->
@@ -93,8 +102,7 @@ import NavigateLeft from "@/components/common/NavigateLeft.vue";
 
 export default {
   components: {NavigateLeft, NavigateHeader},
-  computed: {
-  },
+  computed: {},
   data() {
     return {
       bots: [

@@ -115,7 +115,7 @@ body {
   box-shadow: 0 0 5px 1px rgb(34 60 80 / 20%);
 }
 
-.main-btn {
+.main-btn, .main-btn-line {
   color: #ffffff;
   border-radius: 10px;
   height: 40px !important;
@@ -132,6 +132,12 @@ body {
 
 .apply-btn {
   background: #fae9bf;
+}
+
+.main-btn-line {
+  background: #fff;
+  color: #000;
+  border: solid 2px #af7dff;
 }
 
 .block-item {
@@ -204,6 +210,8 @@ body {
 .tools-main .tools-main--group .tools-main--group-name {
   padding-bottom: 20px;
   font-size: 18px;
+  color: #3C415E;
+  font-weight: 400;
 }
 
 .tools-main .tools-main--group .tools-main--group-field {
@@ -220,4 +228,18 @@ body {
 
 .tools-main .tools-main--group:last-child .tools-main--group-btn{
   padding-bottom: 0;
+}
+
+.info-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.info-block h3{
+  color: #3C415E;
+  font-weight: 300;
+  margin: 0;
+  padding: 20px 0;
+  font-size: 30px;
 }

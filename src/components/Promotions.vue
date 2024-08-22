@@ -4,23 +4,15 @@
   <v-row style="height: 100%;">
     <v-col cols="9">
       <v-container fluid>
-        <v-row style="height: 65px;">
-          <v-col cols="12">
-            <v-pagination
-              :length="3"
-              density="compact"
-              style="width: 230px; color: #838383;"
-            ></v-pagination>
+        <v-row>
+          <v-col cols="12" class="info-block">
+            <div>
+              <h3>Промокды</h3>
+            </div>
           </v-col>
         </v-row>
 
         <v-row>
-          <v-col cols="12">
-            <h3 style="font-style: normal; font-weight: 500; font-size: 22px; line-height: 22px; color: #61657C;">
-              Промокды
-            </h3>
-          </v-col>
-
           <v-col cols="4" v-for="(promocodeItem, index) in promocode" :key="index">
             <div class="block-item">
               <div style="width: 100%;">
@@ -70,13 +62,15 @@
           </v-col>
         </v-row>
 
-        <v-row class="mt-15">
-          <v-col cols="12">
-            <h3 style="font-style: normal; font-weight: 500; font-size: 22px; line-height: 22px; color: #61657C;">
-              Скидки
-            </h3>
+        <v-row>
+          <v-col cols="12" class="info-block">
+            <div>
+              <h3>Скидки</h3>
+            </div>
           </v-col>
+        </v-row>
 
+        <v-row>
           <v-col cols="4" v-for="(promocodeItem, index) in promocode" :key="index">
             <div class="block-item">
               <div style="width: 100%;">
@@ -122,12 +116,12 @@
     </v-col>
 
     <v-col cols="3">
-      <v-container fluid style="margin-top: 65px;">
+      <v-container fluid style="margin-top: 110px;">
         <div class="tools-main">
           <div class="tools-main--group">
             <div class="tools-main--group-btn">
               <v-btn variant="flat" class="main-btn w-100">
-                Добавить проект
+                Добавить скидку
               </v-btn>
             </div>
           </div>
@@ -165,7 +159,7 @@
             </div>
 
             <div class="tools-main--group-btn">
-              <v-btn variant="flat" class="main-btn w-100">
+              <v-btn variant="flat" class="main-btn-line w-100">
                 Применить
               </v-btn>
               <!-- todo показываем "Отчистить" когда выбраны фильтры-->
