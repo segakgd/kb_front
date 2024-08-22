@@ -61,10 +61,10 @@
                 </p>
 
                 <div>
-                  <p v-if="order.contacts.name">ФИО: {{ order.contacts.name }}</p>
-                  <p v-if="order.contacts.mail">Email: {{ order.contacts.mail }}</p>
-                  <p v-if="order.contacts.phone">Телефон: {{ order.contacts.phone }}</p>
-                  <p v-if="order.contacts.telegram">Телеграм: {{ order.contacts.telegram }}</p>
+                  <span v-if="order.contacts.name"
+                        style="background: #f8f1ff; padding: 3px 8px; border-radius: 10px; cursor: pointer;">{{
+                      order.contacts.name
+                    }}</span>
                 </div>
 
                 <p>
@@ -201,6 +201,7 @@ export default {
           number: 1,
           status: OrderStatusEnum.New,
           contacts: {
+            name: "Александр Алексанров Алексанрович",
             telegram: "@sobakasutulaya",
           },
           payment: {
