@@ -61,10 +61,10 @@
                 </p>
 
                 <div>
-                  <p v-if="order.contacts.name">ФИО: {{ order.contacts.name }}</p>
-                  <p v-if="order.contacts.mail">Email: {{ order.contacts.mail }}</p>
-                  <p v-if="order.contacts.phone">Телефон: {{ order.contacts.phone }}</p>
-                  <p v-if="order.contacts.telegram">Телеграм: {{ order.contacts.telegram }}</p>
+                  <span v-if="order.contacts.name"
+                        style="background: #f8f1ff; padding: 3px 8px; border-radius: 10px; cursor: pointer;">{{
+                      order.contacts.name
+                    }}</span>
                 </div>
 
                 <p>
@@ -181,11 +181,10 @@
 
 <script lang="ts">
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
-import NavigateLeft from "@/components/common/NavigateLeft.vue";
 import {OrderStatusEnum, PaymentStatusEnum} from "@/components/common";
 
 export default {
-  components: {NavigateLeft, NavigateHeader},
+  components: {NavigateHeader},
   computed: {
     OrderStatusEnum() {
       return OrderStatusEnum;
@@ -201,6 +200,7 @@ export default {
           number: 1,
           status: OrderStatusEnum.New,
           contacts: {
+            name: "Александр Алексанров Алексанрович",
             telegram: "@sobakasutulaya",
           },
           payment: {
@@ -298,76 +298,6 @@ export default {
 </script>
 
 <style scoped>
-.table-wrapper {
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: .5em 0 .5em 1em;
-  color: #3C415E;
-}
-
-.table-wrapper .table-header {
-  width: 100%;
-  height: auto;
-  display: grid;
-  grid-template-columns: 2fr 2fr 7fr 3fr 2fr 2fr;
-  background: #fff;
-  padding: 20px;
-  margin-bottom: 20px;
-}
-
-.table-wrapper .table-item {
-  width: 100%;
-  height: auto;
-  display: grid;
-  grid-template-columns: 2fr 2fr 7fr 3fr 2fr 2fr;
-  background: #fff;
-  padding: 20px;
-  align-items: center;
-
-  -webkit-box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
-  -moz-box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
-  box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
-  border-radius: 10px;
-  margin-bottom: 20px;
-}
-
-.table-wrapper .table-item p {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 1rem;
-  margin-top: -2px;
-  padding: 0;
-}
-
-.table-wrapper .table-item p button {
-  padding: 0;
-}
-
-.table-wrapper .table-item:first-child {
-  position: sticky;
-  top: 0;
-  left: 0;
-  margin-bottom: 20px;
-  z-index: 10;
-  background: #fff;
-  border-radius: 6px;
-}
-
-.table-wrapper .table-item:first-child a,
-.table-wrapper .table-item:first-child p,
-.table-wrapper .table-item:first-child h4 {
-  width: 100%;
-  height: 100%;
-  color: #000000 !important;
-  margin: auto 0;
-  text-decoration: none;
-  background: none !important;
-  border: none !important;
-}
-
 .order-status {
   font-style: normal;
   font-weight: 300;

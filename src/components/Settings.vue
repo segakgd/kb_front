@@ -2,9 +2,6 @@
   <NavigateHeader></NavigateHeader>
 
   <v-row style="height: 100%;">
-    <v-col cols="2">
-      <NavigateLeft/>
-    </v-col>
     <v-col cols="10">
       <v-container fluid>
         <v-row style="margin-bottom: 50px;">
@@ -33,10 +30,9 @@
 
 <script lang="ts">
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
-import NavigateLeft from "@/components/common/NavigateLeft.vue";
 
 export default {
-  components: {NavigateLeft, NavigateHeader},
+  components: {NavigateHeader},
   computed: {},
   data() {
     return {};

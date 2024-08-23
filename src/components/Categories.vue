@@ -7,7 +7,7 @@
         <v-row>
           <v-col cols="12" class="info-block">
             <div>
-              <h3>Товары и услуги</h3>
+              <h3>Категории товаров</h3>
             </div>
           </v-col>
         </v-row>
@@ -16,66 +16,26 @@
           <v-col cols="12">
             <div class="table-wrapper">
               <div class="table-header">
-                <p></p>
-
                 <p>
                   Название
                 </p>
 
                 <p>
-                  Категория
-                </p>
-
-                <p>
-                  Варианты
-                </p>
-
-                <p>
-                  Цена
-                </p>
-
-                <p>
-                  Тип
-                </p>
-
-                <p>
-                  Количество
+                  Статус
                 </p>
               </div>
 
               <div
                 class="table-item"
-                v-for="(product) in products"
+                v-for="(category) in categories"
               >
-                <div>
-                  <div style="width: 30px; height: 30px; display: flex; justify-content: center; align-items: center; border-radius: 4px; overflow: hidden;">
-                    <img v-if="product.image" style="width: 30px; height: 30px;" :src=product.image :alt=product.name>
-                    <img v-else src="@/assets/images/other/image.svg" style="width: 30px; height: 30px;" :alt=product.name>
-                  </div>
-                </div>
-
                 <p>
-                  {{ product.name }}
+                  {{ category.name }}
                 </p>
 
                 <p>
-                  {{ product.category }}
-                </p>
-
-                <p>
-                  {{ product.variantCount }}
-                </p>
-
-                <p>
-                  {{ product.amount }}
-                </p>
-
-                <p>
-                  {{ product.type }}
-                </p>
-
-                <p>
-                  {{ product.count }}
+                  <span v-if="category.active" class="category--enabled">Активен</span>
+                  <span v-else class="category--disabled">Не активен</span>
                 </p>
               </div>
             </div>
@@ -114,8 +74,8 @@
             <div class="tools-main--group-field">
               <v-select
                 class="select-status-field"
-                label="Категория"
-                :items="['Моя', 'Новая', 'Категория']"
+                label="Активность"
+                :items="['Активен', 'Не активен']"
                 variant="outlined"
                 clearable
                 hide-details
@@ -150,43 +110,26 @@ export default {
   computed: {},
   data() {
     return {
-
-      products: [
+      categories: [
         {
           name: "Новый товар",
-          category: "Рыба",
-          variantCount: 2,
-          amount: 210,
-          type: "product",
-          count: 12,
-          image: null,
+          active: true,
         },
         {
-          name: "Новый товар 2",
-          category: "Рыба",
-          variantCount: 2,
-          amount: 210,
-          type: "product",
-          count: 12,
-          image: null,
+          name: "Новый товар",
+          active: false,
         },
         {
-          name: "Новый товар 2",
-          category: "Рыба",
-          variantCount: 2,
-          amount: 210,
-          type: "product",
-          count: 12,
-          image: null,
+          name: "Новый товар",
+          active: true,
         },
         {
-          name: "Новый товар 2",
-          category: "Рыба",
-          variantCount: 2,
-          amount: 210,
-          type: "product",
-          count: 12,
-          image: null,
+          name: "Новый товар",
+          active: false,
+        },
+        {
+          name: "Новый товар",
+          active: false,
         },
       ],
     };
@@ -198,6 +141,25 @@ export default {
 
 <style scoped>
 .table-item, .table-header {
-  grid-template-columns: 0.6fr 2fr 2fr 1.5fr 1.5fr 1fr 1fr !important;
+  grid-template-columns: 2fr 2fr !important;
+}
+
+.category--enabled, .category--disabled{
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 24px;
+  padding: 4px 10px;
+  border-radius: 10px;
+}
+
+.category--enabled {
+  background: #D9FABF;
+  color: #067306;
+}
+
+.category--disabled {
+  background: #FFD4F5;
+  color: #9E0038;
 }
 </style>
