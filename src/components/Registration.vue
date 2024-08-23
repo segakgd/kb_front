@@ -93,9 +93,9 @@ export default {
           localStorage.setItem('authToken', token);
         })
         .catch(error => {
-          this.errorMessages = error.message;
+          this.errorMessages = error.response.data.detail ?? error.message;
 
-          console.log(this.errorMessages);
+          console.log(error.response.data.detail);
         });
     },
   },
