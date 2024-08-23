@@ -42,12 +42,12 @@
               </v-btn>
             </template>
             <v-list>
-              <v-list-item
-                v-for="(item, index) in items"
-                :key="index"
-                :value="index"
-              >
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              <v-list-item>
+                <v-list-item-title>Настройки аккаунта</v-list-item-title>
+              </v-list-item>
+
+              <v-list-item>
+                <v-list-item-title @click="logout">Выход</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -74,11 +74,14 @@ export default {
         {text: 'Интеграции', image: '/src/assets/images/navigate/integrations/bold.svg', link: '/integrations'},
         {text: 'Настройки проекта', image: '/src/assets/images/navigate/setting/bold.svg', link: '/settings'},
       ],
-      items: [
-        {title: 'Настройки аккаунта'},
-        {title: 'Выход'},
-      ],
     };
   },
+  methods: {
+    logout () {
+      localStorage.removeItem('authToken');
+
+      this.$router.push({ name: 'Login' });
+    }
+  }
 };
 </script>

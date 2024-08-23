@@ -101,6 +101,7 @@
 <script lang="ts">
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
 import {ProjectStatusEnum} from "@/components/common";
+import axios from "axios";
 
 export default {
   components: {NavigateHeader},
@@ -179,6 +180,17 @@ export default {
     };
   },
   mounted() {
+    this.all();
+  },
+  methods: {
+    all() {
+      axios
+        .get('http://0.0.0.0/api/admin/project/')
+        .then(response => {
+        })
+        .catch(error => {
+        });
+    },
   },
 };
 </script>
