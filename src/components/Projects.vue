@@ -1,6 +1,16 @@
 <template>
   <NavigateHeader></NavigateHeader>
 
+    <v-alert
+      v-if="error"
+      position="fixed"
+      style="bottom: 0; right: 0; z-index: 1010; width: 300px;"
+      density="comfortable"
+      text="Упс, что-то пошло не так!"
+      title="Упс"
+      type="error"
+    ></v-alert>
+
   <v-row style="height: 100%;">
     <v-col cols="9">
       <v-container fluid>
@@ -114,6 +124,7 @@ export default {
   data() {
     return {
       projects: [] as Project[],
+      error: false,
     };
   },
   mounted() {
@@ -127,6 +138,13 @@ export default {
           this.projects = response.data as Project[]
         })
         .catch(error => {
+          this.error = true;
+
+          console.log(error);
+
+          setTimeout(() => {
+            this.error = false;
+          }, 3000);
         });
     },
   },
