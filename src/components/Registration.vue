@@ -21,7 +21,6 @@
                 label="Эл. почта"
                 variant="outlined"
                 clearable
-                hide-details
                 density="compact"
                 :hideSelected=true
                 color="#9b61d8"

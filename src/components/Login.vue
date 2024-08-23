@@ -21,7 +21,6 @@
                 label="Эл. почта"
                 variant="outlined"
                 clearable
-                hide-details
                 density="compact"
                 :hideSelected=true
                 color="#9b61d8"
@@ -35,10 +34,10 @@
                 label="Пароль"
                 variant="outlined"
                 clearable
-                hide-details
                 density="compact"
                 :hideSelected=true
                 color="#9b61d8"
+                :rules="[rules.isValidLength]"
               />
             </div>
           </div>
@@ -76,10 +75,14 @@ export default {
   computed: {},
   data() {
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i
+    const lengthRegex = /^.{6,}$/i
 
     const rules = {
       isEmail: (value: string) => {
         return !value || emailRegex.test(value) || 'Поле должно быть формата email'
+      },
+      isValidLength: (value: string) => {
+        return !value || lengthRegex.test(value) || 'Минимальное количество символов 6'
       },
     }
 
