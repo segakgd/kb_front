@@ -68,7 +68,7 @@
         <div class="tools-main">
           <div class="tools-main--group">
             <div class="tools-main--group-btn">
-              <v-btn variant="flat" class="main-btn w-100">
+              <v-btn variant="flat" class="main-btn w-100" @click="triggerDialog()">
                 Добавить проект
               </v-btn>
             </div>
@@ -107,6 +107,22 @@
       </v-container>
     </v-col>
 
+    <v-dialog v-model="dialog.visible" class="main-dialog--wrapper">
+      <div class="main-dialog--wrapper">
+        <v-text-field
+          v-model="dialog.fields.name"
+          label="Название проекта"
+          variant="outlined"
+          clearable
+          hide-details
+          density="compact"
+          :hideSelected=true
+          color="#9b61d8"
+        />
+      </div>
+
+    </v-dialog>
+
   </v-row>
 </template>
 
@@ -128,7 +144,12 @@ export default {
     return {
       projects: [] as Project[],
       error: false,
-      dialog: false,
+      dialog: {
+        fields: {
+          name: ''
+        },
+        visible: true,
+      },
       loader: false,
     };
   },
@@ -136,6 +157,10 @@ export default {
     this.all();
   },
   methods: {
+    triggerDialog() {
+      this.dialog.visible = !this.dialog.visible
+    },
+
     all() {
       this.loader = true;
 
