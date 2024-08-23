@@ -131,7 +131,7 @@ export default {
         return !(this.email && this.password);
     }
   },
-};ы
+};
 </script>
 
 <style scoped>
