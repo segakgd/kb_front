@@ -23,9 +23,11 @@
         </v-row>
 
         <v-row>
-          <v-col cols="4" v-for="(project, index) in projects" :key="index">
+          <ItemsLoader v-if="loader"/>
+
+          <v-col v-else cols="4" v-for="(project, index) in projects" :key="index">
             <a
-              href="/project/"
+              :href="`/project/${project.id}/`"
               class="project-item"
             >
               <div style="width: 100%;">
@@ -113,9 +115,10 @@ import NavigateHeader from "@/components/common/NavigateHeader.vue";
 import {ProjectStatusEnum} from "@/components/common";
 import axios from "axios";
 import {Project} from "@/components/type";
+import ItemsLoader from "@/components/common/ItemsLoader.vue";
 
 export default {
-  components: {NavigateHeader},
+  components: {ItemsLoader, NavigateHeader},
   computed: {
     ProjectStatusEnum() {
       return ProjectStatusEnum
@@ -125,6 +128,8 @@ export default {
     return {
       projects: [] as Project[],
       error: false,
+      dialog: false,
+      loader: false,
     };
   },
   mounted() {
@@ -132,10 +137,14 @@ export default {
   },
   methods: {
     all() {
+      this.loader = true;
+
       axios
         .get('http://0.0.0.0/api/admin/project/')
         .then(response => {
           this.projects = response.data as Project[]
+
+          this.loader = false;
         })
         .catch(error => {
           this.error = true;
