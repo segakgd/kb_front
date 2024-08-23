@@ -16,10 +16,10 @@ import { createApp } from 'vue'
 import axios from "axios";
 
 axios.interceptors.request.use(config => {
-  const token = store.getters.authToken;
+  const tokenFromLocalStorage = localStorage.getItem('authToken');
 
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+  if (tokenFromLocalStorage) {
+    config.headers.Authorization = `Bearer ${tokenFromLocalStorage}`;
   }
 
   return config;

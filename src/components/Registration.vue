@@ -17,7 +17,7 @@
           <div style="margin-top: 20px;">
             <div style="margin-bottom: 20px">
               <v-text-field
-                v-model = "email"
+                v-model="email"
                 label="Эл. почта"
                 variant="outlined"
                 clearable
@@ -30,7 +30,7 @@
 
             <div style="margin-bottom: 20px">
               <v-text-field
-                v-model = "password"
+                v-model="password"
                 label="Пароль"
                 variant="outlined"
                 clearable
@@ -60,7 +60,6 @@
 <script lang="ts">
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
 import axios from "axios";
-import {mapActions} from "vuex";
 
 export default {
   components: {NavigateHeader},
@@ -74,7 +73,6 @@ export default {
   mounted() {
   },
   methods: {
-    ...mapActions(['login']),
     registration() {
       axios
         .post('http://0.0.0.0/api/user/registration/',
@@ -87,7 +85,7 @@ export default {
 
           const token = response.data.accessToken;
 
-          this.login(token);
+          localStorage.setItem('authToken', token);
         })
         .catch(error => {
           console.log(error.message);
