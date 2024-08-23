@@ -67,6 +67,23 @@ export default {
   },
   mounted() {
   },
+  methods: {
+    registration() {
+      axios
+        .post('http://0.0.0.0/api/user/registration/',
+          {
+            "email": "a2aaasaaaaaa@mail.ru",
+            "password": "mypassa"
+          }
+        )
+        .then(response => {
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.error('There was an error!', error);
+        });
+    },
+  },
 };
 </script>
 
