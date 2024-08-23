@@ -17,6 +17,7 @@
           <div style="margin-top: 20px;">
             <div style="margin-bottom: 20px">
               <v-text-field
+                v-model="email"
                 label="Эл. почта"
                 variant="outlined"
                 clearable
@@ -29,6 +30,7 @@
 
             <div style="margin-bottom: 20px">
               <v-text-field
+                v-model="password"
                 label="Пароль"
                 variant="outlined"
                 clearable
@@ -45,7 +47,7 @@
           </div>
 
           <div>
-            <v-btn variant="flat" class="main-btn w-100">
+            <v-btn variant="flat" class="main-btn w-100" @click="login()">
               Войти
             </v-btn>
           </div>
@@ -57,16 +59,40 @@
 
 <script lang="ts">
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
+import axios from "axios";
 
 export default {
   components: {NavigateHeader},
   computed: {},
   data() {
     return {
+      email: '',
+      password: '',
     };
   },
   mounted() {
   },
+  methods: {
+    login() {
+      axios
+        .post('http://0.0.0.0/api/user/authenticate/',
+          {
+            email: this.email,
+            password: this.password,
+          }
+        )
+        .then(response => {
+
+          const token = response.data.accessToken;
+
+          localStorage.setItem('authToken', token);
+        })
+        .catch(error => {
+          console.log(error.message);
+          console.error('There was an error!', error);
+        });
+    },
+  }
 };
 </script>
 
