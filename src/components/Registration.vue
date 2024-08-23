@@ -34,10 +34,14 @@
                 label="Пароль"
                 variant="outlined"
                 clearable
-                hide-details
                 density="compact"
                 :hideSelected=true
                 color="#9b61d8"
+                :rules="[
+                  rules.isValidLength,
+                  rules.mainRegex,
+                  rules.mainNumberRegex,
+                ]"
               />
             </div>
           </div>
@@ -75,10 +79,22 @@ export default {
   computed: {},
   data() {
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i
+    const lengthRegex = /^.{6,}$/i
+    const mainRegex = /[A-ZА-ЯЁ]/
+    const mainNumberRegex = /\d/i
 
     const rules = {
       isEmail: (value: string) => {
         return !value || emailRegex.test(value) || 'Поле должно быть формата email'
+      },
+      isValidLength: (value: string) => {
+        return !value || lengthRegex.test(value) || 'Минимальное количество символов 6'
+      },
+      mainRegex: (value: string) => {
+        return !value || mainRegex.test(value) || 'Добавьте хотя бы одну заглавную букву'
+      },
+      mainNumberRegex: (value: string) => {
+        return !value || mainNumberRegex.test(value) || 'Добавьте хотя бы одну цифру'
       },
     }
 
@@ -115,13 +131,13 @@ export default {
         return !(this.email && this.password);
     }
   },
-};
+};ы
 </script>
 
 <style scoped>
 .login--wrapper {
   padding: 20px;
-  min-width: 320px;
+  min-width: 330px;
   min-height: 320px;
   -webkit-box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
