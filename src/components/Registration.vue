@@ -64,6 +64,11 @@
               Войти
             </v-btn>
           </div>
+
+          <div style="text-align: center;">
+            <button @click="toLogin()" style="font-size: 12px; color: #8d08b8;">Уже есть аккаунт</button>
+          </div>
+
         </div>
       </div>
     </v-col>
@@ -129,7 +134,10 @@ export default {
     isDisabledButton(): boolean
     {
         return !(this.email && this.password);
-    }
+    },
+    toLogin(){
+      this.$router.push({ name: 'Login' });
+    },
   },
 };
 </script>
