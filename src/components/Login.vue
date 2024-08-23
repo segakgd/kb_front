@@ -74,6 +74,8 @@
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
 import axios from "axios";
 
+// todo ещё стоит прикрутить лодер
+
 export default {
   components: {NavigateHeader},
   computed: {},

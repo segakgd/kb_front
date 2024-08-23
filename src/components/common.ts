@@ -40,4 +40,3 @@ export enum PaymentStatusEnum {
   Failed = 'failed',
   Cash = 'cash',
 }
-

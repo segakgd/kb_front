@@ -102,6 +102,7 @@
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
 import {ProjectStatusEnum} from "@/components/common";
 import axios from "axios";
+import {Project} from "@/components/type";
 
 export default {
   components: {NavigateHeader},
@@ -112,71 +113,7 @@ export default {
   },
   data() {
     return {
-      projects: [
-        {
-          id: 1,
-          name: 'Мой новый проект 1',
-          status: ProjectStatusEnum.Active,
-          orderCount: '0',
-          botCount: '0',
-          activeTo: '2024-10-23',
-          trialTo: '2024-10-23',
-        },
-        {
-          id: 2,
-          name: 'Мой новый проект 2',
-          status: ProjectStatusEnum.Block,
-          orderCount: '9',
-          botCount: '1',
-          activeTo: '2024-10-23',
-          trialTo: '2024-10-23',
-        },
-        {
-          id: 3,
-          name: 'Мой новый проект 3',
-          status: ProjectStatusEnum.Enabled,
-          orderCount: '122',
-          botCount: '2',
-          activeTo: '2024-10-23',
-          trialTo: '2024-10-23',
-        },
-        {
-          id: 4,
-          name: 'Мой новый проект 4',
-          status: ProjectStatusEnum.Trial,
-          orderCount: '22',
-          botCount: '1',
-          activeTo: '2024-10-23',
-          trialTo: '2024-10-23',
-        },
-        {
-          id: 5,
-          name: 'Мой новый проект 5',
-          status: ProjectStatusEnum.Trial,
-          orderCount: '12',
-          botCount: '3',
-          activeTo: '2024-10-23',
-          trialTo: '2024-10-23',
-        },
-        {
-          id: 6,
-          name: 'Мой новый проект 6',
-          status: ProjectStatusEnum.Active,
-          orderCount: '329',
-          botCount: '2',
-          activeTo: '2024-10-23',
-          trialTo: '2024-10-23',
-        },
-        {
-          id: 7,
-          name: 'Мой новый проект 7',
-          status: ProjectStatusEnum.Active,
-          orderCount: '98',
-          botCount: '1',
-          activeTo: '2024-10-23',
-          trialTo: '2024-10-23',
-        },
-      ],
+      projects: [] as Project[],
     };
   },
   mounted() {
@@ -187,6 +124,7 @@ export default {
       axios
         .get('http://0.0.0.0/api/admin/project/')
         .then(response => {
+          this.projects = response.data as Project[]
         })
         .catch(error => {
         });
