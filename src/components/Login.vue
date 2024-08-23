@@ -104,7 +104,7 @@ export default {
       axios
         .post('http://0.0.0.0/api/user/authenticate/',
           {
-            email: this.email,
+            username: this.email,
             password: this.password,
           }
         )
@@ -113,6 +113,8 @@ export default {
           const token = response.data.accessToken;
 
           localStorage.setItem('authToken', token);
+
+          this.$router.push({ name: 'Projects' });
         })
         .catch(error => {
           this.errorMessages = error.response.data.detail ?? error.message;
