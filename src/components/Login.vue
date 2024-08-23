@@ -25,6 +25,7 @@
                 density="compact"
                 :hideSelected=true
                 color="#9b61d8"
+                :rules="[rules.isEmail]"
               />
             </div>
 
@@ -42,12 +43,21 @@
             </div>
           </div>
 
+          <div v-if="errorMessages" style="margin-bottom: 15px; color: #9E0038; font-size: 13px;">
+            {{ errorMessages }}
+          </div>
+
           <div style="margin-bottom: 20px">
             <a href="#" style="text-decoration: none; color: #7900b6; ">Забыли пароль?</a>
           </div>
 
           <div>
-            <v-btn variant="flat" class="main-btn w-100" @click="login()">
+            <v-btn
+              variant="flat"
+              class="main-btn w-100"
+              @click=login()
+              :disabled=isDisabledButton()
+            >
               Войти
             </v-btn>
           </div>
@@ -65,9 +75,19 @@ export default {
   components: {NavigateHeader},
   computed: {},
   data() {
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i
+
+    const rules = {
+      isEmail: (value: string) => {
+        return !value || emailRegex.test(value) || 'Поле должно быть формата email'
+      },
+    }
+
     return {
       email: '',
       password: '',
+      errorMessages: null,
+      rules,
     };
   },
   mounted() {
@@ -88,11 +108,14 @@ export default {
           localStorage.setItem('authToken', token);
         })
         .catch(error => {
-          console.log(error.message);
-          console.error('There was an error!', error);
+          this.errorMessages = error.response.data.detail ?? error.message;
         });
     },
-  }
+    isDisabledButton(): boolean
+    {
+      return !(this.email && this.password);
+    }
+  },
 };
 </script>
 
@@ -106,5 +129,4 @@ export default {
   box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
   border-radius: 10px;
 }
-
 </style>
