@@ -17,7 +17,7 @@
           <div style="margin-top: 20px;">
             <div style="margin-bottom: 20px">
               <v-text-field
-                label="Эл. почта или номер телефона"
+                label="Эл. почта"
                 variant="outlined"
                 clearable
                 hide-details
