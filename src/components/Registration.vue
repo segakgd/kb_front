@@ -17,6 +17,7 @@
           <div style="margin-top: 20px;">
             <div style="margin-bottom: 20px">
               <v-text-field
+                v-model = "email"
                 label="Эл. почта"
                 variant="outlined"
                 clearable
@@ -29,6 +30,7 @@
 
             <div style="margin-bottom: 20px">
               <v-text-field
+                v-model = "password"
                 label="Пароль"
                 variant="outlined"
                 clearable
@@ -77,8 +79,8 @@ export default {
       axios
         .post('http://0.0.0.0/api/user/registration/',
           {
-            "email": "a2aaaa6@mail.ru",
-            "password": "mypassa"
+            email: this.email,
+            password: this.password,
           }
         )
         .then(response => {
