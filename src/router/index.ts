@@ -31,56 +31,89 @@ const routes = [
     path: '/projects',
     name: 'Projects',
     component: Projects,
+    meta: {
+      requiresAuth: true
+    },
   },
   {
     path: '/project',
     name: 'Project',
     component: Project,
+    meta: {
+      requiresAuth: true
+    },
   },
   {
     path: '/bots',
     name: 'Bots',
     component: Bots,
+    meta: {
+      requiresAuth: true
+    },
   },
   {
     path: '/scenarios',
     name: 'Scenarios',
     component: Scenarios,
+    meta: {
+      requiresAuth: true
+    },
   },
   {
     path: '/orders',
     name: 'Orders',
     component: Orders,
+    meta: {
+      requiresAuth: true
+    },
   },
   {
     path: '/products',
     name: 'Products',
     component: Products,
+    meta: {
+      requiresAuth: true
+    },
   },
   {
     path: '/categories',
     name: 'Categories',
     component: Categories,
+    meta: {
+      requiresAuth: true
+    },
   },
   {
     path: '/promotions',
     name: 'Promotions',
     component: Promotions,
+    meta: {
+      requiresAuth: true
+    },
   },
   {
     path: '/shippings',
     name: 'Shippings',
     component: Shippings,
+    meta: {
+      requiresAuth: true
+    },
   },
   {
     path: '/integrations',
     name: 'Integrations',
     component: Integrations,
+    meta: {
+      requiresAuth: true
+    },
   },
   {
     path: '/settings',
     name: 'Settings',
     component: Settings,
+    meta: {
+      requiresAuth: true
+    },
   },
   {
     path: '/login',
@@ -93,6 +126,7 @@ const routes = [
     component: Registration,
   },
 ];
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
@@ -117,4 +151,17 @@ router.isReady().then(() => {
   localStorage.removeItem('vuetify:dynamic-reload')
 })
 
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem('authToken');
+
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!token) {
+      next({ name: 'Login' });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
 export default router
