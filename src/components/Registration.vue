@@ -80,6 +80,7 @@ export default {
           console.log(response.data);
         })
         .catch(error => {
+          console.log(error.message);
           console.error('There was an error!', error);
         });
     },
@@ -97,5 +98,4 @@ export default {
   box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
   border-radius: 10px;
 }
-
 </style>
