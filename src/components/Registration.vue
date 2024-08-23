@@ -25,6 +25,7 @@
                 density="compact"
                 :hideSelected=true
                 color="#9b61d8"
+                :rules="[rules.isEmail]"
               />
             </div>
 
@@ -51,7 +52,12 @@
           </div>
 
           <div>
-            <v-btn variant="flat" class="main-btn w-100" @click=registration()>
+            <v-btn
+              variant="flat"
+              class="main-btn w-100"
+              @click=registration()
+              :disabled=isDisabledButton()
+            >
               Войти
             </v-btn>
           </div>
@@ -69,10 +75,19 @@ export default {
   components: {NavigateHeader},
   computed: {},
   data() {
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i
+
+    const rules = {
+      isEmail: (value: string) => {
+        return !value || emailRegex.test(value) || 'Поле должно быть формата email'
+      },
+    }
+
     return {
       email: '',
       password: '',
       errorMessages: null,
+      rules,
     };
   },
   mounted() {
@@ -96,6 +111,10 @@ export default {
           this.errorMessages = error.response.data.detail ?? error.message;
         });
     },
+    isDisabledButton(): boolean
+    {
+        return !(this.email && this.password);
+    }
   },
 };
 </script>
