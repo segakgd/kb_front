@@ -58,26 +58,34 @@
 <script lang="ts">
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
 import axios from "axios";
+import {mapActions} from "vuex";
 
 export default {
   components: {NavigateHeader},
   computed: {},
   data() {
-    return {};
+    return {
+      email: '',
+      password: '',
+    };
   },
   mounted() {
   },
   methods: {
+    ...mapActions(['login']),
     registration() {
       axios
         .post('http://0.0.0.0/api/user/registration/',
           {
-            "email": "a2aaaaaaaaa@mail.ru",
+            "email": "a2aaaa6@mail.ru",
             "password": "mypassa"
           }
         )
         .then(response => {
-          console.log(response.data);
+
+          const token = response.data.accessToken;
+
+          this.login(token);
         })
         .catch(error => {
           console.log(error.message);
