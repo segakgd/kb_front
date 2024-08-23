@@ -45,7 +45,7 @@
           </div>
 
           <div>
-            <v-btn variant="flat" class="main-btn w-100">
+            <v-btn variant="flat" class="main-btn w-100" @click=registration()>
               Войти
             </v-btn>
           </div>
@@ -57,15 +57,32 @@
 
 <script lang="ts">
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
+import axios from "axios";
 
 export default {
   components: {NavigateHeader},
   computed: {},
   data() {
-    return {
-    };
+    return {};
   },
   mounted() {
+  },
+  methods: {
+    registration() {
+      axios
+        .post('http://0.0.0.0/api/user/registration/',
+          {
+            "email": "a2aaaaaaaaa@mail.ru",
+            "password": "mypassa"
+          }
+        )
+        .then(response => {
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.error('There was an error!', error);
+        });
+    },
   },
 };
 </script>
