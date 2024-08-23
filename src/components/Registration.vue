@@ -42,6 +42,10 @@
             </div>
           </div>
 
+          <div v-if="errorMessages" style="margin-bottom: 15px; color: #9E0038; font-size: 13px;">
+            {{ errorMessages }}
+          </div>
+
           <div style="margin-bottom: 20px">
             <a href="#" style="text-decoration: none; color: #7900b6; ">Забыли пароль?</a>
           </div>
@@ -68,6 +72,7 @@ export default {
     return {
       email: '',
       password: '',
+      errorMessages: null,
     };
   },
   mounted() {
@@ -88,8 +93,9 @@ export default {
           localStorage.setItem('authToken', token);
         })
         .catch(error => {
-          console.log(error.message);
-          console.error('There was an error!', error);
+          this.errorMessages = error.message;
+
+          console.log(this.errorMessages);
         });
     },
   },
