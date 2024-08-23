@@ -1,15 +1,15 @@
 <template>
   <NavigateHeader></NavigateHeader>
 
-    <v-alert
-      v-if="error"
-      position="fixed"
-      style="bottom: 0; right: 0; z-index: 1010; width: 300px;"
-      density="comfortable"
-      text="Упс, что-то пошло не так!"
-      title="Упс"
-      type="error"
-    ></v-alert>
+  <v-alert
+    v-if="error"
+    position="fixed"
+    style="bottom: 0; right: 0; z-index: 1010; width: 300px;"
+    density="comfortable"
+    text="Упс, что-то пошло не так!"
+    title="Упс"
+    type="error"
+  ></v-alert>
 
   <v-row style="height: 100%;">
     <v-col cols="9">
