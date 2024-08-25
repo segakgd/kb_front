@@ -141,7 +141,7 @@
 
 <script lang="ts">
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
-import {ProjectStatusEnum} from "@/components/common";
+import {filterEmptyQuery, ProjectStatusEnum} from "@/components/common";
 import axios from "axios";
 import {Paginate, Project} from "@/components/type";
 import ItemsLoader from "@/components/common/ItemsLoader.vue";
@@ -209,6 +209,8 @@ export default {
           page: this.paginate.currentPage,
         }
       }
+
+      requestData.params = filterEmptyQuery(requestData.params);
 
       axios
         .get('http://0.0.0.0/api/admin/project/', requestData)

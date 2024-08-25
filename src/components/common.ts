@@ -40,3 +40,9 @@ export enum PaymentStatusEnum {
   Failed = 'failed',
   Cash = 'cash',
 }
+
+export function filterEmptyQuery(value: Object) {
+  return Object.fromEntries(
+    Object.entries(value).filter(([_, value]) => value !== null && value !== undefined && value !== '' )
+  )
+}
