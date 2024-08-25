@@ -101,7 +101,11 @@
               <v-btn variant="flat" class="main-btn-line w-100" @click="all()">
                 Применить
               </v-btn>
-              <v-btn variant="flat" class="main-btn w-100 mt-3 clear-btn">
+              <v-btn
+                v-if="isNotEmptyFilters()"
+                variant="flat"
+                class="main-btn w-100 mt-3 clear-btn"
+                @click="clearFilters()">
                 Сбросить фильтры
               </v-btn>
             </div>
@@ -197,6 +201,13 @@ export default {
     this.all();
   },
   methods: {
+    clearFilters() {
+      this.filter.fields.status = '';
+      this.all();
+    },
+    isNotEmptyFilters() {
+      return this.filter.fields.status.length !== 0;
+    },
     create() {
       const requestData = {
         name: this.dialog.fields.name
