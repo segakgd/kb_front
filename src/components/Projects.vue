@@ -107,18 +107,28 @@
       </v-container>
     </v-col>
 
-    <v-dialog v-model="dialog.visible" class="main-dialog--wrapper">
-      <div class="main-dialog--wrapper">
-        <v-text-field
-          v-model="dialog.fields.name"
-          label="Название проекта"
-          variant="outlined"
-          clearable
-          hide-details
-          density="compact"
-          :hideSelected=true
-          color="#9b61d8"
-        />
+    <v-dialog v-model="dialog.visible">
+      <div class="main-dialog--wrapper" style="margin: auto; min-width: 400px; min-height: 100px;">
+        <div class="mb-6">
+          <h3 style="font-size: 24px; font-weight: 300;">Создание проекта</h3>
+        </div>
+
+        <div class="mb-5">
+          <v-text-field
+            v-model="dialog.fields.name"
+            label="Название проекта"
+            variant="outlined"
+            clearable
+            hide-details
+            density="compact"
+            :hideSelected=true
+            color="#9b61d8"
+          />
+        </div>
+
+        <v-btn variant="flat" class="main-btn-line w-100" @click="create()">
+          Создать
+        </v-btn>
       </div>
 
     </v-dialog>
@@ -157,10 +167,30 @@ export default {
     this.all();
   },
   methods: {
+    create() {
+      const requestData = {
+        name: this.dialog.fields.name
+      }
+
+      axios
+        .post('http://0.0.0.0/api/admin/project/', requestData)
+        .then(() => {
+          this.triggerDialog()
+          this.all();
+        })
+        .catch(error => {
+          this.error = true;
+
+          console.log(error);
+
+          setTimeout(() => {
+            this.error = false;
+          }, 3000);
+        });
+    },
     triggerDialog() {
       this.dialog.visible = !this.dialog.visible
     },
-
     all() {
       this.loader = true;
 
