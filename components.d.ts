@@ -12,6 +12,7 @@ declare module 'vue' {
     Footer: typeof import('./src/components/common/Footer.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     Integrations: typeof import('./src/components/Integrations.vue')['default']
+    ItemsLoader: typeof import('./src/components/common/ItemsLoader.vue')['default']
     Login: typeof import('./src/components/Login.vue')['default']
     NavigateHeader: typeof import('./src/components/common/NavigateHeader.vue')['default']
     Orders: typeof import('./src/components/Orders.vue')['default']

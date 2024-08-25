@@ -1,7 +1,17 @@
 <template>
   <NavigateHeader></NavigateHeader>
 
-  <v-row style="height: 100%;">
+  <v-alert
+    v-if="error"
+    position="fixed"
+    style="bottom: 0; right: 0; z-index: 1010; width: 300px;"
+    density="comfortable"
+    text="Упс, что-то пошло не так!"
+    title="Упс"
+    type="error"
+  ></v-alert>
+
+  <v-row class="h-100">
     <v-col cols="9">
       <v-container fluid>
         <v-row>
@@ -12,10 +22,14 @@
           </v-col>
         </v-row>
 
-        <v-row>
+        <v-row v-if="loader">
+          <ItemsLoader/>
+        </v-row>
+
+        <v-row v-else-if="!loader">
           <v-col cols="4" v-for="(project, index) in projects" :key="index">
             <a
-              href="/project/"
+              :href="`/project/${project.id}/`"
               class="project-item"
             >
               <div style="width: 100%;">
@@ -39,7 +53,7 @@
           </v-col>
         </v-row>
 
-        <v-row style="min-height: 65px;">
+        <v-row v-if="!loader" style="min-height: 65px;">
           <v-col cols="12" class="info-block">
             <v-pagination
               :length="3"
@@ -56,7 +70,7 @@
         <div class="tools-main">
           <div class="tools-main--group">
             <div class="tools-main--group-btn">
-              <v-btn variant="flat" class="main-btn w-100">
+              <v-btn variant="flat" class="main-btn w-100" @click="triggerDialog()">
                 Добавить проект
               </v-btn>
             </div>
@@ -95,6 +109,32 @@
       </v-container>
     </v-col>
 
+    <v-dialog v-model="dialog.visible">
+      <div class="main-dialog--wrapper" style="margin: auto; min-width: 400px; min-height: 100px;">
+        <div class="mb-6">
+          <h3 style="font-size: 24px; font-weight: 300;">Создание проекта</h3>
+        </div>
+
+        <div class="mb-5">
+          <v-text-field
+            v-model="dialog.fields.name"
+            label="Название проекта"
+            variant="outlined"
+            clearable
+            hide-details
+            density="compact"
+            :hideSelected=true
+            color="#9b61d8"
+          />
+        </div>
+
+        <v-btn variant="flat" class="main-btn-line w-100" @click="create()">
+          Создать
+        </v-btn>
+      </div>
+
+    </v-dialog>
+
   </v-row>
 </template>
 
@@ -102,9 +142,11 @@
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
 import {ProjectStatusEnum} from "@/components/common";
 import axios from "axios";
+import {Project} from "@/components/type";
+import ItemsLoader from "@/components/common/ItemsLoader.vue";
 
 export default {
-  components: {NavigateHeader},
+  components: {ItemsLoader, NavigateHeader},
   computed: {
     ProjectStatusEnum() {
       return ProjectStatusEnum
@@ -112,83 +154,63 @@ export default {
   },
   data() {
     return {
-      projects: [
-        {
-          id: 1,
-          name: 'Мой новый проект 1',
-          status: ProjectStatusEnum.Active,
-          orderCount: '0',
-          botCount: '0',
-          activeTo: '2024-10-23',
-          trialTo: '2024-10-23',
+      projects: [] as Project[],
+      error: false,
+      dialog: {
+        fields: {
+          name: ''
         },
-        {
-          id: 2,
-          name: 'Мой новый проект 2',
-          status: ProjectStatusEnum.Block,
-          orderCount: '9',
-          botCount: '1',
-          activeTo: '2024-10-23',
-          trialTo: '2024-10-23',
-        },
-        {
-          id: 3,
-          name: 'Мой новый проект 3',
-          status: ProjectStatusEnum.Enabled,
-          orderCount: '122',
-          botCount: '2',
-          activeTo: '2024-10-23',
-          trialTo: '2024-10-23',
-        },
-        {
-          id: 4,
-          name: 'Мой новый проект 4',
-          status: ProjectStatusEnum.Trial,
-          orderCount: '22',
-          botCount: '1',
-          activeTo: '2024-10-23',
-          trialTo: '2024-10-23',
-        },
-        {
-          id: 5,
-          name: 'Мой новый проект 5',
-          status: ProjectStatusEnum.Trial,
-          orderCount: '12',
-          botCount: '3',
-          activeTo: '2024-10-23',
-          trialTo: '2024-10-23',
-        },
-        {
-          id: 6,
-          name: 'Мой новый проект 6',
-          status: ProjectStatusEnum.Active,
-          orderCount: '329',
-          botCount: '2',
-          activeTo: '2024-10-23',
-          trialTo: '2024-10-23',
-        },
-        {
-          id: 7,
-          name: 'Мой новый проект 7',
-          status: ProjectStatusEnum.Active,
-          orderCount: '98',
-          botCount: '1',
-          activeTo: '2024-10-23',
-          trialTo: '2024-10-23',
-        },
-      ],
+        visible: false,
+      },
+      loader: false,
     };
   },
   mounted() {
     this.all();
   },
   methods: {
+    create() {
+      const requestData = {
+        name: this.dialog.fields.name
+      }
+
+      axios
+        .post('http://0.0.0.0/api/admin/project/', requestData)
+        .then(() => {
+          this.triggerDialog()
+          this.all();
+        })
+        .catch(error => {
+          this.error = true;
+
+          console.log(error);
+
+          setTimeout(() => {
+            this.error = false;
+          }, 3000);
+        });
+    },
+    triggerDialog() {
+      this.dialog.visible = !this.dialog.visible
+    },
     all() {
+      this.loader = true;
+
       axios
         .get('http://0.0.0.0/api/admin/project/')
         .then(response => {
+          this.projects = response.data.items as Project[]
+
+          this.loader = false;
         })
         .catch(error => {
+          this.error = true;
+
+          console.log(error);
+
+          setTimeout(() => {
+            this.error = false;
+          }, 3000);
         });
     },
   },
