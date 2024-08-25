@@ -8,3 +8,11 @@ export type Project = {
   orderCount: Number,
   botCount: Number,
 }
+
+export type Paginate = {
+  currentPage: Number,
+  lastPage: Number,
+  nextPage: Number,
+  totalItems: Number,
+  totalPages: Number,
+}

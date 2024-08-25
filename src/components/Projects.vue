@@ -53,10 +53,10 @@
           </v-col>
         </v-row>
 
-        <v-row v-if="!loader" style="min-height: 65px;">
+        <v-row v-if="!loader && paginate" style="min-height: 65px;">
           <v-col cols="12" class="info-block">
             <v-pagination
-              :length="3"
+              :length="paginate.totalPages"
               density="compact"
               style="width: 230px; color: #838383;"
             ></v-pagination>
@@ -141,7 +141,7 @@
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
 import {ProjectStatusEnum} from "@/components/common";
 import axios from "axios";
-import {Project} from "@/components/type";
+import {Paginate, Project} from "@/components/type";
 import ItemsLoader from "@/components/common/ItemsLoader.vue";
 
 export default {
@@ -154,6 +154,7 @@ export default {
   data() {
     return {
       projects: [] as Project[],
+      paginate: {} as Paginate,
       error: false,
       dialog: {
         fields: {
@@ -209,6 +210,7 @@ export default {
         .get('http://0.0.0.0/api/admin/project/', requestData)
         .then(response => {
           this.projects = response.data.items as Project[]
+          this.paginate = response.data.paginate as Paginate
 
           this.loader = false;
         })
