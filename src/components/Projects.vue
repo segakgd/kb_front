@@ -40,7 +40,7 @@
                   <span class="project-status--trial" v-if="project.status === ProjectStatusEnum.Trial">
                     Пробная версия до {{ project.activeTo }}</span>
                   <span class="project-status--blocked"
-                        v-else-if="project.status === ProjectStatusEnum.Block">Заблокирован</span>
+                        v-else-if="project.status === ProjectStatusEnum.Blocked">Заблокирован</span>
                   <span class="project-status--frozen"
                         v-else-if="project.status === ProjectStatusEnum.Enabled">Отключён</span>
                 </div>
@@ -86,7 +86,7 @@
             <div class="tools-main--group-field">
               <v-select
                 label="Статус"
-                :items="['Активен', 'Заблокирован', 'Отключён', 'Пробная версия']"
+                :items="filter.content.statuses"
                 variant="outlined"
                 clearable
                 hide-details
@@ -168,6 +168,26 @@ export default {
         fields: {
           status: ''
         },
+        content: {
+          statuses: [
+            {
+              title: "Активен",
+              value: "active",
+            },
+            {
+              title: "Заблокирован",
+              value: "blocked",
+            },
+            {
+              title: "Отключён",
+              value: "frozen",
+            },
+            {
+              title: "Пробная версия",
+              value: "trial",
+            },
+          ]
+        }
       },
       loader: false,
     };
