@@ -1,7 +1,7 @@
 export enum ProjectStatusEnum {
   Active = 'active',
   Trial = 'trial',
-  Block = 'block',
+  Blocked = 'blocked',
   Enabled = 'enabled',
 }
 
@@ -39,4 +39,10 @@ export enum PaymentStatusEnum {
   Canceled = 'canceled',
   Failed = 'failed',
   Cash = 'cash',
+}
+
+export function filterEmptyQuery(value: Object) {
+  return Object.fromEntries(
+    Object.entries(value).filter(([_, value]) => value !== null && value !== undefined && value !== '' )
+  )
 }
