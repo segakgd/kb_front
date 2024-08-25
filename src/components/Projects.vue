@@ -56,7 +56,9 @@
         <v-row v-if="!loader && paginate" style="min-height: 65px;">
           <v-col cols="12" class="info-block">
             <v-pagination
+              v-model="paginate.currentPage"
               :length="paginate.totalPages"
+              @update:modelValue="all()"
               density="compact"
               style="width: 230px; color: #838383;"
             ></v-pagination>
@@ -202,8 +204,10 @@ export default {
       this.loader = true;
 
       const requestData = {
-        status: this.filter.fields.status,
-        page: 1
+        params: {
+          status: this.filter.fields.status,
+          page: this.paginate.currentPage,
+        }
       }
 
       axios
