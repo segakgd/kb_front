@@ -199,7 +199,7 @@ export default {
       axios
         .get('http://0.0.0.0/api/admin/project/')
         .then(response => {
-          this.projects = response.data as Project[]
+          this.projects = response.data.items as Project[]
 
           this.loader = false;
         })
