@@ -11,7 +11,7 @@
     type="error"
   ></v-alert>
 
-  <v-row style="height: 100%;">
+  <v-row class="h-100">
     <v-col cols="9">
       <v-container fluid>
         <v-row>
@@ -22,10 +22,12 @@
           </v-col>
         </v-row>
 
-        <v-row>
-          <ItemsLoader v-if="loader"/>
+        <v-row v-if="loader">
+          <ItemsLoader/>
+        </v-row>
 
-          <v-col v-else cols="4" v-for="(project, index) in projects" :key="index">
+        <v-row v-else-if="!loader">
+          <v-col cols="4" v-for="(project, index) in projects" :key="index">
             <a
               :href="`/project/${project.id}/`"
               class="project-item"
@@ -51,7 +53,7 @@
           </v-col>
         </v-row>
 
-        <v-row style="min-height: 65px;">
+        <v-row v-if="!loader" style="min-height: 65px;">
           <v-col cols="12" class="info-block">
             <v-pagination
               :length="3"
@@ -158,7 +160,7 @@ export default {
         fields: {
           name: ''
         },
-        visible: true,
+        visible: false,
       },
       loader: false,
     };
