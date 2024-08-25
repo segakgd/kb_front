@@ -87,6 +87,7 @@
               <v-select
                 label="Статус"
                 :items="filter.content.statuses"
+                v-model="filter.fields.status"
                 variant="outlined"
                 clearable
                 hide-details
@@ -97,7 +98,7 @@
             </div>
 
             <div class="tools-main--group-btn">
-              <v-btn variant="flat" class="main-btn-line w-100">
+              <v-btn variant="flat" class="main-btn-line w-100" @click="all()">
                 Применить
               </v-btn>
               <v-btn variant="flat" class="main-btn w-100 mt-3 clear-btn">
@@ -180,7 +181,7 @@ export default {
             },
             {
               title: "Отключён",
-              value: "frozen",
+              value: "enabled",
             },
             {
               title: "Пробная версия",
@@ -231,6 +232,8 @@ export default {
       }
 
       requestData.params = filterEmptyQuery(requestData.params);
+
+      console.log(requestData, this.filter.fields.status);
 
       axios
         .get('http://0.0.0.0/api/admin/project/', requestData)
