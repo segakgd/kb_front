@@ -98,7 +98,7 @@
               <v-btn variant="flat" class="main-btn-line w-100">
                 Применить
               </v-btn>
-              <v-btn variant="flat" class="main-btn clear-btn">
+              <v-btn variant="flat" class="main-btn w-100 mt-3 clear-btn">
                 Сбросить фильтры
               </v-btn>
             </div>
@@ -161,6 +161,11 @@ export default {
         },
         visible: false,
       },
+      filter: {
+        fields: {
+          status: ''
+        },
+      },
       loader: false,
     };
   },
@@ -195,8 +200,13 @@ export default {
     all() {
       this.loader = true;
 
+      const requestData = {
+        status: this.filter.fields.status,
+        page: 1
+      }
+
       axios
-        .get('http://0.0.0.0/api/admin/project/')
+        .get('http://0.0.0.0/api/admin/project/', requestData)
         .then(response => {
           this.projects = response.data.items as Project[]
 
