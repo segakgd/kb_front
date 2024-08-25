@@ -98,10 +98,9 @@
               <v-btn variant="flat" class="main-btn-line w-100">
                 Применить
               </v-btn>
-              <!-- todo показываем "Отчистить" когда выбраны фильтры-->
-              <!--              <v-btn variant="flat" class="main-btn clear-btn">-->
-              <!--                Отчистить-->
-              <!--              </v-btn>-->
+              <v-btn variant="flat" class="main-btn clear-btn">
+                Сбросить фильтры
+              </v-btn>
             </div>
           </div>
         </div>
