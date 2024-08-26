@@ -252,8 +252,6 @@ export default {
 
       requestData.params = filterEmptyQuery(requestData.params);
 
-      console.log(requestData, this.filter.fields.status);
-
       axios
         .get('http://0.0.0.0/api/admin/project/', requestData)
         .then(response => {
