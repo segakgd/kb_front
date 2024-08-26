@@ -1,16 +1,6 @@
 <template>
   <NavigateHeader></NavigateHeader>
 
-  <v-alert
-    v-if="error"
-    position="fixed"
-    style="bottom: 0; right: 0; z-index: 1010; width: 300px;"
-    density="comfortable"
-    text="Упс, что-то пошло не так!"
-    title="Упс"
-    type="error"
-  ></v-alert>
-
   <v-row class="h-100">
     <v-col cols="9">
       <v-container fluid>
@@ -152,6 +142,7 @@ import axios from "axios";
 import {Paginate, Project} from "@/components/type";
 import ItemsLoader from "@/components/common/ItemsLoader.vue";
 import FiltersLoader from "@/components/common/FiltersLoader.vue";
+import store from "@/store";
 
 export default {
   components: {FiltersLoader, ItemsLoader, NavigateHeader},
@@ -233,11 +224,11 @@ export default {
             this.filter.loaded = true;
           }
         })
-        .catch(() => {
-          this.error = true;
+        .catch(error => {
+          store.dispatch('error/triggerError', error.message);
 
           setTimeout(() => {
-            this.error = false;
+            store.dispatch('error/resetError');
           }, 3000);
         });
     },
@@ -253,12 +244,10 @@ export default {
           this.upload();
         })
         .catch(error => {
-          this.error = true;
-
-          console.log(error);
+          store.dispatch('error/triggerError', error.message);
 
           setTimeout(() => {
-            this.error = false;
+            store.dispatch('error/resetError');
           }, 3000);
         });
     },

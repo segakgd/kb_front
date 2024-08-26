@@ -1,4 +1,12 @@
 import { createStore } from 'vuex';
+import errorModule from "@/store/error";
 
-export default createStore({
+export interface RootState {
+  // other states
+}
+
+export default createStore<RootState>({
+  modules: {
+    error: errorModule,
+  },
 });

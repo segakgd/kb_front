@@ -30,14 +30,7 @@ axios.interceptors.response.use(response => {
   if (error.response && error.response.status === 401) {
     localStorage.removeItem('authToken');
 
-    // Используем router напрямую
     router.push({name: 'Login'});
-
-    // Можно также добавить уведомление через store, если нужно
-    store.commit('setSnackbar', {
-      message: 'Авторизация истекла, пожалуйста, войдите заново.',
-      color: 'error'
-    });
   }
 
   return Promise.reject(error);
