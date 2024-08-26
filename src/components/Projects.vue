@@ -58,7 +58,7 @@
             <v-pagination
               v-model="paginate.currentPage"
               :length="paginate.totalPages"
-              @update:modelValue="all()"
+              @update:modelValue="upload()"
               density="compact"
               style="width: 230px; color: #838383;"
             ></v-pagination>
@@ -100,7 +100,7 @@
             </div>
 
             <div class="tools-main--group-btn">
-              <v-btn variant="flat" class="main-btn-line w-100" @click="allWithFilter()">
+              <v-btn variant="flat" class="main-btn-line w-100" @click="search()">
                 Применить
               </v-btn>
               <v-btn
@@ -140,7 +140,6 @@
           Создать
         </v-btn>
       </div>
-
     </v-dialog>
 
   </v-row>
@@ -148,7 +147,7 @@
 
 <script lang="ts">
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
-import {filterEmptyQuery, ProjectStatusEnum} from "@/components/common";
+import {clearEmptyQuery, ProjectStatusEnum} from "@/components/common";
 import axios from "axios";
 import {Paginate, Project} from "@/components/type";
 import ItemsLoader from "@/components/common/ItemsLoader.vue";
@@ -202,45 +201,15 @@ export default {
     };
   },
   mounted() {
-    this.all();
+    this.upload();
   },
   methods: {
-    clearFilters() {
-      this.filter.fields.status = null;
-      this.all();
-    },
-    isNotEmptyFilters() {
-      return this.filter.fields.status !== null;
-    },
-    create() {
-      const requestData = {
-        name: this.dialog.fields.name
-      }
-
-      axios
-        .post('http://0.0.0.0/api/admin/project/', requestData)
-        .then(() => {
-          this.triggerDialog()
-          this.all();
-        })
-        .catch(error => {
-          this.error = true;
-
-          console.log(error);
-
-          setTimeout(() => {
-            this.error = false;
-          }, 3000);
-        });
-    },
-    triggerDialog() {
-      this.dialog.visible = !this.dialog.visible
-    },
-    allWithFilter() {
+    // Main:
+    search() {
       this.paginate.currentPage = 1;
-      this.all();
+      this.upload();
     },
-    all() {
+    upload() {
       this.loader = true;
 
       const requestData = {
@@ -250,7 +219,7 @@ export default {
         }
       }
 
-      requestData.params = filterEmptyQuery(requestData.params);
+      requestData.params = clearEmptyQuery(requestData.params);
 
       axios
         .get('http://0.0.0.0/api/admin/project/', requestData)
@@ -264,6 +233,25 @@ export default {
             this.filter.loaded = true;
           }
         })
+        .catch(() => {
+          this.error = true;
+
+          setTimeout(() => {
+            this.error = false;
+          }, 3000);
+        });
+    },
+    create() {
+      const requestData = {
+        name: this.dialog.fields.name
+      }
+
+      axios
+        .post('http://0.0.0.0/api/admin/project/', requestData)
+        .then(() => {
+          this.triggerDialog()
+          this.upload();
+        })
         .catch(error => {
           this.error = true;
 
@@ -273,6 +261,18 @@ export default {
             this.error = false;
           }, 3000);
         });
+    },
+    // Filters:
+    clearFilters() {
+      this.filter.fields.status = null;
+      this.upload();
+    },
+    isNotEmptyFilters() {
+      return this.filter.fields.status !== null;
+    },
+    // Dialog
+    triggerDialog() {
+      this.dialog.visible = !this.dialog.visible
     },
   },
 };
