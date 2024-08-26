@@ -67,7 +67,9 @@
       </v-container>
     </v-col>
 
-    <v-col cols="3">
+    <FiltersLoader v-if="loader"/>
+
+    <v-col v-else cols="3">
       <v-container fluid style="margin-top: 110px;">
         <div class="tools-main">
           <div class="tools-main--group">
@@ -150,9 +152,10 @@ import {filterEmptyQuery, ProjectStatusEnum} from "@/components/common";
 import axios from "axios";
 import {Paginate, Project} from "@/components/type";
 import ItemsLoader from "@/components/common/ItemsLoader.vue";
+import FiltersLoader from "@/components/common/FiltersLoader.vue";
 
 export default {
-  components: {ItemsLoader, NavigateHeader},
+  components: {FiltersLoader, ItemsLoader, NavigateHeader},
   computed: {
     ProjectStatusEnum() {
       return ProjectStatusEnum
