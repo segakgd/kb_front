@@ -100,7 +100,7 @@
             </div>
 
             <div class="tools-main--group-btn">
-              <v-btn variant="flat" class="main-btn-line w-100" @click="all()">
+              <v-btn variant="flat" class="main-btn-line w-100" @click="allWithFilter()">
                 Применить
               </v-btn>
               <v-btn
@@ -235,6 +235,10 @@ export default {
     },
     triggerDialog() {
       this.dialog.visible = !this.dialog.visible
+    },
+    allWithFilter() {
+      this.paginate.currentPage = 1;
+      this.all();
     },
     all() {
       this.loader = true;
