@@ -67,7 +67,7 @@
       </v-container>
     </v-col>
 
-    <FiltersLoader v-if="loader"/>
+    <FiltersLoader v-if="!filter.loaded"/>
 
     <v-col v-else cols="3">
       <v-container fluid style="margin-top: 110px;">
@@ -195,7 +195,8 @@ export default {
               value: "trial",
             },
           ]
-        }
+        },
+        loaded: false,
       },
       loader: false,
     };
@@ -256,6 +257,10 @@ export default {
           this.paginate = response.data.paginate as Paginate
 
           this.loader = false;
+
+          if (!this.filter.loaded) {
+            this.filter.loaded = true;
+          }
         })
         .catch(error => {
           this.error = true;
