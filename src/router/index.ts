@@ -36,7 +36,7 @@ const routes = [
     },
   },
   {
-    path: '/project',
+    path: '/project/:projectId',
     name: 'Project',
     component: Project,
     meta: {
@@ -44,7 +44,7 @@ const routes = [
     },
   },
   {
-    path: '/bots',
+    path: '/project/:projectId/bots',
     name: 'Bots',
     component: Bots,
     meta: {
@@ -52,7 +52,7 @@ const routes = [
     },
   },
   {
-    path: '/scenarios',
+    path: '/project/:projectId/scenarios',
     name: 'Scenarios',
     component: Scenarios,
     meta: {
@@ -60,7 +60,7 @@ const routes = [
     },
   },
   {
-    path: '/orders',
+    path: '/project/:projectId/orders',
     name: 'Orders',
     component: Orders,
     meta: {
@@ -68,7 +68,7 @@ const routes = [
     },
   },
   {
-    path: '/products',
+    path: '/project/:projectId/products',
     name: 'Products',
     component: Products,
     meta: {
@@ -76,7 +76,7 @@ const routes = [
     },
   },
   {
-    path: '/categories',
+    path: '/project/:projectId/categories',
     name: 'Categories',
     component: Categories,
     meta: {
@@ -84,7 +84,7 @@ const routes = [
     },
   },
   {
-    path: '/promotions',
+    path: '/project/:projectId/promotions',
     name: 'Promotions',
     component: Promotions,
     meta: {
@@ -92,7 +92,7 @@ const routes = [
     },
   },
   {
-    path: '/shippings',
+    path: '/project/:projectId/shippings',
     name: 'Shippings',
     component: Shippings,
     meta: {
@@ -100,7 +100,7 @@ const routes = [
     },
   },
   {
-    path: '/integrations',
+    path: '/project/:projectId/integrations',
     name: 'Integrations',
     component: Integrations,
     meta: {
@@ -108,7 +108,7 @@ const routes = [
     },
   },
   {
-    path: '/settings',
+    path: '/project/:projectId/settings',
     name: 'Settings',
     component: Settings,
     meta: {
