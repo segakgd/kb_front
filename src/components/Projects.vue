@@ -67,7 +67,9 @@
       </v-container>
     </v-col>
 
-    <v-col cols="3">
+    <FiltersLoader v-if="!filter.loaded"/>
+
+    <v-col v-else cols="3">
       <v-container fluid style="margin-top: 110px;">
         <div class="tools-main">
           <div class="tools-main--group">
@@ -98,7 +100,7 @@
             </div>
 
             <div class="tools-main--group-btn">
-              <v-btn variant="flat" class="main-btn-line w-100" @click="all()">
+              <v-btn variant="flat" class="main-btn-line w-100" @click="allWithFilter()">
                 Применить
               </v-btn>
               <v-btn
@@ -150,9 +152,10 @@ import {filterEmptyQuery, ProjectStatusEnum} from "@/components/common";
 import axios from "axios";
 import {Paginate, Project} from "@/components/type";
 import ItemsLoader from "@/components/common/ItemsLoader.vue";
+import FiltersLoader from "@/components/common/FiltersLoader.vue";
 
 export default {
-  components: {ItemsLoader, NavigateHeader},
+  components: {FiltersLoader, ItemsLoader, NavigateHeader},
   computed: {
     ProjectStatusEnum() {
       return ProjectStatusEnum
@@ -171,7 +174,7 @@ export default {
       },
       filter: {
         fields: {
-          status: ''
+          status: null
         },
         content: {
           statuses: [
@@ -192,7 +195,8 @@ export default {
               value: "trial",
             },
           ]
-        }
+        },
+        loaded: false,
       },
       loader: false,
     };
@@ -202,11 +206,11 @@ export default {
   },
   methods: {
     clearFilters() {
-      this.filter.fields.status = '';
+      this.filter.fields.status = null;
       this.all();
     },
     isNotEmptyFilters() {
-      return this.filter.fields.status.length !== 0;
+      return this.filter.fields.status !== null;
     },
     create() {
       const requestData = {
@@ -232,6 +236,10 @@ export default {
     triggerDialog() {
       this.dialog.visible = !this.dialog.visible
     },
+    allWithFilter() {
+      this.paginate.currentPage = 1;
+      this.all();
+    },
     all() {
       this.loader = true;
 
@@ -244,8 +252,6 @@ export default {
 
       requestData.params = filterEmptyQuery(requestData.params);
 
-      console.log(requestData, this.filter.fields.status);
-
       axios
         .get('http://0.0.0.0/api/admin/project/', requestData)
         .then(response => {
@@ -253,6 +259,10 @@ export default {
           this.paginate = response.data.paginate as Paginate
 
           this.loader = false;
+
+          if (!this.filter.loaded) {
+            this.filter.loaded = true;
+          }
         })
         .catch(error => {
           this.error = true;
