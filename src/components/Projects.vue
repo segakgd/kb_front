@@ -174,7 +174,7 @@ export default {
       },
       filter: {
         fields: {
-          status: ''
+          status: null
         },
         content: {
           statuses: [
@@ -206,11 +206,11 @@ export default {
   },
   methods: {
     clearFilters() {
-      this.filter.fields.status = '';
+      this.filter.fields.status = null;
       this.all();
     },
     isNotEmptyFilters() {
-      return this.filter.fields.status.length !== 0;
+      return this.filter.fields.status !== null;
     },
     create() {
       const requestData = {
