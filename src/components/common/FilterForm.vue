@@ -52,7 +52,7 @@
 
 <script lang="ts">
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
-import {clearEmptyQuery, FilterFormTypeEnum} from "@/components/common";
+import {clearEmptyQuery, FilterFormTypeEnum, HttpMethodEnum} from "@/components/common";
 import axios from "axios";
 import ItemsLoader from "@/components/common/ItemsLoader.vue";
 import FiltersLoader from "@/components/common/FiltersLoader.vue";
@@ -65,7 +65,18 @@ export default {
       return FilterFormTypeEnum;
     }
   },
+  emits: [
+    'projectsLoaded',
+  ],
   props: {
+    uri: {
+      type: String,
+      required: true
+    },
+    method: {
+      type: HttpMethodEnum,
+      required: true
+    },
     fields: {
       type: Object,
       required: true
@@ -91,6 +102,9 @@ export default {
     upload() {
       this.loader = true;
 
+
+
+
       const requestData = {
         params: {
           status: this.filter.fields.status,
@@ -99,25 +113,27 @@ export default {
 
       requestData.params = clearEmptyQuery(requestData.params);
 
-      axios
-        .get('http://0.0.0.0/api/admin/project/', requestData)
-        .then(response => {
-          this.projects = response.data.items as Project[]
-          this.paginate = response.data.paginate as Paginate
+      if (this.method === HttpMethodEnum.Get) {
+        axios
+          .get(this.uri, requestData)
+          .then(response => {
+            this.loader = false;
 
-          this.loader = false;
+            // Эмитируем событие с результатом
+            this.$emit('projectsLoaded', response.data.items);
 
-          if (!this.filter.loaded) {
-            this.filter.loaded = true;
-          }
-        })
-        .catch(error => {
-          store.dispatch('error/triggerError', error.message);
+            if (!this.filter.loaded) {
+              this.filter.loaded = true;
+            }
+          })
+          .catch(error => {
+            store.dispatch('error/triggerError', error.message);
 
-          setTimeout(() => {
-            store.dispatch('error/resetError');
-          }, 3000);
-        });
+            setTimeout(() => {
+              store.dispatch('error/resetError');
+            }, 3000);
+          });
+      }
     },
     // Filters:
     clearFilters() {

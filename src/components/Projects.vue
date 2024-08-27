@@ -57,6 +57,13 @@
       </v-container>
     </v-col>
 
+    <FilterForm
+      uri="http://0.0.0.0/api/admin/project/"
+      :method=HttpMethodEnum.Get
+      :fields="fields"
+      @projectsLoaded="updateProjects"
+    />
+
     <FiltersLoader v-if="!filter.loaded"/>
 
     <v-col v-else cols="3">
@@ -137,16 +144,20 @@
 
 <script lang="ts">
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
-import {clearEmptyQuery, ProjectStatusEnum} from "@/components/common";
+import {clearEmptyQuery, FilterFormTypeEnum, HttpMethodEnum, ProjectStatusEnum} from "@/components/common";
 import axios from "axios";
 import {Paginate, Project} from "@/components/type";
 import ItemsLoader from "@/components/common/ItemsLoader.vue";
 import FiltersLoader from "@/components/common/FiltersLoader.vue";
 import store from "@/store";
+import FilterForm from "@/components/common/FilterForm.vue";
 
 export default {
-  components: {FiltersLoader, ItemsLoader, NavigateHeader},
+  components: {FilterForm, FiltersLoader, ItemsLoader, NavigateHeader},
   computed: {
+    HttpMethodEnum() {
+      return HttpMethodEnum
+    },
     ProjectStatusEnum() {
       return ProjectStatusEnum
     },
@@ -189,12 +200,43 @@ export default {
         loaded: false,
       },
       loader: false,
+
+      fields: [
+        {
+          label: "Статус",
+          name: "name",
+          value: null,
+          type: FilterFormTypeEnum.Select,
+          options: [
+            {
+              title: "Активен",
+              value: "active",
+            },
+            {
+              title: "Заблокирован",
+              value: "blocked",
+            },
+            {
+              title: "Отключён",
+              value: "enabled",
+            },
+            {
+              title: "Пробная версия",
+              value: "trial",
+            },
+          ]
+        }
+      ],
     };
   },
   mounted() {
     this.upload();
   },
   methods: {
+    updateProjects(projects: Project[]) {
+      this.projects = projects;
+    },
+
     // Main:
     search() {
       this.paginate.currentPage = 1;
