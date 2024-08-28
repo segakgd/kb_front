@@ -32,7 +32,7 @@
           </div>
 
           <div class="tools-main--group-btn">
-            <v-btn variant="flat" class="main-btn-line w-100" @click="search()">
+            <v-btn variant="flat" class="main-btn-line w-100" @click="upload()">
               Применить
             </v-btn>
             <v-btn
@@ -96,9 +96,6 @@ export default {
   },
   methods: {
     // Main:
-    search() {
-      this.upload();
-    },
     upload() {
       this.loader = true;
 
@@ -108,36 +105,70 @@ export default {
         requestData[item.name] = item.value;
       })
 
-      // const requestData = {
-      //   params: {
-      //     // status: this.filter.fields.status,
-      //   }
-      // }
+      if (this.httpMethod === HttpMethodEnum.Get) {
+        this.load(requestData);
+      }
+
+      if (this.httpMethod === HttpMethodEnum.Post) {
+        this.create(requestData);
+      }
+
+      if (this.httpMethod === HttpMethodEnum.Patch) {
+        this.update(requestData);
+      }
+    },
+    load(data: object) {
+      const requestData = {
+        params: data,
+      }
 
       requestData.params = clearEmptyQuery(requestData.params);
 
-      if (this.httpMethod === HttpMethodEnum.Get) {
-        axios
-          .get(this.uri, requestData)
-          .then(response => {
-            this.loader = false;
+      axios
+        .get(this.uri, requestData)
+        .then(response => {
+          this.loader = false;
 
-            // Эмитируем событие с результатом
-            this.$emit('projectsLoaded', response.data.items);
+          // Эмитируем событие с результатом
+          this.$emit('projectsLoaded', response.data.items);
 
-            if (!this.fields.loaded) {
-              this.fields.loaded = true;
-            }
-          })
-          .catch(error => {
-            store.dispatch('error/triggerError', error.message);
+          if (!this.fields.loaded) {
+            this.fields.loaded = true;
+          }
+        })
+        .catch(error => {
+          store.dispatch('error/triggerError', error.message);
 
-            setTimeout(() => {
-              store.dispatch('error/resetError');
-            }, 3000);
-          });
-      }
+          setTimeout(() => {
+            store.dispatch('error/resetError');
+          }, 3000);
+        });
     },
+    create(data: object) {
+      axios.post<{ message: string, status: string }>(this.uri, data)
+        .then(() => {
+        })
+        .catch(error => {
+          store.dispatch('error/triggerError', error.message);
+
+          setTimeout(() => {
+            store.dispatch('error/resetError');
+          }, 3000);
+        });
+    },
+    update(data: object) {
+      axios.patch<{ message: string, status: string }>(this.uri, data)
+        .then(() => {
+        })
+        .catch(error => {
+          store.dispatch('error/triggerError', error.message);
+
+          setTimeout(() => {
+            store.dispatch('error/resetError');
+          }, 3000);
+        });
+    },
+
     // Filters:
     clearFilters() {
       this.fields.fields.status = null;
