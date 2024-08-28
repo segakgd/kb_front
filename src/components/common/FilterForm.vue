@@ -5,7 +5,7 @@
         <div class="tools-main--group">
           <div class="tools-main--group-btn">
             <v-btn variant="flat" class="main-btn w-100" @click="btnClick()">
-              Добавить проект
+              {{ btnName }}
             </v-btn>
           </div>
         </div>
@@ -72,6 +72,10 @@ export default {
     'loaded',
   ],
   props: {
+    btnName: {
+      type: String,
+      required: true
+    },
     uri: {
       type: String,
       required: true

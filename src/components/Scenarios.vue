@@ -50,60 +50,107 @@
       </v-container>
     </v-col>
 
-    <v-col cols="3">
-      <v-container fluid style="margin-top: 110px;">
-        <div class="tools-main">
-          <div class="tools-main--group">
-            <div class="tools-main--group-btn">
-              <v-btn variant="flat" class="main-btn w-100">
-                Добавить сценарий
-              </v-btn>
-            </div>
-          </div>
+    <FiltersLoader v-if="loader && !filterLoaded"/>
 
-          <div class="tools-main--group">
-            <div class="tools-main--group-name">
-              <span>Фильтры:</span>
-            </div>
+    <FilterForm
+      v-else
+      btn-name="Добавить сценарий"
+      uri="http://0.0.0.0/api/admin/project/"
+      :httpMethod=HttpMethodEnum.Get
+      :fields="fields"
+      @btnClick="triggerDialog"
+      @loadedData="updateProjects"
+      @loaded="loaded"
+      @loading="loading"
+    />
 
-            <div class="tools-main--group-field">
-              <v-select
-                label="Статус"
-                :items="['Активен', 'Отключён']"
-                variant="outlined"
-                clearable
-                hide-details
-                density="compact"
-                :hideSelected=true
-                color="#9b61d8"
-              ></v-select>
-            </div>
-
-            <div class="tools-main--group-btn">
-              <v-btn variant="flat" class="main-btn-line w-100">
-                Применить
-              </v-btn>
-              <!-- todo показываем "Отчистить" когда выбраны фильтры-->
-              <!--              <v-btn variant="flat" class="main-btn clear-btn">-->
-              <!--                Отчистить-->
-              <!--              </v-btn>-->
-            </div>
-          </div>
+    <v-dialog v-model="dialog.visible">
+      <div class="main-dialog--wrapper" style="margin: auto; min-width: 400px; min-height: 100px;">
+        <div class="mb-6">
+          <h3 style="font-size: 24px; font-weight: 300;">Создание проекта</h3>
         </div>
 
-      </v-container>
-    </v-col>
+        <div class="mb-5">
+          <v-text-field
+            v-model="dialog.fields.name"
+            label="Название проекта"
+            variant="outlined"
+            clearable
+            hide-details
+            density="compact"
+            :hideSelected=true
+            color="#9b61d8"
+          />
+        </div>
+
+        <v-btn variant="flat" class="main-btn-line w-100" @click="create()">
+          Создать
+        </v-btn>
+      </div>
+    </v-dialog>
+
   </v-row>
 </template>
 
 <script lang="ts">
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
+import FilterForm from "@/components/common/FilterForm.vue";
+import FiltersLoader from "@/components/common/FiltersLoader.vue";
+import {clearEmptyQuery, FilterFormTypeEnum, HttpMethodEnum} from "@/components/common";
+import {Paginate, Project} from "@/components/type";
+import axios from "axios";
+import store from "@/store";
 
 export default {
-  components: {NavigateHeader},
-  computed: {},
+  components: {FiltersLoader, FilterForm, NavigateHeader},
+  computed: {
+    HttpMethodEnum() {
+      return HttpMethodEnum
+    },
+  },
   data() {
     return {
+      scenarios: [] as Project[],
+      paginate: {} as Paginate,
+
+      fields: [
+        {
+          label: "Статус",
+          name: "status",
+          value: null,
+          type: FilterFormTypeEnum.Select,
+          options: [
+            {
+              title: "Активен",
+              value: "active",
+            },
+            {
+              title: "Заблокирован",
+              value: "blocked",
+            },
+            {
+              title: "Отключён",
+              value: "enabled",
+            },
+            {
+              title: "Пробная версия",
+              value: "trial",
+            },
+          ]
+        }
+      ],
+
+      dialog: {
+        fields: {
+          name: ''
+        },
+        visible: false,
+      },
+
+      loader: false,
+      filterLoaded: false,
+
+
       bots: [
         {
           id: 1,
@@ -149,6 +196,77 @@ export default {
     };
   },
   mounted() {
+  },
+  methods: {
+    loaded() {
+      this.loader = false;
+    },
+    loading() {
+      this.loader = true;
+    },
+    updateProjects(projects: Project[]) {
+      this.projects = projects;
+    },
+
+    // Main:
+    search() {
+      this.paginate.currentPage = 1;
+      this.upload();
+    },
+    upload() {
+      this.loader = true;
+
+      const requestData = {
+        params: {
+          page: this.paginate.currentPage,
+        }
+      }
+
+      requestData.params = clearEmptyQuery(requestData.params);
+
+      axios
+        .get('http://0.0.0.0/api/admin/project/', requestData)
+        .then(response => {
+          this.projects = response.data.items as Project[];
+          this.paginate = response.data.paginate as Paginate;
+
+          this.loader = false;
+
+          if (!this.filterLoaded) {
+            this.filterLoaded = true;
+          }
+        })
+        .catch(error => {
+          store.dispatch('error/triggerError', error.message);
+
+          setTimeout(() => {
+            store.dispatch('error/resetError');
+          }, 3000);
+        });
+    },
+    create() {
+      const requestData = {
+        name: this.dialog.fields.name
+      }
+
+      axios
+        .post('http://0.0.0.0/api/admin/project/', requestData)
+        .then(() => {
+          this.triggerDialog()
+          this.upload();
+        })
+        .catch(error => {
+          store.dispatch('error/triggerError', error.message);
+
+          setTimeout(() => {
+            store.dispatch('error/resetError');
+          }, 3000);
+        });
+    },
+    // Dialog
+    triggerDialog() {
+      this.dialog.visible = !this.dialog.visible
+    },
   },
 };
 </script>

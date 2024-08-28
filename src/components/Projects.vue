@@ -61,6 +61,7 @@
 
     <FilterForm
       v-else
+      btn-name="Добавить проект"
       uri="http://0.0.0.0/api/admin/project/"
       :httpMethod=HttpMethodEnum.Get
       :fields="fields"
@@ -122,7 +123,6 @@ export default {
     return {
       projects: [] as Project[],
       paginate: {} as Paginate,
-      error: false,
       dialog: {
         fields: {
           name: ''
