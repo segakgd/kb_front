@@ -61,7 +61,9 @@
       uri="http://0.0.0.0/api/admin/project/"
       :httpMethod=HttpMethodEnum.Get
       :fields="fields"
-      @projectsLoaded="updateProjects"
+      @loadedData="updateProjects"
+      @loaded="loaded"
+      @loading="loading"
     />
 
     <FiltersLoader v-if="!filter.loaded"/>
@@ -234,6 +236,12 @@ export default {
     this.upload();
   },
   methods: {
+    loaded(){
+      this.loader = false;
+    },
+    loading(){
+      this.loader = true;
+    },
     updateProjects(projects: Project[]) {
       this.projects = projects;
     },

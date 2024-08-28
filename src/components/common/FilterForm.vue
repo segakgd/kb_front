@@ -36,7 +36,7 @@
               Применить
             </v-btn>
             <v-btn
-              v-if="isNotEmptyFilters()"
+              v-if="usedForm"
               variant="flat"
               class="main-btn w-100 mt-3 clear-btn"
               @click="clearFilters()">
@@ -67,7 +67,9 @@ export default {
     }
   },
   emits: [
-    'projectsLoaded',
+    'loadedData',
+    'loading',
+    'loaded',
   ],
   props: {
     uri: {
@@ -85,19 +87,19 @@ export default {
   },
   data() {
     return {
-      // filterData: {
-      //   loaded: false,
-      // },
-      loader: false,
+      usedForm: false,
+      clearUsedForm: false,
     };
   },
-  mounted() {
-    this.upload();
-  },
   methods: {
-    // Main:
     upload() {
-      this.loader = true;
+      this.$emit('loading');
+
+      if (this.clearUsedForm) {
+        this.clearFilters();
+      } else {
+        this.usedForm = true;
+      }
 
       const requestData = {}
 
@@ -127,10 +129,9 @@ export default {
       axios
         .get(this.uri, requestData)
         .then(response => {
-          this.loader = false;
-
           // Эмитируем событие с результатом
-          this.$emit('projectsLoaded', response.data.items);
+          this.$emit('loadedData', response.data.items);
+          this.$emit('loaded');
 
           if (!this.fields.loaded) {
             this.fields.loaded = true;
@@ -147,6 +148,7 @@ export default {
     create(data: object) {
       axios.post<{ message: string, status: string }>(this.uri, data)
         .then(() => {
+          this.$emit('loaded');
         })
         .catch(error => {
           store.dispatch('error/triggerError', error.message);
@@ -159,6 +161,7 @@ export default {
     update(data: object) {
       axios.patch<{ message: string, status: string }>(this.uri, data)
         .then(() => {
+          this.$emit('loaded');
         })
         .catch(error => {
           store.dispatch('error/triggerError', error.message);
@@ -171,11 +174,14 @@ export default {
 
     // Filters:
     clearFilters() {
-      this.fields.fields.status = null;
+      this.usedForm = false;
+      this.clearUsedForm = false;
+
+      this.fields.map((item) => {
+        item.value = null;
+      })
+
       this.upload();
-    },
-    isNotEmptyFilters() {
-      return false;
     },
   },
 };
