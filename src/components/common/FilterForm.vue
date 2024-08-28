@@ -15,7 +15,7 @@
             <span>Фильтры:</span>
           </div>
 
-          <div class="tools-main--group-field" v-for="(field, index) in filter.fields" :key="index">
+          <div class="tools-main--group-field" v-for="(field, index) in fields" :key="index">
             <v-select
               v-if="field.type === FilterFormTypeEnum.Select"
               label="Статус"
@@ -57,6 +57,7 @@ import axios from "axios";
 import ItemsLoader from "@/components/common/ItemsLoader.vue";
 import FiltersLoader from "@/components/common/FiltersLoader.vue";
 import store from "@/store";
+import {PropType} from "vue";
 
 export default {
   components: {FiltersLoader, ItemsLoader, NavigateHeader},
@@ -73,21 +74,20 @@ export default {
       type: String,
       required: true
     },
-    method: {
+    httpMethod: {
       type: HttpMethodEnum,
       required: true
     },
     fields: {
-      type: Object,
+      type: Object as PropType<any>,
       required: true
     },
   },
   data() {
     return {
-      filter: {
-
-        loaded: false,
-      },
+      // filterData: {
+      //   loaded: false,
+      // },
       loader: false,
     };
   },
@@ -102,18 +102,21 @@ export default {
     upload() {
       this.loader = true;
 
+      const requestData = {}
 
+      this.fields.map((item) => {
+        requestData[item.name] = item.value;
+      })
 
-
-      const requestData = {
-        params: {
-          status: this.filter.fields.status,
-        }
-      }
+      // const requestData = {
+      //   params: {
+      //     // status: this.filter.fields.status,
+      //   }
+      // }
 
       requestData.params = clearEmptyQuery(requestData.params);
 
-      if (this.method === HttpMethodEnum.Get) {
+      if (this.httpMethod === HttpMethodEnum.Get) {
         axios
           .get(this.uri, requestData)
           .then(response => {
@@ -122,8 +125,8 @@ export default {
             // Эмитируем событие с результатом
             this.$emit('projectsLoaded', response.data.items);
 
-            if (!this.filter.loaded) {
-              this.filter.loaded = true;
+            if (!this.fields.loaded) {
+              this.fields.loaded = true;
             }
           })
           .catch(error => {
@@ -137,7 +140,7 @@ export default {
     },
     // Filters:
     clearFilters() {
-      this.filter.fields.status = null;
+      this.fields.fields.status = null;
       this.upload();
     },
     isNotEmptyFilters() {

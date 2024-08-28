@@ -59,7 +59,7 @@
 
     <FilterForm
       uri="http://0.0.0.0/api/admin/project/"
-      :method=HttpMethodEnum.Get
+      :httpMethod=HttpMethodEnum.Get
       :fields="fields"
       @projectsLoaded="updateProjects"
     />
@@ -181,24 +181,25 @@ export default {
           statuses: [
             {
               title: "Активен",
-              value: "active",
+              value: ProjectStatusEnum.Active,
             },
             {
               title: "Заблокирован",
-              value: "blocked",
+              value: ProjectStatusEnum.Blocked,
             },
             {
               title: "Отключён",
-              value: "enabled",
+              value: ProjectStatusEnum.Enabled,
             },
             {
               title: "Пробная версия",
-              value: "trial",
+              value: ProjectStatusEnum.Trial,
             },
           ]
         },
         loaded: false,
       },
+
       loader: false,
 
       fields: [
