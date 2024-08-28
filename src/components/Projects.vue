@@ -57,7 +57,7 @@
       </v-container>
     </v-col>
 
-    <FiltersLoader v-if="loader"/>
+    <FiltersLoader v-if="loader && !filterLoaded"/>
 
     <FilterForm
       v-else
@@ -131,6 +131,7 @@ export default {
       },
 
       loader: false,
+      filterLoaded: false,
 
       fields: [
         {
@@ -193,13 +194,13 @@ export default {
       axios
         .get('http://0.0.0.0/api/admin/project/', requestData)
         .then(response => {
-          this.projects = response.data.items as Project[]
-          this.paginate = response.data.paginate as Paginate
+          this.projects = response.data.items as Project[];
+          this.paginate = response.data.paginate as Paginate;
 
           this.loader = false;
 
-          if (!this.filter.loaded) {
-            this.filter.loaded = true;
+          if (!this.filterLoaded) {
+            this.filterLoaded = true;
           }
         })
         .catch(error => {
