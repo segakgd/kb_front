@@ -36,10 +36,9 @@
               Применить
             </v-btn>
             <v-btn
-              v-if="usedForm"
+              v-if="false"
               variant="flat"
-              class="main-btn w-100 mt-3 clear-btn"
-              @click="clearFilters()">
+              class="main-btn w-100 mt-3 clear-btn">
               Сбросить фильтры
             </v-btn>
           </div>
@@ -88,8 +87,6 @@ export default {
   },
   data() {
     return {
-      usedForm: false,
-      clearUsedForm: false,
     };
   },
   methods: {
@@ -98,12 +95,6 @@ export default {
     },
     upload() {
       this.$emit('loading');
-
-      if (this.clearUsedForm) {
-        this.clearFilters();
-      } else {
-        this.usedForm = true;
-      }
 
       const requestData = {}
 
@@ -174,18 +165,6 @@ export default {
             store.dispatch('error/resetError');
           }, 3000);
         });
-    },
-
-    // Filters:
-    clearFilters() {
-      this.usedForm = false;
-      this.clearUsedForm = false;
-
-      this.fields.map((item) => {
-        item.value = null;
-      })
-
-      this.upload();
     },
   },
 };
