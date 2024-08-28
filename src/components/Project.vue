@@ -2,8 +2,16 @@
   <NavigateHeader></NavigateHeader>
 
   <v-row style="height: 100%;">
-    <v-col cols="10">
-      <h1>Мой проект</h1>
+    <v-col cols="9">
+      <v-container fluid>
+        <v-row>
+          <v-col cols="12" class="info-block">
+            <div>
+              <h3>Проект такой-то такой-то</h3>
+            </div>
+          </v-col>
+        </v-row>
+      </v-container>
     </v-col>
   </v-row>
 </template>

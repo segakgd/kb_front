@@ -1,16 +1,6 @@
 <template>
   <NavigateHeader></NavigateHeader>
 
-  <v-alert
-    v-if="error"
-    position="fixed"
-    style="bottom: 0; right: 0; z-index: 1010; width: 300px;"
-    density="comfortable"
-    text="Упс, что-то пошло не так!"
-    title="Упс"
-    type="error"
-  ></v-alert>
-
   <v-row class="h-100">
     <v-col cols="9">
       <v-container fluid>
@@ -58,7 +48,7 @@
             <v-pagination
               v-model="paginate.currentPage"
               :length="paginate.totalPages"
-              @update:modelValue="all()"
+              @update:modelValue="upload()"
               density="compact"
               style="width: 230px; color: #838383;"
             ></v-pagination>
@@ -67,55 +57,18 @@
       </v-container>
     </v-col>
 
-    <FiltersLoader v-if="!filter.loaded"/>
+    <FiltersLoader v-if="loader && !filterLoaded"/>
 
-    <v-col v-else cols="3">
-      <v-container fluid style="margin-top: 110px;">
-        <div class="tools-main">
-          <div class="tools-main--group">
-            <div class="tools-main--group-btn">
-              <v-btn variant="flat" class="main-btn w-100" @click="triggerDialog()">
-                Добавить проект
-              </v-btn>
-            </div>
-          </div>
-
-          <div class="tools-main--group">
-            <div class="tools-main--group-name">
-              <span>Фильтры:</span>
-            </div>
-
-            <div class="tools-main--group-field">
-              <v-select
-                label="Статус"
-                :items="filter.content.statuses"
-                v-model="filter.fields.status"
-                variant="outlined"
-                clearable
-                hide-details
-                density="compact"
-                :hideSelected=true
-                color="#9b61d8"
-              ></v-select>
-            </div>
-
-            <div class="tools-main--group-btn">
-              <v-btn variant="flat" class="main-btn-line w-100" @click="allWithFilter()">
-                Применить
-              </v-btn>
-              <v-btn
-                v-if="isNotEmptyFilters()"
-                variant="flat"
-                class="main-btn w-100 mt-3 clear-btn"
-                @click="clearFilters()">
-                Сбросить фильтры
-              </v-btn>
-            </div>
-          </div>
-        </div>
-
-      </v-container>
-    </v-col>
+    <FilterForm
+      v-else
+      uri="http://0.0.0.0/api/admin/project/"
+      :httpMethod=HttpMethodEnum.Get
+      :fields="fields"
+      @btnClick="triggerDialog"
+      @loadedData="updateProjects"
+      @loaded="loaded"
+      @loading="loading"
+    />
 
     <v-dialog v-model="dialog.visible">
       <div class="main-dialog--wrapper" style="margin: auto; min-width: 400px; min-height: 100px;">
@@ -140,7 +93,6 @@
           Создать
         </v-btn>
       </div>
-
     </v-dialog>
 
   </v-row>
@@ -148,15 +100,20 @@
 
 <script lang="ts">
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
-import {filterEmptyQuery, ProjectStatusEnum} from "@/components/common";
+import {clearEmptyQuery, FilterFormTypeEnum, HttpMethodEnum, ProjectStatusEnum} from "@/components/common";
 import axios from "axios";
 import {Paginate, Project} from "@/components/type";
 import ItemsLoader from "@/components/common/ItemsLoader.vue";
 import FiltersLoader from "@/components/common/FiltersLoader.vue";
+import store from "@/store";
+import FilterForm from "@/components/common/FilterForm.vue";
 
 export default {
-  components: {FiltersLoader, ItemsLoader, NavigateHeader},
+  components: {FilterForm, FiltersLoader, ItemsLoader, NavigateHeader},
   computed: {
+    HttpMethodEnum() {
+      return HttpMethodEnum
+    },
     ProjectStatusEnum() {
       return ProjectStatusEnum
     },
@@ -172,12 +129,17 @@ export default {
         },
         visible: false,
       },
-      filter: {
-        fields: {
-          status: null
-        },
-        content: {
-          statuses: [
+
+      loader: false,
+      filterLoaded: false,
+
+      fields: [
+        {
+          label: "Статус",
+          name: "status",
+          value: null,
+          type: FilterFormTypeEnum.Select,
+          options: [
             {
               title: "Активен",
               value: "active",
@@ -195,22 +157,59 @@ export default {
               value: "trial",
             },
           ]
-        },
-        loaded: false,
-      },
-      loader: false,
+        }
+      ],
     };
   },
   mounted() {
-    this.all();
+    this.upload();
   },
   methods: {
-    clearFilters() {
-      this.filter.fields.status = null;
-      this.all();
+    loaded(){
+      this.loader = false;
     },
-    isNotEmptyFilters() {
-      return this.filter.fields.status !== null;
+    loading(){
+      this.loader = true;
+    },
+    updateProjects(projects: Project[]) {
+      this.projects = projects;
+    },
+
+    // Main:
+    search() {
+      this.paginate.currentPage = 1;
+      this.upload();
+    },
+    upload() {
+      this.loader = true;
+
+      const requestData = {
+        params: {
+          page: this.paginate.currentPage,
+        }
+      }
+
+      requestData.params = clearEmptyQuery(requestData.params);
+
+      axios
+        .get('http://0.0.0.0/api/admin/project/', requestData)
+        .then(response => {
+          this.projects = response.data.items as Project[];
+          this.paginate = response.data.paginate as Paginate;
+
+          this.loader = false;
+
+          if (!this.filterLoaded) {
+            this.filterLoaded = true;
+          }
+        })
+        .catch(error => {
+          store.dispatch('error/triggerError', error.message);
+
+          setTimeout(() => {
+            store.dispatch('error/resetError');
+          }, 3000);
+        });
     },
     create() {
       const requestData = {
@@ -221,58 +220,19 @@ export default {
         .post('http://0.0.0.0/api/admin/project/', requestData)
         .then(() => {
           this.triggerDialog()
-          this.all();
+          this.upload();
         })
         .catch(error => {
-          this.error = true;
-
-          console.log(error);
+          store.dispatch('error/triggerError', error.message);
 
           setTimeout(() => {
-            this.error = false;
+            store.dispatch('error/resetError');
           }, 3000);
         });
     },
+    // Dialog
     triggerDialog() {
       this.dialog.visible = !this.dialog.visible
-    },
-    allWithFilter() {
-      this.paginate.currentPage = 1;
-      this.all();
-    },
-    all() {
-      this.loader = true;
-
-      const requestData = {
-        params: {
-          status: this.filter.fields.status,
-          page: this.paginate.currentPage,
-        }
-      }
-
-      requestData.params = filterEmptyQuery(requestData.params);
-
-      axios
-        .get('http://0.0.0.0/api/admin/project/', requestData)
-        .then(response => {
-          this.projects = response.data.items as Project[]
-          this.paginate = response.data.paginate as Paginate
-
-          this.loader = false;
-
-          if (!this.filter.loaded) {
-            this.filter.loaded = true;
-          }
-        })
-        .catch(error => {
-          this.error = true;
-
-          console.log(error);
-
-          setTimeout(() => {
-            this.error = false;
-          }, 3000);
-        });
     },
   },
 };

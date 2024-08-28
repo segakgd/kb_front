@@ -10,7 +10,7 @@
         </v-col>
 
         <v-col cols="6">
-          <div style="width: 100%; display:flex; justify-content: center;">
+          <div v-if="loadedNavigate" style="width: 100%; display:flex; justify-content: center;">
 
             <v-btn
               v-for="(item, i) in navItems"
@@ -62,25 +62,80 @@
 export default {
   data() {
     return {
-      navItems: [
-        {text: 'Мой проект', image: '/src/assets/images/navigate/folder/bold.svg', link: '/project'},
-        {text: 'Сценарии', image: '/src/assets/images/navigate/scenarios/bold.svg', link: '/scenarios'},
-        {text: 'Боты', image: '/src/assets/images/navigate/bot/bold.svg', link: '/bots'},
-        {text: 'Заявки и заказы', image: '/src/assets/images/navigate/orders/bold.svg', link: '/orders'},
-        {text: 'Товары и услуги', image: '/src/assets/images/navigate/bag/bold.svg', link: '/products'},
-        {text: 'Категории', image: '/src/assets/images/navigate/bag/bold.svg', link: '/categories'},
-        {text: 'Скидки и промокоды', image: '/src/assets/images/navigate/discount/bold.svg', link: '/promotions'},
-        {text: 'Доставка', image: '/src/assets/images/navigate/delivery/bold.svg', link: '/shippings'},
-        {text: 'Интеграции', image: '/src/assets/images/navigate/integrations/bold.svg', link: '/integrations'},
-        {text: 'Настройки проекта', image: '/src/assets/images/navigate/setting/bold.svg', link: '/settings'},
-      ],
+      loadedNavigate: false,
+      navItems: null,
     };
   },
+  mounted() {
+    this.getNavigate()
+  },
   methods: {
-    logout () {
+    logout() {
       localStorage.removeItem('authToken');
 
-      this.$router.push({ name: 'Login' });
+      this.$router.push({name: 'Login'});
+    },
+    getNavigate() {
+      const projectId = this.$route.params.projectId;
+
+      if (!projectId) {
+        return;
+      }
+
+      this.navItems = [
+        {
+          text: 'Мой проект',
+          image: '/src/assets/images/navigate/folder/bold.svg',
+          link: `/project/${projectId}`
+        },
+        {
+          text: 'Сценарии',
+          image: '/src/assets/images/navigate/scenarios/bold.svg',
+          link: `/project/${projectId}/scenarios`
+        },
+        {
+          text: 'Боты',
+          image: '/src/assets/images/navigate/bot/bold.svg',
+          link: `/project/${projectId}/bots`,
+        },
+        {
+          text: 'Заявки и заказы',
+          image: '/src/assets/images/navigate/orders/bold.svg',
+          link: `/project/${projectId}/orders`,
+        },
+        {
+          text: 'Товары и услуги',
+          image: '/src/assets/images/navigate/bag/bold.svg',
+          link: `/project/${projectId}/products`,
+        },
+        {
+          text: 'Категории',
+          image: '/src/assets/images/navigate/bag/bold.svg',
+          link: `/project/${projectId}/categories`,
+        },
+        {
+          text: 'Скидки и промокоды',
+          image: '/src/assets/images/navigate/discount/bold.svg',
+          link: `/project/${projectId}/promotions`,
+        },
+        {
+          text: 'Доставка',
+          image: '/src/assets/images/navigate/delivery/bold.svg',
+          link: `/project/${projectId}/shippings`,
+        },
+        {
+          text: 'Интеграции',
+          image: '/src/assets/images/navigate/integrations/bold.svg',
+          link: `/project/${projectId}/integrations`,
+        },
+        {
+          text: 'Настройки проекта',
+          image: '/src/assets/images/navigate/setting/bold.svg',
+          link: `/project/${projectId}/settings`,
+        },
+      ];
+
+      this.loadedNavigate = true;
     }
   }
 };

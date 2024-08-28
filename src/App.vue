@@ -6,6 +6,8 @@
         <router-view/>
       </v-main>
 
+      <Error/>
+
       <v-footer app>
         <Footer></Footer>
       </v-footer>
@@ -25,4 +27,5 @@ v-main {
 }
 </style>
 <script setup lang="ts">
+import Error from "@/components/common/Error.vue";
 </script>

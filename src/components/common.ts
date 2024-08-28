@@ -41,7 +41,17 @@ export enum PaymentStatusEnum {
   Cash = 'cash',
 }
 
-export function filterEmptyQuery(value: Object) {
+export enum FilterFormTypeEnum {
+  Select = 'select',
+}
+
+export enum HttpMethodEnum {
+  Get = 'get',
+  Post = 'post',
+  Patch = 'patch',
+}
+
+export function clearEmptyQuery(value: Object) {
   return Object.fromEntries(
     Object.entries(value).filter(([_, value]) => value !== null && value !== undefined && value !== '' )
   )

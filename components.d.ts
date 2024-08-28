@@ -9,6 +9,8 @@ declare module 'vue' {
   export interface GlobalComponents {
     Bots: typeof import('./src/components/Bots.vue')['default']
     Categories: typeof import('./src/components/Categories.vue')['default']
+    Error: typeof import('./src/components/common/Error.vue')['default']
+    FilterForm: typeof import('./src/components/common/FilterForm.vue')['default']
     FiltersLoader: typeof import('./src/components/common/FiltersLoader.vue')['default']
     Footer: typeof import('./src/components/common/Footer.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
