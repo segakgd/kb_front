@@ -4,7 +4,7 @@
       <div class="tools-main">
         <div class="tools-main--group">
           <div class="tools-main--group-btn">
-            <v-btn variant="flat" class="main-btn w-100" @click="triggerDialog()">
+            <v-btn variant="flat" class="main-btn w-100" @click="btnClick()">
               Добавить проект
             </v-btn>
           </div>
@@ -67,6 +67,7 @@ export default {
     }
   },
   emits: [
+    'btnClick',
     'loadedData',
     'loading',
     'loaded',
@@ -92,6 +93,9 @@ export default {
     };
   },
   methods: {
+    btnClick() {
+      this.$emit('btnClick');
+    },
     upload() {
       this.$emit('loading');
 

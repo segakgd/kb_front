@@ -57,64 +57,18 @@
       </v-container>
     </v-col>
 
+    <FiltersLoader v-if="loader"/>
+
     <FilterForm
+      v-else
       uri="http://0.0.0.0/api/admin/project/"
       :httpMethod=HttpMethodEnum.Get
       :fields="fields"
+      @btnClick="triggerDialog"
       @loadedData="updateProjects"
       @loaded="loaded"
       @loading="loading"
     />
-
-    <FiltersLoader v-if="!filter.loaded"/>
-
-    <v-col v-else cols="3">
-      <v-container fluid style="margin-top: 110px;">
-        <div class="tools-main">
-          <div class="tools-main--group">
-            <div class="tools-main--group-btn">
-              <v-btn variant="flat" class="main-btn w-100" @click="triggerDialog()">
-                Добавить проект
-              </v-btn>
-            </div>
-          </div>
-
-          <div class="tools-main--group">
-            <div class="tools-main--group-name">
-              <span>Фильтры:</span>
-            </div>
-
-            <div class="tools-main--group-field">
-              <v-select
-                label="Статус"
-                :items="filter.content.statuses"
-                v-model="filter.fields.status"
-                variant="outlined"
-                clearable
-                hide-details
-                density="compact"
-                :hideSelected=true
-                color="#9b61d8"
-              ></v-select>
-            </div>
-
-            <div class="tools-main--group-btn">
-              <v-btn variant="flat" class="main-btn-line w-100" @click="search()">
-                Применить
-              </v-btn>
-              <v-btn
-                v-if="isNotEmptyFilters()"
-                variant="flat"
-                class="main-btn w-100 mt-3 clear-btn"
-                @click="clearFilters()">
-                Сбросить фильтры
-              </v-btn>
-            </div>
-          </div>
-        </div>
-
-      </v-container>
-    </v-col>
 
     <v-dialog v-model="dialog.visible">
       <div class="main-dialog--wrapper" style="margin: auto; min-width: 400px; min-height: 100px;">
@@ -175,32 +129,6 @@ export default {
         },
         visible: false,
       },
-      filter: {
-        fields: {
-          status: null
-        },
-        content: {
-          statuses: [
-            {
-              title: "Активен",
-              value: ProjectStatusEnum.Active,
-            },
-            {
-              title: "Заблокирован",
-              value: ProjectStatusEnum.Blocked,
-            },
-            {
-              title: "Отключён",
-              value: ProjectStatusEnum.Enabled,
-            },
-            {
-              title: "Пробная версия",
-              value: ProjectStatusEnum.Trial,
-            },
-          ]
-        },
-        loaded: false,
-      },
 
       loader: false,
 
@@ -256,7 +184,6 @@ export default {
 
       const requestData = {
         params: {
-          status: this.filter.fields.status,
           page: this.paginate.currentPage,
         }
       }
@@ -301,14 +228,6 @@ export default {
             store.dispatch('error/resetError');
           }, 3000);
         });
-    },
-    // Filters:
-    clearFilters() {
-      this.filter.fields.status = null;
-      this.upload();
-    },
-    isNotEmptyFilters() {
-      return this.filter.fields.status !== null;
     },
     // Dialog
     triggerDialog() {
