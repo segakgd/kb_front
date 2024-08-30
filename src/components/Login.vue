@@ -68,7 +68,7 @@
               @click=login()
               :disabled=isDisabledButton()
             >
-              Войти
+              {{ isLoading ? 'Вход...' : 'Войти' }}
             </v-btn>
           </div>
 
@@ -109,12 +109,18 @@ export default {
       errorMessages: null,
       rules,
       passwordVisible: false,
+      isLoading: false,
     };
   },
   mounted() {
   },
   methods: {
     login() {
+      if (this.isLoading) return;
+
+      this.isLoading = true;
+      this.errorMessages = null;
+
       axios
         .post('http://localhost:8000/api/user/authenticate/',
           {
@@ -123,15 +129,15 @@ export default {
           }
         )
         .then(response => {
-
           const token = response.data.accessToken;
-
           localStorage.setItem('authToken', token);
-
           this.$router.push({ name: 'Projects' });
         })
         .catch(error => {
           this.errorMessages = error.response.data ?? error.message;
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
     isDisabledButton(): boolean {
