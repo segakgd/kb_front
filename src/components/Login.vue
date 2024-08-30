@@ -12,7 +12,7 @@
 
           <div style="text-align: center; margin-top: 30px;">
             <h4 style="font-size: 20px; font-weight: 300; letter-spacing: 0.2px;">Авторизация</h4>
-          </div>
+          </div>`
 
           <div style="margin-top: 20px;">
             <div style="margin-bottom: 20px">
@@ -25,6 +25,7 @@
                 :hideSelected=true
                 color="#9b61d8"
                 :rules="[rules.isEmail]"
+                @focus="hideErrorMessage"
               />
             </div>
 
@@ -39,19 +40,20 @@
                 color="#9b61d8"
                 :rules="[rules.isValidLength]"
                 class="password-field"
+                @focus="hideErrorMessage"
               >
                 <template v-slot:append>
                   <v-icon
+                    :class="['password-toggle-icon', { 'visible': password && password.length > 0 }]"
                     @click.stop="togglePasswordVisibility"
                     :icon="passwordVisible ? 'mdi-eye-off' : 'mdi-eye'"
-                    class="password-toggle-icon"
                   />
                 </template>
               </v-text-field>
             </div>
           </div>
 
-          <div v-if="errorMessages" style="margin-bottom: 15px; color: #9E0038; font-size: 13px;">
+          <div v-if="errorMessages" class="error-message">
             {{ errorMessages }}
           </div>
 
@@ -114,7 +116,7 @@ export default {
   methods: {
     login() {
       axios
-        .post('http://0.0.0.0/api/user/authenticate/',
+        .post('http://localhost:8000/api/user/authenticate/',
           {
             username: this.email,
             password: this.password,
@@ -129,7 +131,7 @@ export default {
           this.$router.push({ name: 'Projects' });
         })
         .catch(error => {
-          this.errorMessages = error.response.data.detail ?? error.message;
+          this.errorMessages = error.response.data ?? error.message;
         });
     },
     isDisabledButton(): boolean {
@@ -143,6 +145,9 @@ export default {
     },
     togglePasswordVisibility() {
       this.passwordVisible = !this.passwordVisible;
+    },
+    hideErrorMessage() {
+      this.errorMessages = null;
     }
   },
 };
@@ -157,6 +162,7 @@ export default {
   -moz-box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
   box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
   border-radius: 10px;
+  position: relative;
 }
 
 .v-text-field {
@@ -164,7 +170,7 @@ export default {
 }
 
 .v-input__append .v-icon {
-  font-size: 20px;
+  font-size: 24px;
   position: absolute;
   right: 10px
 }
@@ -173,14 +179,13 @@ export default {
   margin-inline-start: 0 !important;
 }
 
-
-
+/** an eye icon styling */
 .password-field :deep(.v-field__append-inner) {
   padding-inline-start: 0;
 }
 
 .password-field :deep(.v-field__clearable) {
-  margin-right: 16px;
+  margin-right: 24px;
 }
 
 .password-field :deep(.v-input__append) {
@@ -189,5 +194,23 @@ export default {
 
 .password-toggle-icon {
   cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  position: absolute;
+  right: 10px;
+}
+
+.password-toggle-icon.visible {
+  opacity: 1;
+}
+
+/** error message */
+.error-message {
+  position: absolute;
+  color: #9E0038;
+  font-size: 13px;
+  margin-top: -30px;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 </style>
