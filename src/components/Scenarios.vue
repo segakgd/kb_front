@@ -13,26 +13,25 @@
         </v-row>
 
         <v-row>
-          <v-col cols="4" v-for="(bot, index) in bots" :key="index">
+          <v-col cols="4" v-for="(scenario, index) in scenarios" :key="index">
             <a
               href="/bot/"
               class="bot-item"
             >
               <div style="width: 100%;">
-                <div
-                  style="display: flex; justify-content: end; align-items: center; width: 100%; margin-bottom: 10px;">
-                  <span class="bot-status--active" v-if="bot.active">Используется</span>
+                <div style="display: flex; justify-content: end; align-items: center; width: 100%; margin-bottom: 10px;">
+                  <span class="bot-status--active" v-if="scenario.active">Используется</span>
                   <span class="bot-status--blocked" v-else>Не используется</span>
                 </div>
 
                 <div class="bot-item--name" style="display: flex; align-items: center;">
-                  <span>{{ bot.name }}</span>
+                  <span>{{ scenario.name }}</span>
                 </div>
                 <div class="bot-item--field">Шаблон:
-                  <span>{{ bot.template }}</span>
+                  <span>{{ scenario.template }}</span>
                 </div>
-                <div class="bot-item--field mt-3">Последнее изменение: <span>{{ bot.updatedAt }}</span></div>
-                <div class="bot-item--field">Создан: <span>{{ bot.createdAt }}</span></div>
+                <div class="bot-item--field mt-3">Последнее изменение: <span>{{ scenario.updatedAt }}</span></div>
+                <div class="bot-item--field">Создан: <span>{{ scenario.createdAt }}</span></div>
               </div>
             </a>
           </v-col>
@@ -59,7 +58,7 @@
       :httpMethod=HttpMethodEnum.Get
       :fields="fields"
       @btnClick="triggerDialog"
-      @loadedData="updateProjects"
+      @loadedData="updateScenarios"
       @loaded="loaded"
       @loading="loading"
     />
@@ -97,7 +96,7 @@ import NavigateHeader from "@/components/common/NavigateHeader.vue";
 import FilterForm from "@/components/common/FilterForm.vue";
 import FiltersLoader from "@/components/common/FiltersLoader.vue";
 import {clearEmptyQuery, FilterFormTypeEnum, HttpMethodEnum} from "@/components/common";
-import {Paginate, Project} from "@/components/type";
+import {Paginate, Project, Scenario} from "@/components/type";
 import axios from "axios";
 import store from "@/store";
 
@@ -110,8 +109,9 @@ export default {
   },
   data() {
     return {
-      scenarios: [] as Project[],
+      scenarios: [] as Scenario[],
       paginate: {} as Paginate,
+      initProject: null,
 
       fields: [
         {
@@ -196,15 +196,20 @@ export default {
     };
   },
   mounted() {
+    this.initProject();
   },
   methods: {
+    initProject() {
+      this.projectId = this.$route.params.projectId;
+    },
+
     loaded() {
       this.loader = false;
     },
     loading() {
       this.loader = true;
     },
-    updateProjects(projects: Project[]) {
+    updateScenarios(projects: Project[]) {
       this.projects = projects;
     },
 
@@ -225,7 +230,7 @@ export default {
       requestData.params = clearEmptyQuery(requestData.params);
 
       axios
-        .get('http://0.0.0.0/api/admin/project/', requestData)
+        .get(`http://0.0.0.0/api/admin/project/${this.initProject}/scenario/`, requestData)
         .then(response => {
           this.projects = response.data.items as Project[];
           this.paginate = response.data.paginate as Paginate;
@@ -273,8 +278,6 @@ export default {
 
 <style scoped>
 .bot-item {
-  -webkit-box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
-  -moz-box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
   box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
   padding: 30px 20px 20px 20px;
   display: flex;
@@ -288,8 +291,6 @@ export default {
 }
 
 .bot-item:hover {
-  -webkit-box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
-  -moz-box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
   box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
 }
 

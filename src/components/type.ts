@@ -9,6 +9,15 @@ export type Project = {
   botCount: Number,
 }
 
+export type Scenario = {
+  id: Number,
+  name: String,
+  active: Boolean,
+  template: String,
+  updatedAt: String,
+  createdAt: String,
+}
+
 export type Paginate = {
   currentPage: Number,
   lastPage: Number,
