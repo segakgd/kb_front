@@ -12,7 +12,11 @@
           </v-col>
         </v-row>
 
-        <v-row>
+        <v-row v-if="loader">
+          <ItemsLoader/>
+        </v-row>
+
+        <v-row v-else-if="!loader">
           <v-col cols="4" v-for="(scenario, index) in scenarios" :key="index">
             <a
               :href="`/scenario/${scenario.id}`"
@@ -99,9 +103,10 @@ import {clearEmptyQuery, FilterFormTypeEnum, HttpMethodEnum} from "@/components/
 import {Paginate, Scenario} from "@/components/type";
 import axios from "axios";
 import store from "@/store";
+import ItemsLoader from "@/components/common/ItemsLoader.vue";
 
 export default {
-  components: {FiltersLoader, FilterForm, NavigateHeader},
+  components: {ItemsLoader, FiltersLoader, FilterForm, NavigateHeader},
   computed: {
     HttpMethodEnum() {
       return HttpMethodEnum
