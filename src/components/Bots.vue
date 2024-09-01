@@ -15,30 +15,30 @@
         <v-row>
           <v-col cols="4" v-for="(bot, index) in bots" :key="index">
             <a
-              href="/bot/"
-              class="bot-item"
+              :href="`/bot/${bot.id}`"
+              class="box-block-item"
             >
               <div style="width: 100%;">
                 <div
                   style="display: flex; justify-content: end; align-items: center; width: 100%; margin-bottom: 10px;">
-                  <span class="bot-status--active" v-if="bot.active">Включён</span>
-                  <span class="bot-status--blocked" v-else>Выключен</span>
+                  <span class="status--active" v-if="bot.active">Включён</span>
+                  <span class="status--blocked" v-else>Выключен</span>
                 </div>
 
-                <div class="bot-item--name" style="display: flex; align-items: center;">
+                <div class="box-block-item--name" style="display: flex; align-items: center;">
                   <img style="width: 25px; height: 25px; margin-right: 10px;" v-if="bot.type === BotTypeEnum.Telegram"
                        src="@/assets/images/other/telegram.svg" alt="telegram"/>
                   <img style="width: 25px; height: 25px; margin-right: 10px;" v-else-if="bot.type === BotTypeEnum.Vk"
                        src="@/assets/images/other/vk.svg" alt="vk"/>
                   <span>{{ bot.name }}</span>
                 </div>
-                <div class="bot-item--field">Тип:
+                <div class="box-block-item--field">Тип:
                   <span v-if="bot.type === BotTypeEnum.Telegram">Телеграм</span>
                   <span v-else-if="bot.type === BotTypeEnum.Vk">Вконтакте</span>
                   <span v-else>Неизвестно</span>
                 </div>
-                <div class="bot-item--field">Сценарий: <span>{{ bot.scenario.name }}</span></div>
-                <div class="bot-item--field mt-3">Создан: <span>{{ bot.createdAt }}</span></div>
+                <div class="box-block-item--field">Сценарий: <span>{{ bot.scenario.name }}</span></div>
+                <div class="box-block-item--field mt-3">Создан: <span>{{ bot.createdAt }}</span></div>
               </div>
             </a>
           </v-col>
@@ -184,65 +184,10 @@ export default {
     };
   },
   mounted() {
+    this.projectId = this.$route.params.projectId;
   },
 };
 </script>
 
 <style scoped>
-.bot-item {
-  box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
-  padding: 30px 20px 20px 20px;
-  display: flex;
-  width: 100%;
-  border-radius: 10px;
-  text-decoration: none;
-  color: #3C415E;
-  position: relative;
-  transition: 0.4s;
-  overflow: hidden;
-}
-
-.bot-item:hover {
-  box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
-}
-
-.bot-item .bot-status--active, .bot-item .bot-status--blocked {
-  padding: 1px 10px;
-  font-style: normal;
-  font-weight: 300;
-  font-size: 12px;
-  line-height: 24px;
-  display: flex;
-  align-items: center;
-
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-}
-
-.bot-item .bot-status--active {
-  color: #067306;
-  background: #D9FABF;
-}
-
-.bot-item .bot-status--blocked {
-  color: #9E0038;
-  background: #FFD4F5;
-}
-
-.bot-item--name {
-  padding-bottom: 10px;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 27px;
-  color: #3C415E;
-}
-
-.bot-item--field {
-  color: #3C415E;
-  font-weight: 300;
-  font-size: 15px;
-}
 </style>
