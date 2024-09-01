@@ -54,7 +54,7 @@
     <FilterForm
       v-else
       btn-name="Добавить сценарий"
-      uri="http://0.0.0.0/api/admin/project/"
+      :uri=`http://0.0.0.0/api/admin/project/${this.projectId}/scenario-template/`
       :httpMethod=HttpMethodEnum.Get
       :fields="fields"
       @btnClick="triggerDialog"
@@ -96,7 +96,7 @@ import NavigateHeader from "@/components/common/NavigateHeader.vue";
 import FilterForm from "@/components/common/FilterForm.vue";
 import FiltersLoader from "@/components/common/FiltersLoader.vue";
 import {clearEmptyQuery, FilterFormTypeEnum, HttpMethodEnum} from "@/components/common";
-import {Paginate, Project, Scenario} from "@/components/type";
+import {Paginate, Scenario} from "@/components/type";
 import axios from "axios";
 import store from "@/store";
 
@@ -206,8 +206,8 @@ export default {
     loading() {
       this.loader = true;
     },
-    updateScenarios(projects: Project[]) {
-      this.projects = projects;
+    updateScenarios(scenarios: Scenario[]) {
+      this.scenarios = scenarios;
     },
 
     // Main:
@@ -229,7 +229,7 @@ export default {
       axios
         .get(`http://0.0.0.0/api/admin/project/${this.projectId}/scenario-template/`, requestData)
         .then(response => {
-          this.projects = response.data.items as Project[];
+          this.scenarios = response.data.items as Scenario[];
           this.paginate = response.data.paginate as Paginate;
 
           this.loader = false;
