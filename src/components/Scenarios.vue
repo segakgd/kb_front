@@ -66,7 +66,7 @@
     <v-dialog v-model="dialog.visible">
       <div class="main-dialog--wrapper" style="margin: auto; min-width: 400px; min-height: 100px;">
         <div class="mb-6">
-          <h3 style="font-size: 24px; font-weight: 300;">Создание проекта</h3>
+          <h3 style="font-size: 24px; font-weight: 300;">Создание сценария</h3>
         </div>
 
         <div class="mb-5">
@@ -111,7 +111,7 @@ export default {
     return {
       scenarios: [] as Scenario[],
       paginate: {} as Paginate,
-      initProject: null,
+      projectId: null,
 
       fields: [
         {
@@ -196,13 +196,10 @@ export default {
     };
   },
   mounted() {
-    this.initProject();
+    this.projectId = this.$route.params.projectId;
+    this.upload();
   },
   methods: {
-    initProject() {
-      this.projectId = this.$route.params.projectId;
-    },
-
     loaded() {
       this.loader = false;
     },
@@ -230,7 +227,7 @@ export default {
       requestData.params = clearEmptyQuery(requestData.params);
 
       axios
-        .get(`http://0.0.0.0/api/admin/project/${this.initProject}/scenario/`, requestData)
+        .get(`http://0.0.0.0/api/admin/project/${this.projectId}/scenario/`, requestData)
         .then(response => {
           this.projects = response.data.items as Project[];
           this.paginate = response.data.paginate as Paginate;
@@ -255,7 +252,7 @@ export default {
       }
 
       axios
-        .post('http://0.0.0.0/api/admin/project/', requestData)
+        .post( `http://0.0.0.0/api/admin/project/${this.projectId}/scenario/`, requestData)
         .then(() => {
           this.triggerDialog()
           this.upload();
