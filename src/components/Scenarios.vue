@@ -227,7 +227,7 @@ export default {
       requestData.params = clearEmptyQuery(requestData.params);
 
       axios
-        .get(`http://0.0.0.0/api/admin/project/${this.projectId}/scenario/`, requestData)
+        .get(`http://0.0.0.0/api/admin/project/${this.projectId}/scenario-template/`, requestData)
         .then(response => {
           this.projects = response.data.items as Project[];
           this.paginate = response.data.paginate as Paginate;
@@ -252,7 +252,7 @@ export default {
       }
 
       axios
-        .post( `http://0.0.0.0/api/admin/project/${this.projectId}/scenario/`, requestData)
+        .post( `http://0.0.0.0/api/admin/project/${this.projectId}/scenario-template/`, requestData)
         .then(() => {
           this.triggerDialog()
           this.upload();

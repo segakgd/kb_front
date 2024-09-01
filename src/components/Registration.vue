@@ -11,7 +11,7 @@
           </div>
 
           <div style="text-align: center; margin-top: 30px;">
-            <h4 style="font-size: 20px; font-weight: 300; letter-spacing: 0.2px;">Зарегистрироваться</h4>
+            <h4 style="font-size: 20px; font-weight: 300; letter-spacing: 0.2px;">Регистрация</h4>
           </div>
 
           <div style="margin-top: 20px;">
@@ -20,7 +20,6 @@
                 v-model="email"
                 label="Эл. почта"
                 variant="outlined"
-                clearable
                 density="compact"
                 :hideSelected=true
                 color="#9b61d8"
@@ -33,7 +32,6 @@
                 v-model="password"
                 label="Пароль"
                 variant="outlined"
-                clearable
                 density="compact"
                 :hideSelected=true
                 color="#9b61d8"
@@ -50,10 +48,6 @@
             {{ errorMessages }}
           </div>
 
-          <div style="margin-bottom: 20px">
-            <a href="#" style="text-decoration: none; color: #7900b6; ">Забыли пароль?</a>
-          </div>
-
           <div>
             <v-btn
               variant="flat"
@@ -65,7 +59,7 @@
             </v-btn>
           </div>
 
-          <div style="text-align: center;">
+          <div style="display: flex; justify-content: center; margin-top: 10px;">
             <button @click="toLogin()" style="font-size: 12px; color: #8d08b8;">Уже есть аккаунт</button>
           </div>
 
