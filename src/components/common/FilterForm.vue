@@ -10,7 +10,7 @@
           </div>
         </div>
 
-        <div class="tools-main--group">
+        <div class="tools-main--group" v-if="fields">
           <div class="tools-main--group-name">
             <span>Фильтры:</span>
           </div>
@@ -86,7 +86,7 @@ export default {
     },
     fields: {
       type: Object as PropType<any>,
-      required: true
+      required: false
     },
   },
   data() {

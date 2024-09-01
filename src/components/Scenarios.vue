@@ -44,10 +44,12 @@
         <v-row style="min-height: 65px;">
           <v-col cols="12" class="info-block">
             <v-pagination
-              :length="3"
+              v-model="paginate.currentPage"
+              :length="paginate.totalPages"
+              @update:modelValue="upload()"
               density="compact"
               style="width: 230px; color: #838383;"
-            ></v-pagination>
+            />
           </v-col>
         </v-row>
       </v-container>
@@ -60,7 +62,6 @@
       btn-name="Добавить сценарий"
       :uri="`http://0.0.0.0/api/admin/project/${this.projectId}/scenario-template/`"
       :httpMethod=HttpMethodEnum.Get
-      :fields="fields"
       @btnClick="triggerDialog"
       @loadedData="updateScenarios"
       @loaded="loaded"
@@ -99,7 +100,7 @@
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
 import FilterForm from "@/components/common/FilterForm.vue";
 import FiltersLoader from "@/components/common/FiltersLoader.vue";
-import {clearEmptyQuery, FilterFormTypeEnum, HttpMethodEnum} from "@/components/common";
+import {clearEmptyQuery, HttpMethodEnum} from "@/components/common";
 import {Paginate, Scenario} from "@/components/type";
 import axios from "axios";
 import store from "@/store";
@@ -117,34 +118,6 @@ export default {
       scenarios: [] as Scenario[],
       paginate: {} as Paginate,
       projectId: null,
-
-      fields: [
-        {
-          label: "Статус",
-          name: "status",
-          value: null,
-          type: FilterFormTypeEnum.Select,
-          options: [
-            {
-              title: "Активен",
-              value: "active",
-            },
-            {
-              title: "Заблокирован",
-              value: "blocked",
-            },
-            {
-              title: "Отключён",
-              value: "enabled",
-            },
-            {
-              title: "Пробная версия",
-              value: "trial",
-            },
-          ]
-        }
-      ],
-
       dialog: {
         fields: {
           name: ''
