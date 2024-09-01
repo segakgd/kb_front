@@ -12,7 +12,11 @@
           </v-col>
         </v-row>
 
-        <v-row>
+        <v-row v-if="loader">
+          <ItemsLoader/>
+        </v-row>
+
+        <v-row v-else-if="!loader">
           <v-col cols="4" v-for="(bot, index) in bots" :key="index">
             <a
               :href="`/bot/${bot.id}`"
@@ -47,10 +51,12 @@
         <v-row style="min-height: 65px;">
           <v-col cols="12" class="info-block">
             <v-pagination
-              :length="3"
+              v-model="paginate.currentPage"
+              :length="paginate.totalPages"
+              @update:modelValue="upload()"
               density="compact"
               style="width: 230px; color: #838383;"
-            ></v-pagination>
+            />
           </v-col>
         </v-row>
       </v-container>
@@ -113,78 +119,158 @@
 
       </v-container>
     </v-col>
+
+    <FiltersLoader v-if="loader && !filterLoaded"/>
+
+    <FilterForm
+      v-else
+      btn-name="Добавить сценарий"
+      :uri="`http://0.0.0.0/api/admin/project/${this.projectId}/bot/`"
+      :httpMethod=HttpMethodEnum.Get
+      @btnClick="triggerDialog"
+      @loadedData="updateBots"
+      @loaded="loaded"
+      @loading="loading"
+    />
+
+    <v-dialog v-model="dialog.visible">
+      <div class="main-dialog--wrapper" style="margin: auto; min-width: 400px; min-height: 100px;">
+        <div class="mb-6">
+          <h3 style="font-size: 24px; font-weight: 300;">Создание сценария</h3>
+        </div>
+
+        <div class="mb-5">
+          <v-text-field
+            v-model="dialog.fields.name"
+            label="Название проекта"
+            variant="outlined"
+            clearable
+            hide-details
+            density="compact"
+            :hideSelected=true
+            color="#9b61d8"
+          />
+        </div>
+
+        <v-btn variant="flat" class="main-btn-line w-100" @click="create()">
+          Создать
+        </v-btn>
+      </div>
+    </v-dialog>
+
   </v-row>
 </template>
 
 <script lang="ts">
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
-import {BotTypeEnum} from "@/components/common";
+import {BotTypeEnum, clearEmptyQuery, HttpMethodEnum} from "@/components/common";
+import {Bot, Paginate, Scenario} from "@/components/type";
+import axios from "axios";
+import store from "@/store";
+import FilterForm from "@/components/common/FilterForm.vue";
+import FiltersLoader from "@/components/common/FiltersLoader.vue";
+import ItemsLoader from "@/components/common/ItemsLoader.vue";
 
 export default {
-  components: {NavigateHeader},
+  components: {ItemsLoader, FiltersLoader, FilterForm, NavigateHeader},
   computed: {
     BotTypeEnum() {
       return BotTypeEnum;
     },
+    HttpMethodEnum() {
+      return HttpMethodEnum
+    },
   },
   data() {
     return {
-      bots: [
-        {
-          id: 1,
-          name: 'Мой бот #1',
-          active: true,
-          type: BotTypeEnum.Telegram,
-          scenario: {
-            name: "Самый топовый сценарий"
-          },
-          createdAt: '2024-10-23',
+      bots: [] as Bot[],
+      paginate: {} as Paginate,
+      projectId: null,
+      dialog: {
+        fields: {
+          name: ''
         },
-        {
-          id: 2,
-          name: 'Мой бот #2',
-          active: true,
-          type: BotTypeEnum.Vk,
-          scenario: {
-            name: "Самый топовый сценарий"
-          },
-          createdAt: '2024-10-23',
-        },
-        {
-          id: 3,
-          name: 'Мой бот #3',
-          active: false,
-          type: BotTypeEnum.Telegram,
-          scenario: {
-            name: "Самый топовый сценарий"
-          },
-          createdAt: '2024-10-23',
-        },
-        {
-          id: 4,
-          name: 'Мой бот #4',
-          active: false,
-          type: BotTypeEnum.Telegram,
-          scenario: {
-            name: "Самый топовый сценарий"
-          },
-          createdAt: '2024-10-23',
-        },
-        {
-          id: 5,
-          name: 'Мой бот #5',
-          active: false,
-          type: BotTypeEnum.Vk,
-          scenario: {
-            name: "Самый топовый сценарий"
-          },
-          createdAt: '2024-10-23',
-        },
-      ],
+        visible: false,
+      },
+
+      loader: false,
+      filterLoaded: false,
     };
   },
   mounted() {
     this.projectId = this.$route.params.projectId;
+    this.upload();
+  },
+  methods: {
+    loaded() {
+      this.loader = false;
+    },
+    loading() {
+      this.loader = true;
+    },
+    updateBots(bots: Bot[]) {
+      this.bots = bots;
+    },
+
+    // Main:
+    search() {
+      this.paginate.currentPage = 1;
+      this.upload();
+    },
+    upload() {
+      this.loader = true;
+
+      const requestData = {
+        params: {
+          page: this.paginate.currentPage,
+        }
+      }
+
+      requestData.params = clearEmptyQuery(requestData.params);
+
+      axios
+        .get(`http://0.0.0.0/api/admin/project/${this.projectId}/bot/`, requestData)
+        .then(response => {
+          this.bots = response.data.items as Scenario[];
+          this.paginate = response.data.paginate as Paginate;
+
+          this.loader = false;
+
+          if (!this.filterLoaded) {
+            this.filterLoaded = true;
+          }
+        })
+        .catch(error => {
+          store.dispatch('error/triggerError', error.message);
+
+          setTimeout(() => {
+            store.dispatch('error/resetError');
+          }, 3000);
+        });
+    },
+    create() {
+      const requestData = {
+        name: this.dialog.fields.name
+      }
+
+      axios
+        .post( `http://0.0.0.0/api/admin/project/${this.projectId}/bot/`, requestData)
+        .then(() => {
+          this.triggerDialog()
+          this.upload();
+        })
+        .catch(error => {
+          store.dispatch('error/triggerError', error.message);
+
+          setTimeout(() => {
+            store.dispatch('error/resetError');
+          }, 3000);
+        });
+    },
+    // Dialog
+    triggerDialog() {
+      this.dialog.visible = !this.dialog.visible
+    },
   },
 };
 </script>

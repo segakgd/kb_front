@@ -1,4 +1,4 @@
-import {ProjectStatusEnum} from "@/components/common";
+import {BotTypeEnum, ProjectStatusEnum} from "@/components/common";
 
 export type Project = {
   id: Number,
@@ -15,6 +15,20 @@ export type Scenario = {
   active: Boolean,
   template: String,
   updatedAt: String,
+  createdAt: String,
+}
+
+export type ScenarioForBot = {
+  id: Number,
+  name: String,
+}
+
+export type Bot = {
+  id: Number,
+  name: String,
+  active: Boolean,
+  type: BotTypeEnum,
+  scenario: ScenarioForBot,
   createdAt: String,
 }
 
