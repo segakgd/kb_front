@@ -166,7 +166,7 @@ export default {
       fields: [
         {
           label: "Статус",
-          name: "status",
+          name: "active",
           value: null,
           type: FilterFormTypeEnum.Select,
           options: [
