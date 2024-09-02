@@ -62,69 +62,12 @@
       </v-container>
     </v-col>
 
-    <v-col cols="3">
-      <v-container fluid style="margin-top: 110px;">
-        <div class="tools-main">
-          <div class="tools-main--group">
-            <div class="tools-main--group-btn">
-              <v-btn variant="flat" class="main-btn w-100">
-                Добавить бот
-              </v-btn>
-            </div>
-          </div>
-
-          <div class="tools-main--group">
-            <div class="tools-main--group-name">
-              <span>Фильтры:</span>
-            </div>
-
-            <div class="tools-main--group-field">
-              <v-select
-                class="select-status-field"
-                label="Статус"
-                :items="['Включён', 'Выключен']"
-                variant="outlined"
-                clearable
-                hide-details
-                density="compact"
-                :hideSelected=true
-                color="#9b61d8"
-              ></v-select>
-            </div>
-
-            <div class="tools-main--group-field">
-              <v-select
-                label="Тип"
-                :items="['Телеграм', 'Вконтакте']"
-                variant="outlined"
-                clearable
-                hide-details
-                density="compact"
-                :hideSelected=true
-                color="#9b61d8"
-              ></v-select>
-            </div>
-
-            <div class="tools-main--group-btn">
-              <v-btn variant="flat" class="main-btn-line w-100">
-                Применить
-              </v-btn>
-              <!-- todo показываем "Отчистить" когда выбраны фильтры-->
-              <!--              <v-btn variant="flat" class="main-btn clear-btn">-->
-              <!--                Отчистить-->
-              <!--              </v-btn>-->
-            </div>
-          </div>
-        </div>
-
-      </v-container>
-    </v-col>
-
     <FiltersLoader v-if="loader && !filterLoaded"/>
 
     <FilterForm
       v-else
-      btn-name="Добавить сценарий"
+      btn-name="Добавить бот"
+      :fields="fields"
       :uri="`http://0.0.0.0/api/admin/project/${this.projectId}/bot/`"
       :httpMethod=HttpMethodEnum.Get
       @btnClick="triggerDialog"
@@ -163,7 +106,7 @@
 
 <script lang="ts">
 import NavigateHeader from "@/components/common/NavigateHeader.vue";
-import {BotTypeEnum, clearEmptyQuery, HttpMethodEnum} from "@/components/common";
+import {BotTypeEnum, clearEmptyQuery, FilterFormTypeEnum, HttpMethodEnum} from "@/components/common";
 import {Bot, Paginate, Scenario} from "@/components/type";
 import axios from "axios";
 import store from "@/store";
@@ -195,6 +138,24 @@ export default {
 
       loader: false,
       filterLoaded: false,
+      fields: [
+        {
+          label: "Статус",
+          name: "status",
+          value: null,
+          type: FilterFormTypeEnum.Select,
+          options: [
+            {
+              title: "Включён",
+              value: true,
+            },
+            {
+              title: "Выключен",
+              value: false,
+            },
+          ]
+        },
+      ],
     };
   },
   mounted() {
