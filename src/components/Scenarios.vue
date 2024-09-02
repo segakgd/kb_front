@@ -77,7 +77,7 @@
         <div class="mb-5">
           <v-text-field
             v-model="dialog.fields.name"
-            label="Название проекта"
+            label="Название сценария"
             variant="outlined"
             clearable
             hide-details

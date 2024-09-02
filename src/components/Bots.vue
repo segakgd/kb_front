@@ -79,13 +79,36 @@
     <v-dialog v-model="dialog.visible">
       <div class="main-dialog--wrapper" style="margin: auto; min-width: 400px; min-height: 100px;">
         <div class="mb-6">
-          <h3 style="font-size: 24px; font-weight: 300;">Создание сценария</h3>
+          <h3 style="font-size: 24px; font-weight: 300;">Создание бота</h3>
         </div>
 
         <div class="mb-5">
           <v-text-field
+            class="mb-5"
             v-model="dialog.fields.name"
-            label="Название проекта"
+            label="Название бота"
+            variant="outlined"
+            clearable
+            hide-details
+            density="compact"
+            :hideSelected=true
+            color="#9b61d8"
+          />
+          <v-select
+            class="mb-5"
+            label="Тип"
+            v-model="dialog.fields.type"
+            :items="['telegram']"
+            variant="outlined"
+            clearable
+            hide-details
+            density="compact"
+            :hideSelected=true
+            color="#9b61d8"
+          />
+          <v-text-field
+            v-model="dialog.fields.token"
+            label="Токен"
             variant="outlined"
             clearable
             hide-details
@@ -131,7 +154,9 @@ export default {
       projectId: null,
       dialog: {
         fields: {
-          name: ''
+          name: '',
+          type: '',
+          token: '',
         },
         visible: false,
       },
@@ -211,7 +236,9 @@ export default {
     },
     create() {
       const requestData = {
-        name: this.dialog.fields.name
+        name: this.dialog.fields.name,
+        type: this.dialog.fields.type,
+        token: this.dialog.fields.token,
       }
 
       axios
