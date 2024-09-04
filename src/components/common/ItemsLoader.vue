@@ -35,8 +35,6 @@ export default {
 <style scoped>
 
 .project-item {
-  -webkit-box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
-  -moz-box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
   box-shadow: 0 0 5px 0 rgba(34, 60, 80, 0.2);
   padding: 30px 20px 20px 20px;
   display: flex;
@@ -50,8 +48,6 @@ export default {
 }
 
 .project-item:hover {
-  -webkit-box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
-  -moz-box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
   box-shadow: 0 0 5px 2px rgba(34, 60, 80, 0.2);
 }
 

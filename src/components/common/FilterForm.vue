@@ -5,12 +5,12 @@
         <div class="tools-main--group">
           <div class="tools-main--group-btn">
             <v-btn variant="flat" class="main-btn w-100" @click="btnClick()">
-              Добавить проект
+              {{ btnName }}
             </v-btn>
           </div>
         </div>
 
-        <div class="tools-main--group">
+        <div class="tools-main--group" v-if="!isEmptyObject(fields)">
           <div class="tools-main--group-name">
             <span>Фильтры:</span>
           </div>
@@ -72,6 +72,10 @@ export default {
     'loaded',
   ],
   props: {
+    btnName: {
+      type: String,
+      required: true
+    },
     uri: {
       type: String,
       required: true
@@ -82,14 +86,17 @@ export default {
     },
     fields: {
       type: Object as PropType<any>,
-      required: true
+      required: false
     },
   },
   data() {
-    return {
-    };
+    return {};
   },
   methods: {
+    isEmptyObject(obj: object | null | undefined): boolean {
+      return obj ? Object.keys(obj).length === 0 : true;
+    },
+
     btnClick() {
       this.$emit('btnClick');
     },
